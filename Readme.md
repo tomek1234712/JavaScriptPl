@@ -520,7 +520,6 @@ W praktyce możesz potrzebować zawęzić go do jakiego rodzaju "obiektu" jest w
 1. String
    Obiekt.prototyp.toString.call("String")
    "String Obiektowy".
-   GoalKicker.com - JavaScript® Notes for Professionals 35
 2. Liczba
    Obiekt.prototyp.doString.call(42)
    "liczba obiektów".
@@ -1041,7 +1040,6 @@ Odjęcie łańcucha od łańcucha nie generuje błędu, ale zwraca NaN (Not a Nu
 LUB (||), czytając od lewej do prawej, oceni pierwszą wartość truthy. Jeśli nie zostanie znaleziona żadna wartość truthy, zwracana jest ostatnia wartość.
 var a = 'hello' || ''; // a = 'hello' var b = '' || []; // b = [] var c = '' || niezdefiniowany; // c = niezdefiniowany var d = 1 || 5;                    // d = 1 var e = 0 || {}; // e = {} var f = 0 || '' || 5; // f = 5 var g = '' || 'yay' || 'boo'; // g = 'yay'.
 Logical AND (&&), czytając od lewej do prawej, oceni pierwszą wartość falsyfikatu. Jeśli nie znaleziono fałszywej wartości, zwracana jest ostatnia wartość.
-GoalKicker.com - JavaScript® Notes for Professionals 68
 var a = "hello" && ''; // a = '' var b = '' && []; // b = '' var c = niezdefiniowany && 0; // c = niezdefiniowany var d = 1 && 5; // d = 5 var e = 0 &&& {}; // e = 0 var f = 'hi' &&& [] && 'done'; // f = 'done' var g = 'bye' &&&' und& 'adios'; // g = und f = 'done' var g = 'bye' && 'adios'; // g = und und.
 Tej sztuczki można użyć, na przykład, do ustawienia domyślnej wartości argumentu funkcji (przed ES6).
 var foo = funkcja(val) { // jeśli val ocenia jako fałszywe, to zamiast tego zostanie zwrócona 'domyślna'. return val || 'default'; }
@@ -1226,4 +1224,429 @@ Stwierdzenie przerwy "wyłamuje" się z zestawienia przełącznika i zapewnia, �
 Ostrzeżenie: brak instrukcji przerwania lub powrotu dla każdego przypadku oznacza, że program będzie kontynuował ocenę następnego przypadku, nawet jeśli kryteria przypadku nie są spełnione!
 switch (wartość) { przypadek 1: console.log('Będę uruchamiał tylko jeśli wartość === 1'); // Tutaj kod "spadnie" i uruchomi kod w przypadku 2 przypadku 2: console.log('Będę uruchamiał jeśli wartość === 1 lub wartość === 2'); break; przypadek 3: console.log('Będę uruchamiał tylko jeśli wartość === 3'); break; }
 Ostatni przypadek jest przypadkiem domyślnym. Ten z nich będzie działał, jeśli nie zostały wykonane żadne inne dopasowania.
- 
+ var animal = 'Lion'; switch (animal) {case 'Dog': console.log ("Nie będę biec od zwierzęcia! ==" Pies ""); złamać; case "Cat": console.log ("Nie będę uciekać od zwierzęcia! ==" Cat ""); złamać; default: console.log ("Będę uruchamiany, ponieważ zwierzę nie pasuje do żadnego innego przypadku"); }
+Należy zauważyć, że wyrażenie przypadku może być dowolnym rodzajem wyrażenia. Oznacza to, że możesz używać porównań, wywołań funkcji itp. Jako wartości wielkości liter.
+function john () {return 'John'; }
+function jacob () {return 'Jacob'; }
+switch (name) {case john (): // Porównaj nazwę z wartością zwracaną przez john () (name == "John") console.log ('Uruchomę, jeśli name === "John"'); złamać; case 'Ja' + 'ne': // Połącz ciągi razem, a następnie porównaj (name == "Jane") console.log ('Uruchomę, jeśli nazwa === "Jane"'); złamać; case john () + '' + jacob () + 'Jingleheimer Schmidt': console.log ("Jego imię jest równe nazwie!"); złamać; } Wielokrotne kryteria dotyczące przypadków
+Ponieważ przypadki "spadają" bez instrukcji "przerwa lub zwrot", możesz użyć tego do utworzenia wielu kryteriów obejmujących:
+var x = "c" switch (x) {case "a": case "b": case "c": console.log ("Wybrano a, b lub c."); złamać; case "d": console.log ("Wybrano tylko d."); złamać; default: console.log ("Nie znaleziono żadnego przypadku."); złamać; // przerwa zapobiegawcza w przypadku zmiany kolejności spraw} Sekcja 11.3: Jeśli / Else If / Else Control
+W najprostszej postaci warunek if może być użyty w następujący sposób:
+var i = 0;
+if (i <1) {console.log ("i jest mniejsze niż 1"); }
+Warunek i <1 jest oceniany, a jeśli ma wartość true, wykonywany jest poniższy blok. Jeśli wartość jest fałszywa, blok jest pomijany.
+Warunek if może zostać rozszerzony o blok else. Warunek jest sprawdzany raz, jak wyżej, a jeśli wynik jest fałszywy, zostanie wykonany blok wtórny (który zostałby pominięty, gdyby warunek był prawdziwy). Przykład:
+if (i <1) {console.log ("i jest mniejsze niż 1"); } else {console.log ("nie byłem mniejszy niż 1"); }
+Przypuśćmy, że blok else zawiera wyłącznie blok inny (z opcjonalnym blokiem else) podobny do poniższego:
+if (i <1) {console.log ("i jest mniejsze niż 1"); } else {if (i <2) {console.log ("i jest mniejsze niż 2"); } else {console.log ("żaden z poprzednich warunków nie był prawdziwy"); }}
+Istnieje również inny sposób zapisu, który zmniejsza zagnieżdżanie:
+if (i <1) {console.log ("i jest mniejsze niż 1"); } else if (i <2) {console.log ("i jest mniejsze niż 2"); } else {console.log ("żaden z poprzednich warunków nie był prawdziwy");
+}
+Kilka ważnych przypisów dotyczących powyższych przykładów:
+Jeśli którykolwiek z warunków zostanie oceniony jako prawdziwy, żaden inny warunek w tym łańcuchu bloków nie zostanie oceniony, a wszystkie odpowiednie bloki (łącznie z blokiem else) nie zostaną wykonane.
+Liczba pozostałych części jest praktycznie nieograniczona. Ostatni przykład powyżej zawiera tylko jeden, ale możesz mieć tyle, ile chcesz.
+Warunek wewnątrz instrukcji if może być wszystkim, co można wymusić na wartości logicznej, zobacz temat logiki boolowskiej, aby uzyskać więcej szczegółów;
+Drabina if-else-if wychodzi przy pierwszym sukcesie. Oznacza to, że w powyższym przykładzie, jeśli wartość i wynosi 0,5, wówczas wykonywana jest pierwsza gałąź. Jeśli warunki nakładają się, wykonywane są pierwsze kryteria występujące w strumieniu wykonania. Inny warunek, który również może być prawdziwy, jest ignorowany.
+Jeśli masz tylko jedną instrukcję, nawiasy klamrowe w tej instrukcji są opcjonalne technicznie, np. Jest to:
+jeśli (i <1) console.log ("i jest mniejsze niż 1");
+I to też będzie działać:
+jeśli (i <1) console.log ("i jest mniejsze niż 1");
+Jeśli chcesz wykonać wiele instrukcji wewnątrz bloku if, wówczas nawiasy klamrowe wokół nich są obowiązkowe. Tylko za pomocą wcięcia nie wystarczy. Na przykład poniższy kod:
+jeśli (i <1) console.log ("i jest mniejsze niż 1"); console.log ("spowoduje to NIEZALEŻNIE od warunku"); // Ostrzeżenie, patrz tekst!
+jest równa:
+if (i <1) {console.log ("i jest mniejsze niż 1"); } console.log ("uruchomi to BEZ WZGLĘDU na warunek");
+Sekcja 11.4: Strategia
+Wzorzec strategii może być w wielu przypadkach użyty w JavaScript w celu zastąpienia instrukcji switch. Jest to szczególnie przydatne, gdy liczba warunków jest dynamiczna lub bardzo duża. Dzięki niemu kod każdego warunku może być niezależny i oddzielnie testowany.
+Obiekt strategii jest prostym obiektem o wielu funkcjach, reprezentującym każdy odrębny warunek. Przykład:
+const AnimalSays = {pies () {return 'woof'; },
+    cat () {return "meow"; },
+    lion () {return "ryk"; },
+    // ... inne zwierzęta
+    default () {return "moo"; }};
+Powyższy obiekt może być używany w następujący sposób:
+function makeAnimalSpeak (animal) {// Dopasuj zwierzę według typu const speak = AnimalSays [animal] || AnimalSays.default;
+console.log (animal + 'says' + speak ()); }
+Wyniki:
+makeAnimalSpeak ("pies") // => "pies mówi" "makeAnimalSpeak" ("cat") // => "cat mówi" mow "makeAnimalSpeak (" lew ") // => 'lew mówi' ryk 'makeAnimalSpeak (' snake ' ) // => 'snake says moo'
+W ostatnim przypadku nasza domyślna funkcja obsługuje wszystkie brakujące zwierzęta. Rozdział 11.5: Używanie || i && krótkie spięcie
+Operatory Boolean || and && "zwiąże obwód" i nie oceni drugiego parametru, jeśli pierwsza jest odpowiednio prawdą lub fałszem. Może to być użyte do napisania krótkich warunków, takich jak:
+var x = 10
+x == 10 && alert ("x to 10") x == 10 || alert ("x to nie 10")
+Rozdział 12: Tablice Sekcja 12.1: Przekształcanie obiektów podobnych do macierzy w tablice
+Czym są obiekty podobne do tablic?
+JavaScript ma "obiekty podobne do macierzy", które są obiektowymi reprezentacjami tablic o właściwości length. Na przykład:
+var realArray = ["a", "b", "c"]; var tablicaLike = {0: "a", 1: "b", 2: "c", długość: 3};
+Typowymi przykładami obiektów typu Array są obiekty argumentów w funkcjach i obiekty HTMLCollection lub NodeList zwrócone przez metody takie jak document.getElementsByTagName lub document.querySelectorAll.
+Jednak jedną kluczową różnicą między tablicami i obiektami podobnymi do macierzy jest to, że obiekty podobne do macierzy dziedziczą z Object.prototype zamiast z Array.prototype. Oznacza to, że obiekty podobne do macierzy nie mają dostępu do typowych metod prototypowych Array, takich jak forEach (), push (), map (), filter () i slice ():
+var parent = document.getElementById ('myDropdown'); var desiredOption = parent.querySelector ('option [value = "desired"]'); var domList = parent.children;
+domList.indexOf (desiredOption); // Błąd! indexOf nie jest zdefiniowany. domList.forEach (function () {arguments.map (/ * Tutaj tutaj * /) // Błąd! mapa nie jest zdefiniowana.}); // Błąd! forEach nie jest zdefiniowany.
+function func () {console.log (argumenty); } func (1, 2, 3); // → [1, 2, 3] Konwertuj obiekty podobne do tablic do tablic w ES6
+Array.od: 1.
+Version ≥ 6 const arrayLike = {0: 'Value 0', 1: 'Value 1', length: 2}; arrayLike.forEach (value => {/ * Zrób coś * /}); // Błędy const realArray = Array.from (arrayLike); realArray.forEach (value => {/ * Zrób coś * /}); // Prace
+dla ... z: 2.
+Wersja ≥ 6 var realArray = []; dla (const element z arrayLike) {realArray.append (element); }
+Operator rozrzutu: 3.
+Wersja ≥ 6 [... arrayLike]
+Wartości obiektu: 4.
+Wersja ≥ 7 var realArray = Object.values ​​(arrayLike);
+Object.keys: 5.
+Wersja ≥ 6 var realArray = Object .keys (arrayLike) .map ((key) => arrayLike [key]); Konwertuj obiekty podobne do tablic do tablic w ≤ ES5
+Użyj Array.prototype.slice jak poniżej:
+var tablicaLike = {0: 'Wartość 0', 1: 'Wartość 1', długość: 2}; var realArray = Array.prototype.slice.call (arrayLike); realArray = [] .slice.call (arrayLike); // Krótsza wersja
+realArray.indexOf ("Wartość 1"); // Łał! to działa
+Możesz także użyć Function.prototype.call, aby wywołać metody Array.prototype na obiektach podobnych do Array bezpośrednio, bez ich konwertowania:
+Wersja ≥ 5.1 var domList = document.querySelectorAll ("# myDropdown opcja");
+domList.forEach (function () {// Do stuff}); // Błąd! forEach nie jest zdefiniowany.
+Array.prototype.forEach.call (domList, function () {// Do stuff}); // Łał! to działa
+Możesz również użyć [] .method.bind (arrayLikeObject), aby wypożyczyć metody tablicowe i przyjrzeć je obiektowi:
+Wersja ≥ 5.1 tablica varLike = {0: 'Wartość 0', 1: 'Wartość 1', długość: 2};
+arrayLike.forEach (function () {// Do stuff}); // Błąd! forEach nie jest zdefiniowany.
+[] .forEach.bind (arrayLike) (function (val) {// Rób rzeczy z val
+}); // Łał! to działa Modyfikowanie elementów podczas konwersji
+W ES6, podczas korzystania z Array.from, możemy określić funkcję map, która zwraca zmapowaną wartość dla tworzonej nowej tablicy.
+Wersja ≥ 6 Array.from (domList, element => element.tagName); // Tworzy tablicę tagName
+Zobacz Array są obiekty do szczegółowej analizy. Punkt 12.2: Zmniejszanie wartości
+Wersja ≥ 5.1
+Metoda reduce () stosuje funkcję względem akumulatora i każdej wartości tablicy (od lewej do prawej), aby zredukować ją do pojedynczej wartości.
+Array Suma
+Tej metody można użyć do skondensowania wszystkich wartości tablicy w pojedynczej wartości:
+[1, 2, 3, 4] .reduce (funkcja (a, b) {return a + b;}); // → 10
+Opcjonalny drugi parametr można przekazać do funkcji reduce (). Jego wartość zostanie wykorzystana jako pierwszy argument (określony jako a) dla pierwszego wywołania zwrotnego (wyspecyfikowanego jako funkcja (a, b)).
+[2] .reduce (funkcja (a, b) {console.log (a, b); // drukuje: 1 2 return a + b;}, 1); // → 3
+Wersja ≥ 5.1 Spłaszczaj tablicę obiektów
+Poniższy przykład pokazuje, jak sprowadzić tablicę obiektów do jednego obiektu.
+var tablica = [{klucz: 'jeden', wartość: 1}, {klucz: 'dwa', wartość: 2}, {klucz: 'trzy', wartość: 3}]; Wersja ≤ 5.1 array.reduce (function (obj, current) {obj [current.key] = current.value; return obj;}, {});
+Wersja ≥ 6 array.reduce ((obj, current) => Obj
+ect.assign (obj, {[current.key]: current.value}), {}); Wersja ≥ 7 array.reduce ((obj, current) => ({... obj, [current.key]: current.value}), {});
+Zwróć uwagę, że Właściwości Spoczynku / Rozkładu nie ma na liście gotowych propozycji ES2016. Nie jest obsługiwany przez ES2016. Ale możemy użyć babel plugin babel-plugin-transform-object-rest-spread, aby go wspierać.
+Wszystkie powyższe przykłady dla Flatten Array dają:
+{jeden: 1, dwa: 2, trzy: 3}
+Wersja ≥ 5.1 Mapa Używanie skrótu
+Jako kolejny przykład użycia parametru wartości początkowej rozważ zadanie wywoływania funkcji na tablicy elementów, zwracając wyniki w nowej tablicy. Ponieważ tablice są zwykłymi wartościami, a łączenie list jest zwykłą funkcją, możemy użyć polecenia "zmniejszyć", aby zebrać listę, co ilustruje następujący przykład:
+function map (list, fn) {return list.reduce (function (newList, item) {return newList.concat (fn (element));}, []); }
+// Użycie: map ([1, 2, 3], function (n) {return n * n;}); // → [1, 4, 9]
+Zauważ, że jest to tylko ilustracja (z parametru wartości początkowej), użyj natywnej mapy do pracy z transformacjami list (zobacz Mapowanie wartości dla szczegółów).
+Wersja ≥ 5.1 Znajdź wartość minimalną lub maksymalną
+Możemy również użyć akumulatora do śledzenia elementu tablicy. Oto przykład użycia tego do znalezienia wartości min:
+var arr = [4, 2, 1, -10, 9]
+arr.reduce (function (a, b) {return a <b? a: b}, Infinity); // → -10 Wersja ≥ 6 Znajdź unikalne wartości
+Oto przykład, który używa funkcji zmniejszenia, aby zwrócić unikalne liczby do tablicy. Pusta tablica jest przekazywana jako drugi argument i jest przywoływana przez prev.
+var arr = [1, 2, 1, 5, 9, 5];
+arr.reduce ((prev, number) => {if (prev.indexOf (number) === -1) {prev.push (number);} return prev;}, []); // → [1, 2, 5, 9] Rozdział 12.3: Odwzorowywanie wartości
+Często konieczne jest wygenerowanie nowej tablicy na podstawie wartości istniejącej macierzy.
+Na przykład, aby wygenerować tablicę długości łańcuchów z tablicy łańcuchów:
+Wersja ≥ 5.1 ["jeden", "dwa", "trzy", "cztery"]. Map (funkcja (value, index, arr) {return value.length;}); // → [3, 3, 5, 4] Wersja ≥ 6 ["jeden", "dwa", "trzy", "cztery"]. Map (value => value.length); // → [3, 3, 5, 4]
+W tym przykładzie funkcja anonimowa jest dostarczana do funkcji map (), a funkcja map wywoła ją dla każdego elementu w tablicy, podając następujące parametry w następującej kolejności:
+Sam element Indeks elementu (0, 1 ...) Cała tablica
+Dodatkowo map () zapewnia opcjonalny drugi parametr w celu ustawienia wartości tego w funkcji mapowania. W zależności od środowiska wykonawczego domyślna wartość może się różnić:
+W przeglądarce domyślną wartością tego okna jest zawsze:
+['jeden', 'dwa']. map (funkcja (wartość, indeks, arr) {console.log (this); // okno (domyślna wartość w przeglądarkach) zwraca value.length;});
+Możesz go zmienić na dowolny niestandardowy obiekt, taki jak ten:
+['jeden', 'dwa']. map (funkcja (value, index, arr) {console.log (this); // Object {documentation: "randomObject"} return value.length;}, {documentation: 'randomObject "}); Rozdział 12.4: Filtrowanie tablic obiektów
+Metoda filter () akceptuje funkcję testową i zwraca nową tablicę zawierającą tylko elementy oryginalnej tablicy, które pomyślnie przeszły test.
+// Załóżmy, że chcemy uzyskać liczbę nieparzystą w tablicy: var numbers = [5, 32, 43, 4]; Wersja ≥ 5.1 var odd = numbers.filter (function (n) {return n% 2! == 0;}); Wersja ≥ 6 niech nieparzysta = liczba.filtr (n => n% 2! == 0); // można skrócić do (n => n% 2)
+nieparzysty zawierałby następującą tablicę: [5, 43].
+Działa również na tablicy obiektów:
+var people = [{id: 1, nazwa: "John", wiek: 28}, {id: 2, imię: "Jane", wiek: 31}, {id: 3, imię: "Peter", wiek: 55 }]; Wersja ≥ 5.1 var young = people.filter (function (person) {return person.age <35;}); Wersja ≥ 6 niech młody = ludzie.filtr (osoba => osoba.raga <35);
+młody zawierałby następującą tablicę:
+[{id: 1, nazwa: "John", wiek: 28}, {id: 2, imię: "Jane", wiek: 31}]
+Możesz przeszukiwać całą tablicę pod kątem takiej wartości:
+var young = people.filter ((obj) => {var flag = false; Object.values ​​(obj) .forEach ((val) => {if (String (val) .indexOf ("J")> -1) {flag = true; return;}}); if (flag) return obj;});
+To zwraca:
+[{id: 1, nazwa: "John", wiek: 28}, {id: 2, imię: "Jane", wiek: 31}] Sekcja 12.5: Sortowanie tablic
+Metoda .sort () sortuje elementy tablicy. Domyślna metoda posortuje tablicę zgodnie z ciągami znaków kodu Unicode. Aby posortować tablicę numerycznie, metoda .sort () musi mieć przekazany do niej parametr compareFunction.
+Uwaga: Metoda .sort () jest nieczysta. .sort () będzie sortować tablicę w miejscu, tj. zamiast tworzyć posortowaną kopię oryginalnej tablicy, zmieni kolejność oryginalnej tablicy i zwróci ją.
+Sortowanie domyślne
+Sortuje tablicę w kolejności UNICODE.
+['s', 't', 'a', 34, 'K', 'o',
+"v", "E", "r", "2", "4", "o", "W", -1, "-4"]. sort ();
+Prowadzi do:
+[-1, "-4", "2", 34, "4", "E", "K", "W", "a", "l", "o", "o", "r" , 's', 't', 'v']
+Uwaga: Wielkie litery zostały przeniesione nad małymi literami. Tablica nie jest w porządku alfabetycznym, a liczby nie są w porządku liczbowym.
+Sortuj alfabetycznie
+['s', 't', 'a', 'c', 'K', 'o', 'v', 'E', 'r', 'f', 'l', 'W', ' 2 ',' 1 ']. Sort ((a, b) => {return a.localeCompare (b);});
+Prowadzi do:
+["1", "2", "a", "c", "E", "f", "K", "l", "o", "r", "s", "t", " v ',' W ']
+Uwaga: Powyższy sort spowoduje błąd, jeśli elementy tablicy nie są ciągami. Jeśli wiesz, że tablica może zawierać elementy, które nie są ciągami, użyj bezpiecznej wersji poniżej.
+['s', 't', 'a', 'c', 'K', 1, 'v', 'E', 'r', 'f', 'l', 'o', 'W' ] .sort ((a, b) => {return a.toString (). localeCompare (b);});
+Sortowanie według długości (najdłuższe pierwsze)
+["zebras", "psy", "słonie", "pingwiny"]. sort (funkcja (a, b) {return b.length - a.length;});
+Prowadzi do
+["słonie", "pingwiny", "zebras", "psy"];
+Sortowanie według długości (najkrótsze pierwsze)
+["zebras", "psy", "słonie", "pingwiny"]. sort (funkcja (a, b) {return a.length - b.length;});
+Prowadzi do
+["psy", "zebras", "pingwiny", "słonie"];
+Sortowanie numeryczne (rosnąco)
+[100, 1000, 10, 10000, 1] .sort (funkcja (a, b) {return a - b;});
+Prowadzi do:
+[1, 10, 100, 1000, 10000]
+Sortowanie numeryczne (malejące)
+[100, 1000, 10, 10000, 1] .sort (funkcja (a, b) {return b - a;});
+Prowadzi do:
+[10000, 1000, 100, 10, 1]
+Sortowanie tablicy według liczb parzystych i nieparzystych
+[10, 21, 4, 15, 7, 99, 0, 12] .sort (funkcja (a, b) {return (a & 1) - (b & 1) || a - b;});
+Prowadzi do:
+[0, 4, 10, 12, 7, 15, 21, 99]
+Sortowanie według daty (malejąco)
+var dates = [nowa data (2007, 11, 10), nowa data (2014, 2, 21),
+  nowa data (2009, 6, 11), nowa data (2016, 7, 23)];
+date.sort (function (a, b) {if (a> b) return -1; if (a <b) return 1; return 0;});
+// obiekty daty mogą również sortować według różnicy // w ten sam sposób, w jaki tablica liczb sortuje date.sort (function (a, b) {return b-a;});
+Prowadzi do:
+["Wto 23 sierpnia 2016 00:00:00 GMT-0600 (MDT)", "Fri 21 marca 2014 00:00:00 GMT-0600 (MDT)", "Sob 11 lipca 2009 00:00:00 GMT-0600 (MDT) "," poniedziałek 10 2007 00:00:00 GMT-0700 (MST) "] Sekcja 12.6: Iteracja
+Tradycyjna pętla for
+Tradycyjna pętla for ma trzy składniki:
+Inicjalizacja: wykonywana przed uruchomieniem bloku look po raz pierwszy1. Warunek: sprawdza warunek za każdym razem przed wykonaniem bloku pętli i zamyka pętlę, jeśli false2. Uwagi: wykonywane za każdym razem po wykonaniu bloku pętli3.
+Te trzy składniki są oddzielone od siebie przez a; symbol. Treść każdego z tych trzech składników jest opcjonalna, co oznacza, że ​​następujące elementy są najbardziej ograniczone do możliwych pętli:
+for (;;) {// Rób rzeczy}
+Oczywiście będziesz musiał podać if (warunek === true) {break; } lub if (warunek === true) {return; } gdzieś w tej pętli for, aby zatrzymać jej działanie.
+Zwykle inicjalizacja służy do zadeklarowania indeksu, warunek jest używany do porównania tego indeksu z wartością minimalną lub maksymalną, a do przemnożenia indeksu używana jest dodatkowa myśl:
+dla (var i = 0, długość = 10; i <długość; i ++) {console.log (i); }
+Używanie tradycyjnej pętli for do przechodzenia przez macierz
+Tradycyjny sposób przechodzenia przez macierz to:
+dla (var i = 0, length = myArray.length; i <length; i ++) {
+    console.log (myArray [i]); }
+Lub, jeśli wolisz pętlę wstecz, wykonaj następujące czynności:
+dla (var i = myArray.length - 1; i> -1; i--) {console.log (myArray [i]); }
+Istnieje jednak wiele możliwych wariantów, na przykład ta:
+for (klucz var = 0, wartość = myArray [klucz], długość = mojaArray.length; klucz <długość; wartość = mojaArray [klucz_ ++]) {console.log (wartość); }
+... albo ten ...
+var i = 0, length = myArray.length; for (; i <length;) {console.log (myArray [i]); i ++; }
+... albo ten:
+klucz var = 0, wartość; for (; value = myArray [key ++];) {console.log (wartość); }
+To, co działa najlepiej, jest w dużej mierze kwestią zarówno osobistego gustu, jak i konkretnego zastosowania, które stosujesz.
+Pamiętaj, że każda z tych odmian jest obsługiwana przez wszystkie przeglądarki, w tym bardzo stare!
+Pętla while
+Jedną z alternatyw dla pętli for jest pętla while. Aby przechwycić tablicę, możesz to zrobić:
+klawisz var = 0; while (value = myArray [key ++]) {console.log (wartość); }
+Podobnie jak w przypadku tradycyjnych pętli, pętle są obsługiwane przez nawet najstarsze przeglądarki.
+Zwróć też uwagę, że każda pętla while może zostać przepisana jako pętla for. Na przykład powyższa pętla while zachowuje się dokładnie tak samo, jak ta pętla for:
+for (klawisz var = 0; value = myArray [key ++];) {console.log (wartość); }
+dla w
+W JavaScript możesz również:
+for (i in myArray) {console.log (myArray [i]); }
+Powinno się z tym jednak ostrożnie korzystać
+s nie zachowuje się tak samo jak tradycyjna pętla for we wszystkich przypadkach i istnieją potencjalne skutki uboczne, które należy wziąć pod uwagę. Zobacz "Dlaczego używasz" for ... in "w iteracji tablicowej jako zły pomysł? po więcej szczegółów.
+dla ...
+W ES 6 pętla for-of jest zalecanym sposobem wykonywania iteracji na wartościach tablicy:
+Wersja ≥ 6 pozwól myArray = [1, 2, 3, 4]; for (let value of myArray) {let twoValue = wartość * 2; console.log ("2 * wartość to:% d", dwie wartości); }
+Poniższy przykład pokazuje różnicę między pętlą for ... a pętlą for ... in:
+Wersja ≥ 6 pozwól myArray = [3, 5, 7]; myArray.foo = "cześć";
+dla (var i in myArray) {console.log (i); // logs 0, 1, 2, "foo"}
+dla (var i of myArray) {console.log (i); // logi 3, 5, 7}
+Array.prototype.keys ()
+Metodę Array.prototype.keys () można użyć do iteracji nad takimi indeksami:
+Wersja ≥ 6 pozwól myArray = [1, 2, 3, 4]; for (let i of myArray.keys ()) {let twoValue = myArray [i] * 2; console.log ("2 * wartość to:% d", dwie wartości); }
+Array.prototype.forEach ()
+Metoda .forEach (...) jest opcją w ES 5 i nowszych. Jest obsługiwany przez wszystkie nowoczesne przeglądarki, a także Internet Explorer 9 i nowsze.
+Wersja ≥ 5 [1, 2, 3, 4] .forEach (funkcja (wartość, indeks, arr) {var twoValue = wartość * 2; console.log ("2 * wartość to:% d", dwie wartości);}) ;
+Porównując z tradycyjną pętlą for, nie możemy wyskoczyć z pętli w .forEach (). W takim przypadku użyj pętli for lub użyj częściowej iteracji przedstawionej poniżej.
+We wszystkich wersjach JavaScript możliwe jest iterowanie poprzez indeksy tablicy przy użyciu tradycyjnej pętli for-C.
+var myArray = [1, 2, 3, 4]; dla (var i = 0; i <myArray.length; ++ i) {var twoValue = myArray [i] * 2; console.log ("2 * wartość to:% d", dwie wartości); }
+Możliwe jest również użycie pętli while:
+var myArray = [1, 2, 3, 4], i = 0, suma = 0; while (i ++ <myArray.length) {sum + = i; } console.log (suma);
+Array.prototype.every
+Od wersji ES5, jeśli chcesz przerobić na część tablicy, możesz użyć Array.prototype.every, który iteruje do momentu, aż zwrócony zostanie false:
+Wersja ≥ 5 // [] .every () zatrzymuje się, gdy znajdzie fałszywy wynik // w ten sposób ta iteracja zatrzyma się na wartości 7 (od 7% 2! == 0) [2, 4, 7, 9]. Everyry (function (value, index, arr) {console.log (value); return value% 2 === 0; // iteruje aż do znalezienia nieparzystej liczby});
+Odpowiednik w dowolnej wersji JavaScript:
+var arr = [2, 4, 7, 9]; dla (var i = 0; i <arr.length && (arr [i]% 2! == 0); i ++) {// iteruje aż do znalezienia nieparzystej liczby console.log (arr [i]); }
+Array.prototype.some
+Array.prototype.some iteruje, aż zwrócimy true:
+Wersja ≥ 5 // [] .some zatrzymuje się po znalezieniu fałszywego wyniku // w ten sposób ta iteracja zatrzyma się na wartości 7 (od 7% 2! == 0) [2, 4, 7, 9] .some (function (wartość, indeks, arr) {console.log (wartość); zwracana wartość === 7; // iteruj, dopóki nie znajdziemy wartości 7});
+Odpowiednik w dowolnej wersji JavaScript:
+Biblioteki
+Wreszcie, wiele bibliotek narzędziowych ma również własną odmianę foreach. Trzy z najbardziej popularnych to:
+jQuery.each (), w jQuery:
+$ .each (myArray, funkcja (klucz, wartość) {console.log (value);});
+_.each (), w pliku Underscore.js:
+_.each (myArray, function (value, key, myArray) {console.log (value);});
+_.forEach (), w Lodash.js:
+_.forEach (myArray, function (value, key) {console.log (value);});
+Zobacz także następujące pytanie dotyczące SO, w którym duża część tych informacji została pierwotnie opublikowana:
+Pętla w tablicy w sekcji JavaScript w sekcji 12.7: Destrukturyzacja tablicy
+Wersja ≥ 6
+Tablica może zostać zniszczona, gdy jest przypisana do nowej zmiennej.
+const triangle = [3, 4, 5]; const [długość, wysokość, przeciwprostokątna] = trójkąt;
+długość === 3; // → true height === 4; // → true hypanticuse === 5; // → true
+Elementy można pominąć
+const [, b, c] = [1, 2, 3, 4];
+console.log (b, c); // → 2, 4
+Można również użyć operatora odpoczynku
+const [b, c, ... xs] = [2, 3, 4, 5]; console.log (b, c, xs); // → 2, 3, [4, 5]
+Tablica może również zostać zniszczona, jeśli jest argumentem funkcji.
+obszar funkcyjny ([długość, wysokość]) {powrót (długość * wysokość) / 2; }
+const triangle = [3, 4, 5];
+obszar (trójkąt); // → 6
+Zauważ, że trzeci argument nie jest wymieniony w funkcji, ponieważ nie jest potrzebny.
+Dowiedz się więcej o destrukcji składni.
+Punkt 12.8: Usuwanie duplikatów elementów
+Począwszy od wersji ES5.1 można użyć natywnej metody Array.prototype.filter do przechodzenia przez tablicę i pozostawienia tylko tych pozycji, które przekazują daną funkcję zwrotną.
+W poniższym przykładzie nasze wywołanie zwrotne sprawdza, czy podana wartość występuje w tablicy. Jeśli tak, jest to duplikat i nie zostanie skopiowany do wynikowej tablicy.
+Wersja ≥ 5.1 var uniqueArray = ['a', 1, 'a', 2, '1', 1] .filtr (funkcja (wartość, indeks, self) {return self.indexOf (value) === index;} ); // zwraca ["a", 1, 2, "1"]
+Jeśli twoje środowisko obsługuje ES6, możesz również nas
+e obiekt Set. Ten obiekt umożliwia przechowywanie unikatowych wartości dowolnego typu, niezależnie od tego, czy są to wartości pierwotne, czy odwołania do obiektów:
+Wersja ≥ 6 var uniqueArray = [... new Set (['a', 1, 'a', 2, '1', 1])]; Punkt 12.9: Porównanie tablic
+Do prostego porównywania macierzy można użyć string stringów JSON i porównać ciągi wyjściowe:
+JSON.stringify (array1) === JSON.stringify (array2)
+Uwaga: działa to tylko wtedy, gdy oba obiekty są serializowane i nie zawierają cyklicznych odniesień. Może rzucić TypeError: Konwersja struktury kołowej do JSON
+Możesz użyć funkcji rekursywnej, aby porównać tablice.
+funkcja compareArrays (array1, array2) {var i, isA1, isA2; isA1 = Array.isArray (tablica1); isA2 = Array.isArray (array2);
+ 
+  if (isA1 !== isA2) {// jest jedną tablicą, a drugą nie? return false; // tak, nie może być takie samo} if (! (isA1 && isA2)) {// Czy obie tablice nie zwracają array1 === array2; // return strict equality} if (array1.length! == array2.length) {// jeśli długości różnią się, to nie mogą być tym samym błędem return; } // iteruj tablice i porównaj je (i = 0; i <array1.length; i + = 1) {
+    if (! compareArrays (tablica1 [i], array2 [i])) {// Porównywanie rekurencji elementów z rekursywnie zwraca false; }} return true; // musi być równy}
+OSTRZEŻENIE: Używanie powyższej funkcji jest niebezpieczne i powinno być opakowane w próbę catch, jeśli podejrzewasz, że istnieje szansa, że ​​tablica ma odniesienia cykliczne (odniesienie do tablicy zawierającej odniesienie do niej)
+a = [0]; a [1] = a; b = [0, a]; compareArrays (a, b); // throws RangeError: Przekroczono maksymalny rozmiar stosu wywołań
+Uwaga: Funkcja używa operatora ścisłej równości === do porównywania elementów nieszablonowych {a: 0} === {a: 0} jest fałszywe
+Sekcja 12.10: Odwracanie tablic
+.reverse służy do odwrócenia kolejności elementów wewnątrz tablicy.
+Przykład dla .reverse:
+[1, 2, 3, 4] .reverse ();
+Prowadzi do:
+[4, 3, 2, 1]
+Uwaga: Zwróć uwagę, że .reverse (Array.prototype.reverse) spowoduje odwrócenie tablicy w miejscu. Zamiast zwracania odwróconej kopii, zwróci tę samą tablicę, odwróconą.
+var arr1 = [11, 22, 33]; var arr2 = arr1.reverse (); console.log (arr2); // [33, 22, 11] console.log (arr1); // [33, 22, 11]
+Możesz również odwrócić tablicę "głęboko" przez:
+function deepReverse (arr) {arr.reverse (). forEach (elem => {if (Array.isArray (elem)) {deepReverse (elem);}}); return arr; }
+Przykład deepReverse:
+var arr = [1, 2, 3, [1, 2, 3, ["a", "b", "c"]]];
+deepReverse (arr);
+Prowadzi do:
+arr // -> [[['c', 'b', 'a'], 3, 2, 1], 3, 2, 1] Rozdział 12.11: Płytkie klonowanie tablicy
+Czasami musisz pracować z tablicą, upewniając się, że nie modyfikujesz oryginału. Zamiast metody klonowania tablice mają metodę wycinania, która umożliwia wykonanie płytkiej kopii dowolnej części tablicy. Pamiętaj, że to tylko klony pierwszego poziomu. Działa to dobrze z typami pierwotnymi, takimi jak liczby i łańcuchy, ale nie obiektami.
+Aby płytko klonować tablicę (tj. Mieć nową instancję tablicy, ale z tymi samymi elementami), można użyć następującej jednolinijki:
+var clone = arrayToClone.slice ();
+Wywołuje to wbudowaną metodę JavaScript Array.prototype.slice. Jeśli przekazujesz argumenty do wycinania, możesz uzyskać bardziej skomplikowane zachowania, które tworzą płytkie klony tylko części tablicy, ale dla naszych celów samo wywołanie slice () stworzy płytką kopię całej tablicy.
+Wszystkie metody używane do konwertowania macierzy jak obiektów do tablicy mają zastosowanie do klonowania tablicy:
+Wersja ≥ 6 arrayToClone = [1, 2, 3, 4, 5]; clone1 = Array.from (arrayToClone); clone2 = Array.of (... arrayToClone); clone3 = [... arrayToClone] // najkrótsza wersja Version ≤ 5.1 arrayToClone = [1, 2, 3, 4, 5]; clone1 = Array.prototype.slice.call (arrayToClone); clone2 = [] .slice.call (arrayToClone); Sekcja 12.12: Łączenie tablic
+Dwie tablice
+var array1 = [1, 2]; var array2 = [3, 4, 5]; Wersja ≥ 3 tablice var3 = tablica1.concat (tablica2); // zwraca nową tablicę Version ≥ 6 var array3 = [... array1, ... array2]
+Wyniki w nowej tablicy:
+[1, 2, 3, 4, 5]
+Wiele tablic
+var tablica1 = ["a", "b"], tablica2 = ["c", "d"], tablica3 = ["e", "f"], tablica4 = ["g", "h"];
+Wersja ≥ 3
+Podaj więcej argumentów tablicowych w tablicy array.concat ()
+var arrConc = array1.concat (array2, array3, array4); Wersja ≥ 6
+Podaj więcej argumentów []
+var arrConc = [... tablica1, ... tablica2, ... tablica3, ... tablica4]
+Wyniki w nowej tablicy:
+["a", "b", "c", "d", "e", "f", "g", "h"]
+Bez kopiowania pierwszej tablicy
+var longArray = [1, 2, 3, 4, 5, 6, 7, 8], shortArray = [9, 10]; Wersja ≥ 3
+Podaj elementy shortArray jako parametry do wypchnięcia przy użyciu Function.prototype.apply
+longArray.push.apply (longArray, shortArray); Wersja ≥ 6
+Użyj operatora rozprzestrzeniania, aby przekazać elementy shortArray jako oddzielne argumenty do przekazania
+longArray.push (... shortArray)
+Wartość longArray jest teraz:
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Zauważ, że jeśli druga tablica jest zbyt długa (> 100 000 wpisów), ty
+może uzyskać błąd przepełnienia stosu (z powodu sposobu działania działa). Aby być bezpiecznym, możesz zamiast tego iterować:
+shortArray.forEach (function (elem) {longArray.push (elem);});
+Wartości tablicowe i nieszablonowe
+var array = ["a", "b"]; Wersja ≥ 3 var arrConc = array.concat ("c", "d"); Wersja ≥ 6 var arrConc = [... array, "c", "d"]
+Wyniki w nowej tablicy:
+["a", "b", "c", "d"]
+Możesz także mieszać tablice z tablicami innymi niż tablice
+var arr1 = ["a", "b"]; var arr2 = ["e", "f"];
+var arrConc = arr1.concat ("c", "d", arr2);
+Wyniki w nowej tablicy:
+["a", "b", "c", "d", "e", "f"] Sekcja 12.13: Scal dwie tablice jako parę wartości klucza
+Kiedy mamy dwie osobne tablice i chcemy utworzyć parę wartości klucza z tej dwóch tablic, możemy użyć funkcji zmniejszania tablicy jak poniżej:
+var columns = ["Date", "Number", "Size", "Location", "Age"]; var rows = ["2001", "5", "Big", "Sydney", "25"]; var result = rows.reduce (funkcja (wynik, pole, indeks) {wynik [kolumny [indeks]] = pole, wynik powrotu;}, {})
+console.log (wynik);
+Wydajność:
+{Data: "2001", Numer: "5", Rozmiar: "Duże", Lokalizacja: "Sydney", Wiek: "25"} Punkt 12.14: Rozkład / rozkład szyku
+Operator rozrzutu Wersja ≥ 6
+W ES6 możesz używać spreadów do rozdzielania poszczególnych elementów na składnię rozdzielaną przecinkami:
+niech arr = [1, 2, 3, ... [4, 5, 6]]; // [1, 2, 3, 4, 5, 6]
+// w ES <6, powyższe operacje są równoważne arr = [1, 2, 3]; arr.push (4, 5, 6);
+Operator rozdzielający działa również na ciągi, oddzielając każdy indywidualny znak na nowy element łańcucha. Dlatego, używając funkcji tablicowej do konwersji tych liczb na liczby całkowite, tablica utworzona powyżej jest równoważna poniższej:
+niech arr = [1, 2, 3, ... [... "456"]. map (x => parseInt (x))]; // [1, 2, 3, 4, 5, 6]
+Lub, używając pojedynczego ciągu znaków, można to uprościć do:
+niech arr = [... "123456"]. map (x => parseInt (x)); // [1, 2, 3, 4, 5, 6]
+Jeśli mapowanie nie zostanie wykonane, wówczas:
+niech arr = [... "123456"]; // ["1", "2", "3", "4", "5", "6"]
+Operator rozprzestrzeniania może również służyć do rozprzestrzeniania argumentów w funkcji:
+function myFunction (a, b, c) {} let args = [0, 1, 2];
+myFunction (... args);
+// w ES <6, byłby to odpowiednik: myFunction.apply (null, args); Operator odpoczynku
+Operator odpoczynku robi przeciwieństwo operatora rozprzestrzeniania poprzez koalescencję kilku elementów w jeden
+[a, b, ... rest] = [1, 2, 3, 4, 5, 6]; // reszta jest przypisana [3, 4, 5, 6]
+Zbierz argumenty funkcji:
+function myFunction (a, b, ... rest) {console.log (reszta); }
+myFunction (0, 1, 2, 3, 4, 5, 6); // rest to [2, 3, 4, 5, 6] Rozdział 12.15: Filtrowanie wartości
+Metoda filter () tworzy tablicę wypełnioną wszystkimi elementami tablicy, które przechodzą test dostarczony jako funkcja.
+Wersja ≥ 5.1 [1, 2, 3, 4, 5] .filtr (funkcja (wartość, indeks, arr) {wartość powrotu> 2;}); Wersja ≥ 6 [1, 2, 3, 4, 5] .filtr (wartość => wartość> 2);
+Wyniki w nowej tablicy:
+[3, 4, 5] Filtruj wartości falsjowe Wersja ≥ 5.1 zmienione filtrowane = [0, niezdefiniowane, {}, puste, "", prawda, 5] .filtr (Boolean);
+Ponieważ Boolean jest natywną funkcją / konstruktorem JavaScript, który pobiera [jeden opcjonalny parametr], a metoda filtru przyjmuje również funkcję i przekazuje mu bieżący element tablicy jako parametr, można go odczytać w następujący sposób:
+Boolean (0) zwraca false1. Boolean (undefined) zwraca wartość false2. Boolean ({}) zwraca wartość true, co oznacza, że ​​należy ją przekazać do zwróconej tablicy3. Boolean (null) zwraca false4. Boolean ('') zwraca false5. Boolean (true) zwraca wartość true, co oznacza, że należy ją przekazać do zwróconej tablicy6. Boolean (5) zwraca wartość true, co oznacza, że ​​należy ją przekazać do zwróconej tablicy7.
+więc ogólny proces zakończy się
+[{}, prawda, 5]
+Kolejny prosty przykład
+Ten przykład wykorzystuje tę samą koncepcję przekazywania funkcji, która przyjmuje jeden argument
+Uruchomi się wersja ≥ 5.1WithLetterA (str) {if (str && str [0] .toLowerCase () == 'a') {return true} return false; }
+var str = 'Ponieważ Boolean jest natywną funkcją / konstruktorem javascript, który pobiera [jeden opcjonalny parametr], a metoda filtru przyjmuje również funkcję i przekazuje mu bieżący element tablicy jako parametr, można go odczytać w następujący sposób: "; var strArray = str.split (""); var wordsStartsWithA = strArray.filter (startsWithLetterA); // ["a", "i", "również", "a", "i", "tablica", "jako"] Rozdział 12.16: Wyszukiwanie tablicy
+Zalecanym sposobem (od wersji ES5) jest użycie Array.prototype.
+let people = [{name: "bob"}, {nazwa: "john"}];
+niech bob = people.find (person => person.name === "bob");
+// Lub bardziej szczegółowe niech bob = people.find (function (person) {return person.name === "bob";});
+W dowolnej wersji JavaScript można również użyć standardowej pętli for:
+dla (var i = 0; i <people.length; i ++) {if (people [i] .name === "bob") {break; // znaleźliśmy boba}}
+FindIndex
+Metoda fi ndIndex () zwraca indeks w tablicy, jeśli element w tablicy spełnia zapewnioną funkcję testowania. W przeciwnym razie zwracane jest -1.
+array = [{wartość: 1}, {wartość: 2}, {wartość: 3}, {wartość
+e: 4}, {wartość: 5}
+]; var index = array.findIndex (item => item.value === 3); // 2 var index = array.findIndex (item => item.value === 12); // -1 Sekcja 12.17: Konwertuj ciąg na tablicę
+Metoda .split () dzieli ciąg znaków na tablicę podłańcuchów. Domyślnie .split () przerwie łańcuch na podciągi na spacje (""), co jest równoważne wywołaniu .split ("").
+Parametr przekazany do .split () określa znak lub wyrażenie regularne, które ma być użyte do podziału ciągu znaków.
+Aby podzielić ciąg znaków na wywołanie tablicy .split z pustym ciągiem znaków (""). Ważna uwaga: działa to tylko wtedy, gdy wszystkie twoje postacie znajdują się w niższym zakresie znaków Unicode, który obejmuje większość języków angielskich i większości europejskich. W przypadku języków wymagających 3 i 4 bajtowych znaków Unicode, slice ("") rozdzieli je.
+var strArray = "StackOverflow" .split (""); // strArray = ["S", "t", "a", "c", "k", "O", "v", "e", "r", "f", "l", " o "," w "] Wersja ≥ 6
+Za pomocą operatora rozprzestrzeniania (...) konwertować ciąg znaków do tablicy.
+var strArray = [... "niebo jest niebieskie"]; // strArray = ["s", "k", "y", "", "i", "s", "", "b", "l", "u", "e"] Rozdział 12.18: Usuwanie elementów z tablicy
+Przesunięcie
+Użyj .shift, aby usunąć pierwszy element tablicy.
+Na przykład:
+var array = [1, 2, 3, 4]; array.shift ();
+tablica wyników:
+[2, 3, 4]
+Muzyka pop
+Dalej .pop służy do usuwania ostatniego elementu z tablicy.
+Na przykład:
+var array = [1, 2, 3]; array.pop ();
+tablica wyników:
+[1, 2]
+Obie metody zwracają usunięty element;
+Splatać
+Użyj .splice (), aby usunąć szereg elementów z tablicy. Funkcja .splice () akceptuje dwa parametry, indeks początkowy i opcjonalną liczbę elementów do usunięcia. Jeśli drugi parametr zostanie pominięty, funkcja .splice () usunie wszystkie elementy z indeksu początkowego przez koniec tablicy.
+Na przykład:
+var array = [1, 2, 3, 4]; array.splice (1, 2);
+pozostawia tablicę zawierającą:
+[1, 4]
+Zwrot tablicy array.splice () jest nową tablicą zawierającą usunięte elementy. Dla powyższego przykładu, zwrot byłby następujący:
+[2, 3]
+Zatem pominięcie drugiego parametru skutecznie dzieli tablicę na dwie tablice, z oryginalnym zakończeniem przed wyspecyfikowanym indeksem:
+var array = [1, 2, 3, 4]; array.splice (2);
+... pozostawia tablicę zawierającą [1, 2] i zwraca [3, 4].
+Kasować
+Użyj delete, aby usunąć element z tablicy bez zmiany długości tablicy:
+var array = [1, 2, 3, 4, 5]; console.log (array.length); // 5 usuń tablicę [2]; console.log (tablica); // [1, 2, niezdefiniowane, 4, 5] console.log (array.length); // 5
+Array.prototype.length
+Przypisanie wartości do długości tablicy zmienia długość na podaną wartość. Jeśli nowa wartość jest mniejsza niż długość tablicy, elementy zostaną usunięte z końca wartości.
+array = [1, 2, 3, 4, 5]; array.length = 2; console.log (tablica); // [1, 2] Sekcja 12.19: Usuwanie wszystkich elementów
+var arr = [1, 2, 3, 4]; Metoda 1
+Tworzy nową tablicę i zastępuje istniejące odniesienie do tablicy nową.
+arr = [];
+Należy zachować ostrożność, ponieważ nie spowoduje to usunięcia żadnych elementów z oryginalnej tablicy. Tablica mogła zostać zamknięta po przejściu do funkcji. Tablica pozostanie w pamięci przez całe życie tej funkcji, choć możesz tego nie wiedzieć. Jest to powszechne źródło wycieków pamięci.
+Przykład wycieku pamięci wynikającego ze złego wyczyszczenia tablicy:
+var count = 0;
+function addListener (arr) {// arr jest zamknięty przez var b = document.body.querySelector ("# foo" + (count ++)); b.addEventListener ("click", funkcja (e) {// to odwołanie do funkcji utrzymuje // aktualny czas zamknięcia, gdy // zdarzenie jest aktywne // zrobić coś, ale nie potrzebuje arr}); }
+arr = ["big data"]; var i = 100; while (i> 0) {addListener (arr); // tablica jest przekazywana do funkcji arr = []; // usuwa odwołanie, oryginalna tablica pozostaje array.push ("niektóre duże dane"); // przydzielono więcej pamięci i--; } // istnieje teraz 100 tablic zamkniętych, każda odwołująca się do innej tablicy // nie usunięto pojedynczego elementu
+Aby zapobiec ryzyku wycieku pamięci, użyj jednej z poniższych 2 metod, aby opróżnić tablicę w pętli while w powyższym przykładzie.
+Metoda 2
+Ustawienie właściwości length powoduje usunięcie całego elementu tablicy z nowej długości tablicy do starej długości tablicy. Jest to najbardziej efektywny sposób usuwania i dereferencji wszystkich elementów w tablicy. Zachowuje odniesienie do oryginalnej tablicy
+arr.length = 0; Metoda 3
+Podobne do metody 2, ale zwraca nową tablicę zawierającą usunięte elementy. Jeśli nie potrzebujesz tych elementów, ta metoda jest niewystarczająca, ponieważ nowa tablica jest nadal tworzona tylko po to, aby zostać natychmiast dereferencjonowana.
+arr.splice (0); // nie powinno być używane, jeśli nie chcesz usunąć usuniętych elementów // używaj tej metody, jeśli wykonasz następujące polecenie keepArr = arr.splice (0); // opróżnia tablicę i tworzy nową tablicę zawierającą // usunięte elementy
