@@ -52,11 +52,11 @@ document.getElementById ("paragraph"). textContent = "Hello, World";
 Spowoduje to wybranie elementu z paragrafem id i ustawienie jego treści tekstowej na "Hello, World":
 <p id = "paragraph"> Hello, World </ p>
 Możesz również użyć JavaScript, aby programowo utworzyć nowy element HTML. Rozważmy na przykład dokument HTML z następującą treścią:
-<body> <h1> Dodawanie elementu </ h1> </ body>
+//<body> <h1> //Dodawanie elementu </ h1> </ body>
 W naszym JavaScriptu tworzymy nowy znacznik <p> z właściwością textContent i dodajemy go na końcu treści html:
 var element = document.createElement ("p"); element.textContent = "Hello, World"; document.body.appendChild (element); // dodaj nowo utworzony element do DOM
 To zmieni twój korpus HTML na:
-< body> <h1> Dodawanie elementu </ h1> <p> Hello, World </ p> </ body>
+//< body> <h1> Dodawanie elementu </ h1> <p> Hello, World </ p> </ body>
 Zauważ, że aby manipulować elementami w DOM przy użyciu JavaScript, kod JavaScript musi zostać uruchomiony po utworzeniu odpowiedniego elementu w dokumencie. Można to osiągnąć, umieszczając znaczniki JavaScript <script> po wszystkich innych treści <body>. Alternatywnie możesz również użyć detektora zdarzeń do słuchania np. zdarzenie onload okna, dodanie kodu do tego detektora zdarzeń opóźni uruchomienie kodu do momentu załadowania całej zawartości strony.
 Trzecim sposobem upewnienia się, że cały DOM został załadowany, jest objęcie kodu manipulacji DOM funkcją czasu oczekiwania wynoszącą 0 ms. W ten sposób ten kod JavaScript jest ponownie umieszczany w kolejce na końcu kolejki wykonawczej, co daje przeglądarce szansę na zakończenie pewnych czynności niezwiązanych ze skryptem JavaScript, które czekają na zakończenie przed przystąpieniem do tego nowego fragmentu JavaScript.
 
@@ -80,7 +80,7 @@ Począwszy od Chrome 46.0, window.alert() jest blokowany wewnątrz <iframe>, chy
 Sekcja 1.4: Korzystanie z window.prompt()
 Łatwym sposobem na uzyskanie danych wejściowych od użytkownika jest użycie metody prompt().
 Podpowiedź składniowa (tekst, [domyślnie]);
-tekst: Tekst wyświetlany w polu zachęty. default: Domyślna wartość dla wejścia ﬁeld (opcjonalnie).
+tekst: Tekst wyświetlany w polu zachęty. default: Domyślna wartość dla wejścia ﬁeld (opcjonalnie). 
 Przykłady var age = prompt("Ile lat masz?"); console.log(age); // Drukuje wartość dodaną przez użytkownika
 
 Jeśli użytkownik kliknie przycisk OK, wartość wejściowa zostanie zwrócona. W przeciwnym razie metoda zwraca null.
@@ -283,7 +283,9 @@ Math.floor ("a")
 Kwadratowy korzeń ujemnej liczby zwraca NaN, ponieważ Math.sqrt nie obsługuje liczb wyimaginowanych lub złożonych.
 Math.sqrt(-1)
 
-Rozdział 4: Uwagi Sekcja 4.1: Korzystanie z komentarzy
+Rozdział 4: Uwagi
+
+Sekcja 4.1: Korzystanie z komentarzy
 Aby dodać adnotacje, podpowiedzi lub wykluczyć jakiś kod z wykonywania JavaScript zapewnia dwa sposoby komentowania linii kodu
 Pojedynczy wiersz Komentarz //
 Wszystko po // aż do końca linii jest wyłączone z wykonania.
@@ -1272,6 +1274,7 @@ W ostatnim przypadku nasza domyślna funkcja obsługuje wszystkie brakujące zwi
 Operatory Boolean || and && "zwiąże obwód" i nie oceni drugiego parametru, jeśli pierwsza jest odpowiednio prawdą lub fałszem. Może to być użyte do napisania krótkich warunków, takich jak:
 var x = 10
 x == 10 && alert ("x to 10") x == 10 || alert ("x to nie 10")
+
 Rozdział 12: Tablice Sekcja 12.1: Przekształcanie obiektów podobnych do macierzy w tablice
 Czym są obiekty podobne do tablic?
 JavaScript ma "obiekty podobne do macierzy", które są obiektowymi reprezentacjami tablic o właściwości length. Na przykład:
@@ -1353,7 +1356,9 @@ młody zawierałby następującą tablicę:
 Możesz przeszukiwać całą tablicę pod kątem takiej wartości:
 var young = people.filter ((obj) => {var flag = false; Object.values ​​(obj) .forEach ((val) => {if (String (val) .indexOf ("J")> -1) {flag = true; return;}}); if (flag) return obj;});
 To zwraca:
-[{id: 1, nazwa: "John", wiek: 28}, {id: 2, imię: "Jane", wiek: 31}] Sekcja 12.5: Sortowanie tablic
+[{id: 1, nazwa: "John", wiek: 28}, {id: 2, imię: "Jane", wiek: 31}] 
+
+Sekcja 12.5: Sortowanie tablic
 Metoda .sort () sortuje elementy tablicy. Domyślna metoda posortuje tablicę zgodnie z ciągami znaków kodu Unicode. Aby posortować tablicę numerycznie, metoda .sort () musi mieć przekazany do niej parametr compareFunction.
 Uwaga: Metoda .sort () jest nieczysta. .sort () będzie sortować tablicę w miejscu, tj. zamiast tworzyć posortowaną kopię oryginalnej tablicy, zmieni kolejność oryginalnej tablicy i zwróci ją.
 Sortowanie domyślne
@@ -1499,6 +1504,7 @@ funkcja compareArrays (array1, array2) {var i, isA1, isA2; isA1 = Array.isArray 
 OSTRZEŻENIE: Używanie powyższej funkcji jest niebezpieczne i powinno być opakowane w próbę catch, jeśli podejrzewasz, że istnieje szansa, że ​​tablica ma odniesienia cykliczne (odniesienie do tablicy zawierającej odniesienie do niej)
 a = [0]; a [1] = a; b = [0, a]; compareArrays (a, b); // throws RangeError: Przekroczono maksymalny rozmiar stosu wywołań
 Uwaga: Funkcja używa operatora ścisłej równości === do porównywania elementów nieszablonowych {a: 0} === {a: 0} jest fałszywe
+
 Sekcja 12.10: Odwracanie tablic
 .reverse służy do odwrócenia kolejności elementów wewnątrz tablicy.
 Przykład dla .reverse:
@@ -1552,7 +1558,9 @@ Możesz także mieszać tablice z tablicami innymi niż tablice
 var arr1 = ["a", "b"]; var arr2 = ["e", "f"];
 var arrConc = arr1.concat ("c", "d", arr2);
 Wyniki w nowej tablicy:
-["a", "b", "c", "d", "e", "f"] Sekcja 12.13: Scal dwie tablice jako parę wartości klucza
+["a", "b", "c", "d", "e", "f"] 
+
+Sekcja 12.13: Scal dwie tablice jako parę wartości klucza
 Kiedy mamy dwie osobne tablice i chcemy utworzyć parę wartości klucza z tej dwóch tablic, możemy użyć funkcji zmniejszania tablicy jak poniżej:
 var columns = ["Date", "Number", "Size", "Location", "Age"]; var rows = ["2001", "5", "Big", "Sydney", "25"]; var result = rows.reduce (funkcja (wynik, pole, indeks) {wynik [kolumny [indeks]] = pole, wynik powrotu;}, {})
 console.log (wynik);
@@ -1599,7 +1607,9 @@ FindIndex
 Metoda fi ndIndex () zwraca indeks w tablicy, jeśli element w tablicy spełnia zapewnioną funkcję testowania. W przeciwnym razie zwracane jest -1.
 array = [{wartość: 1}, {wartość: 2}, {wartość: 3}, {wartość
 e: 4}, {wartość: 5}
-]; var index = array.findIndex (item => item.value === 3); // 2 var index = array.findIndex (item => item.value === 12); // -1 Sekcja 12.17: Konwertuj ciąg na tablicę
+]; var index = array.findIndex (item => item.value === 3); // 2 var index = array.findIndex (item => item.value === 12); // -1 
+
+Sekcja 12.17: Konwertuj ciąg na tablicę
 Metoda .split () dzieli ciąg znaków na tablicę podłańcuchów. Domyślnie .split () przerwie łańcuch na podciągi na spacje (""), co jest równoważne wywołaniu .split ("").
 Parametr przekazany do .split () określa znak lub wyrażenie regularne, które ma być użyte do podziału ciągu znaków.
 Aby podzielić ciąg znaków na wywołanie tablicy .split z pustym ciągiem znaków (""). Ważna uwaga: działa to tylko wtedy, gdy wszystkie twoje postacie znajdują się w niższym zakresie znaków Unicode, który obejmuje większość języków angielskich i większości europejskich. W przypadku języków wymagających 3 i 4 bajtowych znaków Unicode, slice ("") rozdzieli je.
@@ -1635,7 +1645,9 @@ Użyj delete, aby usunąć element z tablicy bez zmiany długości tablicy:
 var array = [1, 2, 3, 4, 5]; console.log (array.length); // 5 usuń tablicę [2]; console.log (tablica); // [1, 2, niezdefiniowane, 4, 5] console.log (array.length); // 5
 Array.prototype.length
 Przypisanie wartości do długości tablicy zmienia długość na podaną wartość. Jeśli nowa wartość jest mniejsza niż długość tablicy, elementy zostaną usunięte z końca wartości.
-array = [1, 2, 3, 4, 5]; array.length = 2; console.log (tablica); // [1, 2] Sekcja 12.19: Usuwanie wszystkich elementów
+array = [1, 2, 3, 4, 5]; array.length = 2; console.log (tablica); // [1, 2] 
+
+Sekcja 12.19: Usuwanie wszystkich elementów
 var arr = [1, 2, 3, 4]; Metoda 1
 Tworzy nową tablicę i zastępuje istniejące odniesienie do tablicy nową.
 arr = [];
@@ -1650,3 +1662,709 @@ Ustawienie właściwości length powoduje usunięcie całego elementu tablicy z 
 arr.length = 0; Metoda 3
 Podobne do metody 2, ale zwraca nową tablicę zawierającą usunięte elementy. Jeśli nie potrzebujesz tych elementów, ta metoda jest niewystarczająca, ponieważ nowa tablica jest nadal tworzona tylko po to, aby zostać natychmiast dereferencjonowana.
 arr.splice (0); // nie powinno być używane, jeśli nie chcesz usunąć usuniętych elementów // używaj tej metody, jeśli wykonasz następujące polecenie keepArr = arr.splice (0); // opróżnia tablicę i tworzy nową tablicę zawierającą // usunięte elementy
+
+
+Punkt 12.20: Znajdowanie minimalnego lub maksymalnego elementu
+Jeśli twoja tablica lub obiekt podobny do tablicy ma wartości numeryczne, to znaczy, jeśli wszystkie jego elementy są liczbami, możesz użyć Math.min.apply lub Math.max.apply, przekazując wartość null jako pierwszy argument, a twoja tablica jako druga.
+var myArray = [1, 2, 3, 4];
+Math.min.apply (null, myArray); // 1
+Math.max.apply (null, myArray); // 4 Wersja ≥ 6
+W ES6 możesz użyć operatora ... do rozłożenia tablicy i podjęcia minimalnego lub maksymalnego elementu.
+var myArray = [1, 2, 3, 4, 99, 20];
+var maxValue = Math.max (... myArray); // 99 var minValue = Math.min (... myArray); // 1
+W poniższym przykładzie użyto pętli for:
+var maxValue = myArray [0]; dla (var i = 1; i <myArray.length; i ++) {var currentValue = myArray [i]; if (currentValue> maxValue) {maxValue = currentValue; }} Wersja ≥ 5.1
+W poniższym przykładzie użyto metody Array.prototype.reduce () w celu znalezienia minimum lub maksimum:
+var myArray = [1, 2, 3, 4];
+myArray.reduce (function (a, b) {return Math.min (a, b);}); // 1
+myArray.reduce (funkcja (a, b) {return Math.max (a, b);}); // 4 Wersja ≥ 6
+lub użycie funkcji strzałek:
+myArray.reduce ((a, b) => Math.min (a, b)); // 1 myArray.reduce ((a, b) => Math.max (a, b)); // 4 Wersja ≥ 5.1
+Aby uogólnić wersję, musielibyśmy przekazać wartość początkową, aby pokryć pusty przypadek listy:
+redufunction myMax (array) {return array.reduce (function (maxSoFar, element) {return Math.max (maxSoFar, element);}, -Infinity); }
+myMax ([3, 5]); // 5 myMax ([]); // -Infinity Math.max.apply (null, []); // -Infinity
+Aby uzyskać szczegółowe informacje na temat prawidłowego używania opcji zmniejszenia, zobacz Pomniejszanie wartości.
+
+Sekcja 12.21: Inicjalizacja standardowych tablic
+Istnieje wiele sposobów tworzenia tablic. Najczęstsze są użycie literałów tablicowych lub konstruktora Array:
+var arr = [1, 2, 3, 4]; var arr2 = new Array (1, 2, 3, 4);
+Jeśli konstruktor Array jest używany bez argumentów, tworzona jest pusta tablica.
+var arr3 = new Array ();
+wyniki w:
+[]
+Zauważ, że jeśli jest używany z dokładnie jednym argumentem, a argumentem jest liczba, zamiast tego zostanie utworzona tablica o tejdługości ze wszystkimi niezdefiniowanymi wartościami:
+samejvar arr4 = new Array (4);
+wyniki w:
+[niezdefiniowane, niezdefiniowane, niezdefiniowane, niezdefiniowane]
+To nie ma zastosowania, jeśli pojedynczy argument jest:
+nieliczbowyvar arr5 = new Array ("foo");
+wyniki w:
+["foo"] Wersja ≥ 6
+Podobnie do literału tablicowego, Array.of może być użyty do stworzenia nowej instancji Array z uwzględnieniem kilku argumentów:
+Array.of (21, "Hello", "World");
+wyniki w:
+[21, "Hello", "World"]
+W przeciwieństwie do konstruktora Array, utworzenie tablicy z pojedynczą liczbą, taką jak Array.of (23), utworzy nową tablicę [23], a nie Array z długość 23.
+Innym sposobem utworzenia i zainicjowania tablicy będzie Array.od
+var newArray = Array.from ({length: 5}, (_, index) => Math.pow (index, 4));
+będzie wynik:
+[0, 1, 16, 81, 256] 
+
+Sekcja 12.22: Łączenie elementów tablicy w łańcuchu
+Aby połączyć wszystkie elementy tablicy w łańcuch, możesz użyć metody join:
+console.log (["Hello", "", "świat"]. join ("")); // "Witaj świecie"
+console.log ([1, 800, 555, 1234] .join ("-")); // "1-800-555-1234"
+Jak widać w drugim wierszu, elementy, które nie są ciągami, zostaną najpierw przekonwertowane. Rozdział 12.23: Usuwanie / dodawanie elementów za pomocą splice ()
+Metoda splice () może być używana do usuwania elementów z tablicy. W tym przykładzie usuwamy pierwsze 3 z tablicy.
+var values ​​= [1, 2, 3, 4, 5, 3]; var i = values.indexOf (3); if (i> = 0) {values.splice (i, 1); } // [1, 2, 4, 5, 3]
+Metoda splice () może być również używana do dodawania elementów do tablicy. W tym przykładzie wstawimy liczby 6, 7 i 8 na końcu tablicy.
+var values ​​= [1, 2, 4, 5, 3]; var i = values.length + 1; values.splice (i, 0, 6, 7, 8); // [1, 2, 4, 5, 3, 6, 7, 8]
+Pierwszym argumentem metody splice () jest indeks do usuwania / wstawiania elementów. Drugi argument to liczba elementów do usunięcia. Trzeci argument i dalej to wartości wstawiane do tablicy. Sekcja 12.24: Metoda entries () Metoda
+entries () zwraca nowy obiekt Iterator tablicy, który zawiera pary klucz / wartość dla każdego indeksu w tablicy.
+Wersja ≥ 6 liter var = ["a", "b", "c"];
+dla (const [index, element] letters. centries ()) {console.log (index, element); }
+result
+0 "a" 1 "b" 2 "c"
+Uwaga: Ta metoda nie jest obsługiwana w przeglądarce Internet Explorer.
+Fragmenty tej zawartości z Array.prototype.entries autorstwa Mozilla Contributors objęte licencją CC-by-SA 2.5 
+
+Sekcja 12.25: Usuwanie wartości z tablicy
+Gdy potrzebujesz usunąć konkretną wartość z tablicy, możesz użyć poniższej jednolinijki do utworzenia tablica kopiowania bez podanej wartości:
+array.filter (function (val) {return val! == to_remove;});
+Lub jeśli chcesz zmienić samą tablicę bez tworzenia kopii (na przykład, jeśli napiszesz funkcję, która pobiera tablicę jako funkcję i manipulujesz nią), możesz użyć tego fragmentu:
+while ( index = tablica.indexOf (3)! == -1) {tablica.splice (indeks, 1); }
+A jeśli chcesz usunąć tylko pierwszą znalezioną wartość, usuń pętlę while:
+var index = array.indexOf (to_remove); if (index! == -1) {tablica.splice (indeks, 1); } Rozdział 12.26: Spłaszczanie tablicTablice
+2wymiarowe Version ≥ 6
+W ES6 możemy rozwinąć tablicę przez operatora rozprzestrzeniania ...:
+function flattenES6 (arr) {return [] .concat (... arr); }
+var arrL1 = [1, 2, [3, 4]]; console.log (flattenES6 (arrL1)); // [1, 2, 3, 4] Wersja ≥ 5
+W ES5 możemy to osiągnąć przez .apply ():
+function flatten (arr) {return [] .concat.apply ([], arr); }
+var arrL1 = [1, 2, [3, 4]]; console.log (spłaszczyć (arrL1)); // [1, 2, 3, 4] Tablice o wyższych wymiarach
+Biorąc pod uwagę głęboko zagnieżdżoną tablicę, tak więc
+var deeplyNested = [4, [5,6, [7,8], 9]];
+Można go użyć z tą magiczną konsolą.log
+(String (deeplyNested) .split (','). Map (Number); # => [4,5,6,7,8,9]
+Lub
+const flatten = deepoldNested. toString (). split (','). map (Number) console.log (flatten); # => [4,5,6,7,8,9]
+Obie powyższe metody działają tylko wtedy, gdy tworzona jest tablica . wyłącznie z liczb a wielowymiarowa tablica obiektów nie można FL attened tą metodą12.27.
+Sekcja  szt Dołącz / prepend do array
+unshift
+Zastosowanie .unshift aby dodać jeden lub więcej elementów w początek tablicy,
+na przykład:
+var tablica = [3, 4, 5, 6]; array.unshift (1, 2),
+tablica wyniki:
+[1, 2, 3, 4, 5, 6]
+Push
+Dalej. push służy do dodawania elementów po ostatniej aktualnie istniejącej pozycji,
+na przykład:
+tablica var = [1, 2, 3]; array.push (4, 5, 6),
+tablica wyników:
+[1, 2, 3, 4 , 5, 6]
+Obie metody zwracają nową długość tablicy.
+
+Sekcja 12.28: Klucze i wartości obiektów do tablicy
+var object = {key1: 10, key2: 3, key3: 40, key4: 20};
+var array = []; dla (var ludzie w obiekcie) {array.push ([ludzie, obiekt [ludzie]]); }
+Teraz tablica to
+[["klucz1", 10], ["klucz2", 3], ["klucz3", 40], ["klucz4", 20]]
+
+Rozdział 12.29: Logiczne połączenie wartości
+Wersja ≥ 5.1
+.some i .every pozwala na logiczne powiązanie wartości Array.
+Podczas gdy .some łączy wartości zwracane z OR, .every łączy je z AND.
+Przykłady dla .some
+[false, false] .some (function (value) {return value;}); // Wynik: false
+[false, true] .some (function (value) {return value;}); // Wynik: true
+[true, true] .some (function (value) {return value;}); // Wynik: true
+I przykłady dla .every
+[false, false] .every (function (value) {return value;}); // Wynik: false
+[false, true] .every (function (value) {return value;}); // Wynik: false
+[true, true] .every (function (value) {return value;}); // Wynik: true Punkt 12.30: Sprawdzanie, czy obiekt jest
+tablicą Array.isArray (obj) zwraca wartość true, jeśli obiekt jest tablicą, w przeciwnym wypadku wartość false.
+Array.isArray ([]) // true Array.isArray ([1, 2, 3]) // true Array.isArray ({}) // false Array.isArray (1) // false
+W większości przypadków można wykonać instanceof aby sprawdzić, czy obiekt jest tablicą.
+[] instanceof Array; // true {} instanceof Array; // false
+Array.isArray ma tę przewagę nad wykorzystaniem sprawdzania instancji, że nadal zwróci true, nawet jeśli prototyp tablicy został zmieniony i zwróci wartość false, jeśli prototyp bez tablic został zmieniony na Array
+var arr = []; Object.setPrototypeOf (arr, null); Array.isArray (arr); // true arr instanceof Array; // false 
+
+Sekcja 12.31: Wstawianie elementu do tablicy w określonym indeksie
+Proste wstawienie elementu można wykonać za pomocą metody:
+Array.prototype.splicearr.splice (indeks, 0, element);
+Bardziej zaawansowany wariant z wieloma argumentami i obsługą łańcucha:
+/ * Składnia: array.insert (index, value1, value2, ..., valueN) * /
+Array.prototype.insert = function (index) {this.splice.apply (this , [index, 0] .concat (Array.prototype.slice.call (argumenty, 1))); zwróć to; };
+["a", "b", "c", "d"]. insert (2, "X", "Y", "Z"). slice (1, 6); // ["b", "X", "Y", "Z", "c"]
+A także z łączeniem argumentów tablicowych i obsługą łańcuchów:
+/ * Składnia: array.insert (index, value1, value2, .. ., valueN) * /
+Array.prototype.insert = function (index) {index = Math.min (index, this.length); arguments.length> 1 && this.splice.apply (this, [index, 0] .concat ([]. pop.call (arguments))) && this.insert.apply (this, arguments); zwróć to; };
+["a", "b", "c", "d"]. insert (2, "V", ["W", "X", "Y"], "Z") .łącz ("-" ); // "abVWXYZcd" Rozdział 12.32: Sortowanie wielowymiarowych tablic
+Biorąc pod uwagę tablicę
+var array = [["klucz1", 10], ["klucz2", 3], ["klucz3", 40], ["klucz4", 20] ];
+Możesz sortować sortowanie według numeru (drugi indeks)
+array.sort (funkcja (a, b) {return a [1] - b [1];})
+Wersja ≥ 6 tablic .sort ((a, b) => a [1] - b [1]);
+To wyświetli
+[[klucz2 ", 3], [" klucz1 ", 10], [" klucz4 ", 20], [" klucz3 ", 40]]
+Należy pamiętać, że metoda sortowania działa na macierzy w miejscu. Zmienia tablicę. Większość innych metod tablicowych zwraca nową tablicę, pozostawiając pierwotną nienaruszoną. Jest to szczególnie ważne, jeśli korzystasz z funkcjonalnego stylu programowania i oczekujesz, że funkcje nie będą mieć efektów ubocznych. Sekcja 12.33: Testowanie wszystkich elementów tablicy pod kątem równości
+Metoda .every sprawdza, czy wszystkie elementy tablicowe przechodzą zapewniony test predykatów.
+Aby przetestować wszystkie obiekty pod kątem równości, można użyć następujących fragmentów kodu.
+[1, 2, 1]. Everyry (funkcja (element, i, list) {return item === list [0];}); // false [1, 1, 1] .every (function (item, i, list) {return item === list [0];}); // true Wersja ≥ 6 [1, 1, 1]. everyry ((pozycja, i, lista) => pozycja === lista [0]); // true
+Poniższe fragmenty kodu testują równość właściwości
+niech dane = [{nazwa: "alicja", id: 111}, {nazwa: "alicja", id: 222}];
+data.every (function (element, i, list) {return item === list [0];}); // false data.every (function (element, i, list) {return item.name === list [0] .name;}); // true Version ≥ 6 data.every ((pozycja, i, lista) => item.name === lista [0] .name); // true Sekcja 12.34: Kopiowanie części tablicy
+Metoda slice () zwraca kopię części tablicy.
+Trwa dwa parametry arr.slice ([rozpocząć [, end]]):
+zaczynają
+indeksu od zera, która na początku ekstrakcji.
+end
+Zero-based index, czyli koniec ekstrakcji, cięcie do tego indeksu, ale nie jest uwzględnione.
+Jeśli koniec jest liczbą ujemną, end = arr.length + end.
+Przykład 1
+// Załóżmy, że mamy tablicę alfabetów var arr = ["a", "b", "c", "d" ...];
+// Chcę tablicy pierwszych dwóch alfabetów var newArr = arr.slice (0, 2); // newArr === ["a", "b"] Przykład 2 // Powiedzmy, że mamy tę tablicę liczb // i nie wiem, że to koniec var arr = [0, 1, 2, 3, 4 , 5, 6, 7, 8, 9 ...];
+// Chcę wyciąć tę tablicę zaczynając od // liczba 5 na jej koniec var newArr = arr.slice (4); // newArr === [5, 6, 7, 8, 9 ...]
+Rozdział 13: Obiekty
+Właściwość Opis value Wartość do przypisania do właściwości. writable Czy wartość nieruchomości może zostać zmieniona czy nie. enumerable Określa, czy właściwość zostanie wyliczona w for w pętli, czy nie. konfigurowalne Czy możliwe będzie ponowne określenie deskryptora właściwości, czy nie. get Funkcja, która zostanie wywołana, która zwróci wartość właściwości. set Funkcja, która ma zostać wywołana, gdy właściwość ma przypisaną wartość. Sekcja 13.1: Płytkie klonowanie
+Wersja ≥ 6
+Funkcja Object.assign () ES6 może być używana do kopiowania wszystkich przeliczalnych właściwości z istniejącej instancji obiektu do nowej.
+const existing = {a: 1, b: 2, c: 3};
+const clone = Object.assign ({}, existing);
+Obejmuje to właściwości Symbol oprócz String.
+Zatrzymywanie obiektów / rozkładanie spreadu, które jest obecnie propozycją etapu 3, zapewnia jeszcze prostszy sposób tworzenia płytkich klonów instancji Object:
+const existing = {a: 1, b: 2, c: 3};
+const {... clone} = istniejący;
+Jeśli potrzebujesz obsługi starszych wersji JavaScript, najbardziej kompatybilnym sposobem klonowania obiektu jest ręczne iterowanie po jego właściwościach i filtrowanie dziedziczonych obiektów przy użyciu metody .hasOwnProperty ().
+var existing = {a: 1, b: 2, c: 3};
+var clone = {}; dla (var prop w istniejącym) {if (existing.hasOwnProperty (prop)) {clone [prop] = existing [prop]; }} Rozdział 13.2: Object.freeze
+Wersja ≥ 5
+Object.freeze czyni obiekt niezmiennym, zapobiegając dodawaniu nowych właściwości, usuwaniu istniejących właściwości i modyfikacji możliwości przeliczania, kon fi gurowalności i zdolności do zapisywania istniejących właściwości. Zapobiega to również zmianie wartości istniejących właściwości. Jednak nie działa rekursywnie, co oznacza, że ​​obiekty podrzędne nie są automatycznie zamrożone i mogą ulec zmianie.
+Operacje następujące po zamrożeniu nie powiedzie się po cichu, chyba że kod działa w trybie ścisłym. Jeśli kod jest w trybie ścisłym
+, zostanie wygenerowany TypeError.
+var obj = {foo: 'foo', bar: [1, 2, 3], baz: {foo: 'zagnieżdżony-foo'}};
+Object.freeze (obj);
+// Nie można dodać nowych właściwości obj.newProperty = true;
+// Nie można modyfikować istniejących wartości lub ich deskryptorów: obj.foo = 'not foo'; Object.defineProperty (obj, 'foo', {writable: true});
+// Nie można usunąć istniejących właściwości delete obj.foo;
+// Zagnieżdżone obiekty nie są zamrożone obj.bar.push (4); obj.baz.foo = 'new foo'; 
+
+Sekcja 13.3: Klonowanie obiektów
+Gdy chcesz kompletną kopię obiektu (np. Właściwości obiektu i wartości wewnątrz tych właściwości, itp.), Nazywa się to głębokim klonowaniem.
+Wersja ≥ 5.1
+Jeśli obiekt można serializować do JSON, możesz utworzyć jego głęboki klon za pomocą kombinacji JSON.parse i JSON.stringify:
+var existing = {a: 1, b: {c: 2}}; var copy = JSON.parse (JSON.stringify (istniejący)); existing.bc = 3; // copy.bc nie ulegnie zmianie
+Zwróć uwagę, że JSON.stringify konwertuje obiekty Date na reprezentacje ciągów w formacie ISO, ale JSON.parse nie przekształci łańcucha z powrotem w Date.
+W JavaScript nie ma wbudowanej funkcji tworzenia głębokich klonów, a generalnie nie jest możliwe tworzenie głębokich klonów dla każdego obiektu z wielu powodów. Na przykład
+obiekty mogą mieć nieprzeliczalne i ukryte właściwości, których nie można wykryć. obiekty pobierające i ustawiające obiekty nie mogą być kopiowane. obiekty mogą mieć strukturę cykliczną. właściwości funkcji mogą zależeć od stanu w ukrytym zakresie.
+Zakładając, że masz "ładny" obiekt, którego właściwości zawierają tylko prymitywne wartości, daty, tablice lub inne "ładne" obiekty, to następująca funkcja może być użyta do tworzenia głębokich klonów. Jest to funkcja rekursywna, która może wykrywać obiekty o strukturze cyklicznej i będzie zgłaszać błędy w takich przypadkach.
+function deepClone (obj) {function clone (obj, traversedObjects) {var copy; // typy pierwotne if (obj === null || typeof obj! == "object") {return obj; }
+// wykryj cykle dla (var i = 0; i <traversedObjects.length; i ++) {if (traversedObjects [i] === obj) {throw new Error ("Nie można sklonować okrągłego obiektu."); }}
+// datuje if (obj wystąpienie Date) {copy = new Date (); copy.setTime (obj.getTime ()); kopia zwrotna; } // tablice if (obj instanceof Array) {copy = []; dla (var i = 0; i <obj.length; i ++) {copy.push (clone (obj [i], traversedObjects.concat (obj))); } return copy; } // proste obiekty if (obj instanceof Object) {copy = {}; for (klucz var w obj) {if (obj.hasOwnProperty (key)) {copy [key] = clone (obj [key], traversedObjects.concat (obj)); }} return copy; } throw new Error ("Nie jest obiektem klonującym."); }
+return clone (obj, []); } 
+
+Rozdział 13.4: Iteracja właściwości obiektu
+Możesz uzyskać dostęp do każdej właściwości należącej do obiektu z tą pętlą
+dla (właściwość var ​​w obiekcie) {// zawsze sprawdź, czy obiekt ma właściwość if (object.hasOwnProperty (właściwość)) {// rób rzeczy}}
+Powinieneś dołączyć dodatkowe sprawdzenie dla hasOwnProperty, ponieważ obiekt może mieć właściwości odziedziczone z klasy bazowej obiektu. Niewykonanie tej kontroli może spowodować błędy.
+Wersja ≥ 5
+Można również użyć funkcji Object.keys, która zwraca tablicę zawierającą wszystkie właściwości obiektu, a następnie można przechodzić przez tę tablicę za pomocą funkcji Array.map lub Array.forEach.
+var obj = {0: 'a', 1: 'b', 2: 'c'};
+Object.keys (obj) .map (function (key) {console.log (key);}); // output: 0, 1, 2 
+
+Section 13.5: Object.assign
+Metoda Object.assign () służy do kopiowania wartości wszystkich przeliczalnych właściwości z jednego lub więcej obiektów źródłowych do obiektu docelowego. Zwróci obiekt docelowy.
+Użyj go, aby przypisać wartości do istniejącego obiektu:
+var user = {firstName: "John"};
+Object.assign (user, {lastName: "Doe", age: 39}); console.log (użytkownik); // Dzienniki: {firstName: "John", lastName: "Doe", wiek: 39}
+Lub utworzyć płytką kopię obiektu:
+var obj = Object.assign ({}, user);
+console.log (obj); // Logi: {firstName: "John", lastName: "Doe", wiek: 39}
+Lubwiele właściwości z wielu obiektów do jednego:
+łączvar obj1 = {a: 1}; var obj2 = {b: 2}; var obj3 = {c: 3}; var obj = Object.assign (obj1, obj2, obj3);
+console.log (obj); // Logi: {a: 1, b: 2, c: 3} console.log (obj1); // Logi: {a: 1, b: 2, c: 3}, sam obiekt docelowy jest zmieniony
+Prymitywy zostaną opakowane, wartość null i unde fizostaną zignorowane:
+nowanevar var_1 = 'abc'; var var_2 = true; var var_3 = 10; var var_4 = Symbol ("foo");
+var obj = Object.assign ({}, var_1, null, var_2, undefined, var_3, var_4); console.log (obj); // kłody: { "0", "a", "1", "b", "2", "C"}
+Uwaga tylko łańcuch owijki mogą mieć własne właściwości przeliczalnego
+użytkowania jako reduktor: (łączy tablicę z obiektem)
+zwraca users.reduce ((result, user) => Object.assign ({}, {[user.id]: user}) 
+
+Sekcja 13.6: Reszta obiektu / spread (. ..)
+Wersja> 7
+Rozsiewanie obiektów jest po prostu syntaktycznym cukrem dla Object.assign ({}, obj1, ..., objn);
+Wykonuje się to za pomocą operatora:
+let obj = {a: 1};
+let obj2 = {... obj, b: 2, c: 3};
+console.log (obj2); // {a: 1, b: 2, c: 3};
+jako Object.assign robi płytkie scalanie, a nie głębokie przejmowane2};}.
+pozwoli obj3 = {... obj b: {C:
+console.log (obj3) // {a 1 b: {C: 2};}
+UWAGA: Specyfikacji jest aktualnie etap 3
+
+Sekcja 13.7: Object.de fi neProperty
+Wersja ≥ 5
+Pozwala nam na zdefiniowanie właściwości w istniejącym obiekcie za pomocą deskryptora właściwości
+var obj = {};
+Object.defineProperty (obj, 'foo', {value: 'foo'} );
+konsola.log (obj.foo);
+Wyjście konsoli
+foo
+Object.de FineProperty można wywołać za pomocą następujących opcji:
+Object.defineProperty (obj, 'nameOfTheProperty', {value: valueOfTheProperty, writable: true, // jeśli false, właściwość jest konfigurowalna tylko do odczytu: true, // true oznacza, że ​​właściwość może zmień później wyliczalne: true // true oznacza, że ​​właściwość można wyliczyć tak jak w pętli for..in});
+Object.defineProperties pozwala na definiowanie wielu właściwości naraz.
+var obj = {};
+Object.defineProperties (obj, {property1: {wartość: true, zapisywalny: true}, property2: {wartość: "Hello", zapisywalny: false}}); Rozdział 13.8: Właściwości dostępu (get i set)
+Wersja ≥ 5
+Traktuj właściwość jako kombinację dwóch funkcji, jedną, aby uzyskać wartość od niej, a drugą, aby ustawić w niej wartość.
+Właściwość get deskryptora właściwości jest funkcją, która zostanie wywołana w celu pobrania wartości z właściwości.
+Ustawiona właściwość jest również funkcją, zostanie wywołana, gdy właściwość ma przypisaną wartość, a nowa wartość zostanie przekazana jako argument.
+Nie możesz przypisać wartości lub zapisu do deskryptora, który otrzymał lub ustaw
+var person = {imię i nazwisko: "John", nazwisko: "Doe"}; Object.defineProperty (person, 'fullName', {get: function () {return this.name + "" + this.surname;}, set: function (value) {[this.name, this.surname] = value. rozdzielać(" "); } });
+console.log (person.fullName); // -> "John Doe"
+person.surname = "Hill"; console.log (person.fullName); // -> "John Hill"
+person.fullName = "Mary Jones"; console.log (person.name) // -> "Mary"
+
+Rozdział 13.9: Dynamiczne / zmienne nazwy właściwości
+Czasami nazwa właściwości musi być zapisana w zmiennej. W tym przykładzie pytamy użytkownika, jakie słowo należy wyszukać, a następnie podajemy wynik z obiektu, który nazwałem słownikiem.
+var dictionary = {sałata: "wegetarianin", banan: "owoc", pomidor: "to zależy od kogo pytasz", jabłko: "owoc", jabłko: "Steve Jobs kołysze!" // wielkość liter ma znaczenie)}
+var word = prompt ("Jakie słowo chcesz dzisiaj wyszukać?") var definition = dictionary [word]
+alert (word + '\ n \ n "+ definicja)
+Zwróć uwagę, w jaki sposób używamy notacji nawiasów klamrowych [], aby spojrzeć na zmienną o nazwie słowo; gdybyśmy używali tradycyjnych. notacja, to dosłownie przyjąłby wartość, stąd:
+console.log (dictionary.word) // nie działa, ponieważ słowo jest brane dosłownie, a słownik nie ma pola o nazwie `word` console.log (dictionary.apple) // to działa! ponieważ jabłko jest brane dosłownie
+console.log (słownik [word]) // to działa! ponieważ słowo jest zmienną, a użytkownik wpisał jedno ze słów z naszego słownika po wyświetleniu zachęty console.log (słownik [jabłko]) // błąd! jabłko nie jest zdefiniowane (jako zmienna)
+Można również napisać wartości literowe z notacją [], zastępując słowo zmienne ciągiem "jabłko". Zobacz przykład [Właściwości ze znakami specjalnymi lub słowami zastrzeżonymi].
+Możesz także ustawić właściwości dynamiczne za pomocą składni nawiasów:
+var property = "test"; var obj = {[właściwość] = 1; };
+console.log (obj.test); // 1
+Robi to samo, co:
+var property = "test"; var obj = {}; obj [właściwość] = 1; 
+
+Rozdział 13.10: Tablice są obiektami
+Uwaga: Tworzenie obiektów podobnych do tablic nie jest zalecane. Warto jednak zrozumieć, w jaki sposób działają, szczególnie podczas pracy z DOM. To wyjaśni, dlaczego regularne operacje na tablicach nie działają na obiektach DOM zwróconych z wielu funkcji dokumentu DOM. (querySelectorAll, form.elements)
+Przypuśćmy, że stworzyliśmy następujący obiekt, który ma pewne właściwości, które można zobaczyć w tablicy.
+var anObject = {foo: 'bar', length: 'interesting', '0': "zero!", "1": "jeden!" };
+Następnie utworzymy tablicę.
+var anArray = ["zero.", "jeden."];
+Teraz zwróć uwagę, jak możemy kontrolować zarówno obiekt, jak i tablicę w ten sam sposób.
+console.log (anArray [0], anObject [0]); // wyniki: zero. zero! console.log (anArray [1], anObject [1]); // wyniki: jeden. jeden! console.log (anArray.length, anObject.length); // wyniki: 2 interesujące
+console.log (anArray.foo, anObject.foo); // output: undefined bar
+Ponieważ anArray jest w rzeczywistości obiektem, podobnie jak anObject, możemy nawet dodać niestandardowe właściwości wordy do anArray
+Disclaimer: Tablice z niestandardowymi właściwościami zazwyczaj nie są zalecane, ponieważ mogą być mylące, ale mogą być przydatne w zaawansowanych przypadkach gdzie potrzebujesz zoptymalizowanych funkcji tablicy. (tj. obiekty jQuery)
+anArray.foo = 'to działa!'; console.log (anArray.foo);
+Możemy nawet uczynić obiekt anObject obiektem typu tablicowym, dodając długość.
+anObject.length = 2;
+Następnie możesz użyć pętli w stylu C do iterowania przez obiekt anObject, tak jakby był to Array. Patrz: Tablica Iteracja
+Zauważ, że anObject jest tylko obiektem tablicowym. (znany również jako lista) Nie jest prawdziwą tablicą. Jest to ważne, ponieważ funkcje takie jak push i forEach (lub dowolna wygodna funkcja znaleziona w Array.prototype) nie będą działać domyślnie na obiektach podobnych do tablic.
+Wiele funkcji dokumentu DOM zwróci listę (np. QuerySelectorAll, form.elements), która jest podobna do anObject, który stworzyliśmy powyżej. Zobacz Konwertowanie obiektów podobnych do tablicowych na tablice
+console.log (typeof anArray == 'object', typeof anObject == 'object'); // output: true true console.log (anArray instanceof Object, anObject instanceof Object); // output: true true console.log (anArray instanceof Array, anObject instanceof Array); // output: true false console.log (Array.isArray (anArray), Array.isArray (anObject)); // wyniki: true false Sekcja 13.11: Object.seal
+Wersja ≥ 5
+Object.seal zapobiega dodawaniu lub usuwaniu właściwości z obiektu. Po zapieczętowaniu obiektu jego deskryptory właściwości nie mogą zostać przekonwertowane na inny typ. W przeciwieństwie do Object.freeze pozwala na edycję właściwości.
+Próby wykonania tych operacji na zamkniętym obiekcie nie powiedzie się po cichu
+var obj = {foo: 'foo', bar: function () {return 'bar "; }};
+Object.seal (obj)
+obj.newFoo = 'newFoo'; obj.bar = function () {return 'foo'};
+obj.newFoo; // undefined obj.bar (); // 'foo'
+// Nie można uczynić foo własnością dostępową Object.defineProperty (obj, 'foo', {get: function () {return 'newFoo';}}); // TypeError
+// Ale możesz uczynić go tylko do odczytu Object.defineProperty (obj, 'foo', {
+write: false}); // TypeError
+obj.foo = 'newFoo'; obj.foo; // 'bla';
+W trybie ścisłym te operacje spowodują TypeError
+(function () {'use strict';
+    var obj = {foo: 'foo'};
+    Object.seal (obj);
+    obj.newFoo = 'newFoo'; // TypeError} ( )); Rozdział 13.12: Konwertuj wartości obiektu na tablicę
+Biorąc pod uwagę ten obiekt:
+var obj = {a: "hello", b: "to jest", c: "javascript!",};
+Możesz przekonwertować jego wartości do tablicy, wykonując:
+var tablica = Object.keys (obj) .map (function (key) {return obj [key];});
+console.log (tablica); // ["cześć", "to jest", "javascript!"] Rozdział 13.13: Pobieranie właściwości z obiektu
+Charakterystyka właściwości:
+Właściwości, które mogą być pobrane z obiektu, mogą mieć następujące cechy:
+Enumerable Non - Enumerable own przy
+tworzeniu właściwości za pomocą Object.de fi neProperty (y) możemy ustawić jego charakterystykę z wyjątkiem "własnych". Właściwości, które są dostępne na poziomie bezpośrednim, nie na poziomie prototypu (__proto__) obiektu, są nazywane własnymi właściwościami.
+A właściwości dodane do obiektu bez użycia Object.defindProperty (y) nie będą miały swojej przeliczalnej cechy. Oznacza to, że uważa się to za prawdziwe.
+Cel wymienialności:
+Głównym celem ustawienia właściwości przeliczalnych dla właściwości jest udostępnienie konkretnej właściwości obiektu
+dostępności podczas pobierania jej z obiektu, przy użyciu różnych metod programowych. Te różne metody zostaną omówione głęboko poniżej.
+Metody pobierania właściwości:
+Właściwości z obiektu można odzyskać za pomocą następujących metod dla
+pętli w .l.
+Pętla ta jest bardzo użyteczna przy pobieraniu wyliczalnych właściwości z obiektu. Dodatkowo, ta pętla pobierze wyliczalne własne właściwości, jak również zrobi to samo pobieranie przez przechodzenie przez prototypowy łańcuch, dopóki nie zobaczy prototypu jako wartości zerowej.
+// Przykład 1: Proste dane var x = {a: 10, b: 3}, rekwizyty = [];
+dla (prop in x) {props.push (prop); }
+console.log (rekwizyty); // ["a", "b"]
+// Przykład 2: Dane z właściwościami przeliczalnymi w łańcuchu prototypów var x = {a: 10, __proto__: {b: 10}}, props = [];
+dla (prop in x) {props.push (prop); }
+console.log (rekwizyty); // ["a", "b"]
+// Przykład 3: Dane z nielicznymi właściwościami var x = {a: 10}, props = []; Object.defineProperty (x, "b", {wartość: 5, wyliczalna: false});
+dla (prop in x) {props.push (prop); }
+console.log (rekwizyty); // ["a"]
+Object.keys () function2.
+Ta funkcja została zaprezentowana jako część ECMAScript 5. Służy do pobierania własnych właściwości z obiektu. Przed jego wydaniem ludzie używali do pobierania własnych właściwości z obiektu, łącząc pętlę for..in i Object.prototype.hasOwnProperty ().
+// Przykład 1: Proste dane var x = {a: 10, b: 3}, rekwizyty;
+rekwizyty = Object.keys (x);
+console.log (rekwizyty); // ["a", "b"]
+// Przykład 2: Dane z właściwościami przeliczalnymi w łańcuchu prototypów var x = {a: 10, __proto__: {b: 10}}, rekwizyty;
+rekwizyty = Object.keys (x);
+console.log (rekwizyty); // ["a"]
+// Przykład 3: Dane z nielicznymi właściwościami var x = {a: 10}, rekwizyty; Object.defineProperty (x, "b", {wartość: 5, wyliczalna: false});
+rekwizyty = Object.keys (x);
+console.log (rekwizyty); // ["a"]
+Object.getOwnProperties () function3.
+Ta funkcja pobierze zarówno przeliczalne, jak i nieprzeliczalne, własne właściwości z obiektu. Został również wydany jako część ECMAScript 5.
+// Ex 1: Simple data var x = {a: 10, b: 3}, rekwizyty;
+props = Object.getOwnPropertyNames (x);
+console.log (rekwizyty); // ["a", "b"]
+// Przykład 2: Dane z właściwościami przeliczalnymi w łańcuchu prototypów var x = {a: 10, __proto__: {b: 10}}, rekwizyty;
+props = Object.getOwnPropertyNames (x);
+console.log (rekwizyty); // ["a"]
+// Przykład 3: Dane z nielicznymi właściwościami var x = {a: 10}, rekwizyty; Object.defineProperty (x, "b", {wartość: 5, wyliczalna: false});
+props = Object.getOwnPropertyNames (x);
+console.log (rekwizyty); // ["a", "b"]
+Różne:
+Poniżej przedstawiono technikę pobierania wszystkich właściwości (własna,,, wszystkie prototypowe) z obiektu,
+wyliczalnanieliczalnafunkcja getAllProperties (obj, props = []) {return obj == null? rekwizyty: getAllProperties (Object.getPrototypeOf (obj), props.concat (Object.getOwnPropertyNames (obj))); }
+var x = {a: 10, __proto__: {b: 5, c: 15}};
+// dodanie nieprzewidywalnej właściwości do prototypu pierwszego poziomu Object.defineProperty (x .__ proto__, "d", {wartość: 20, przeliczalne: false});
+console.log (getAllProperties (x)); ["a", "b", "c", "d", "... inne domyślne rekwizyty rdzenia ..."]
+A to będzie obsługiwane przez przeglądarki obsługujące ECMAScript 5.
+Rozdział 13.14: Właściwość Tylko do odczytu
+Wersja ≥ 5
+Używając deskryptorów właściwości możemy dokonać tylko odczytu właściwości, a każda próba zmiany jej wartości nie powiedzie się po cichu, wartość nie zostanie zmieniona i nie zostanie zgłoszony błąd.
+Zapisywalna właściwość w deskryptorze właściwości wskazuje, czy tę właściwość można zmienić, czy też nie.
+var a = {};
+Object.defineProperty (a, 'foo', {value: 'original', writable: false});
+a.foo = "nowy";
+console.log (a.foo);
+Console output
+original
+
+Section 13.15: Nieprzeliczalna właściwość
+Version ≥ 5
+Możemy uniknąć pojawienia się właściwości dla pętli (... w ...)
+Właściwość przeliczalna deskryptora właściwości określa, czy ta właściwość zostanie wyliczona podczas przechodzenia przez pętlę właściwości obiektu.
+
+var obj = {};
+Object.defineProperty (obj, "foo", {wartość: "pokaż", wyliczalne: true}); Object.defineProperty (obj, "bar", {wartość: "ukryj", wyliczalna: false});
+dla (var prop w obj) {console.log (obj [prop]); }
+Wyjście konsoli
+Pokaż
+Sekcja 13.16: Opis właściwości blokady
+Wersja ≥ 5
+Deskryptor właściwości może zostać zablokowany, więc nie można w nim wprowadzać żadnych zmian. W dalszym ciągu możliwe będzie normalne korzystanie z właściwości, przypisywanie i pobieranie wartości z niej, ale każda próba jej ponownego wyrzucenia spowoduje zgłoszenie wyjątku.
+Konfigurowalna właściwość deskryptora właściwości służy do blokowania dalszych zmian deskryptora.
+var obj = {};
+// Zdefiniuj "foo" jako tylko do odczytu i zablokuj obiekt Object.defineProperty (obj, "foo", {wartość: "oryginalna wartość", zapis: false, konfigurowalny: false});
+ 
+Object.defineProperty (obj, "foo", {writable: true});
+Ten błąd zostanie:
+zgłoszonyTypeError: Can not rede fi ne property: foo
+A właściwość będzie nadal tylko do odczytu.
+obj.foo = "nowa wartość"; console.log (foo);
+wyjściowa w konsoli
+WartośćWartość
+13.17: Object.getOwnPropertyDescriptor
+Pobierz opis określonej właściwości w obiekcie.
+var sampleObject = {hello: 'world'};
+Object.getOwnPropertyDescriptor (sampleObject, 'hello'); // Object {value: "world", writable: true, enumerable: true, configurable: true} Rozdział 13.18: Deskryptory i nazwane właściwości
+Właściwości są członkami obiektu. Każda nazwana właściwość to para (nazwa, deskryptor). Nazwa jest łańcuchem, który umożliwia dostęp (za pomocą notacji obiektu object.propertyName lub obiektu notacji nawiasów kwadratowych ['propertyName']). Deskryptor jest zapisem pól definiujących właściwości obiektu, gdy jest on dostępny (co dzieje się z własnością i jaka jest wartość zwrócona z dostępu do niej). Ogólnie właściwość wiąże nazwę z zachowaniem (możemy myśleć o zachowaniu jako czarnej skrzynki).
+Istnieją dwa typy nazwanych właściwości: właściwość
+data: nazwa właściwości jest powiązana z wartością 1. właściwość accessor: nazwa właściwości jest powiązana z jedną lub dwiema funkcjami akcesora.2.
+Demonstracja:
+obj.propertyName1 = 5; // tłumaczy za kulisami do // przypisanie 5 do pola wartości *, jeśli jest to właściwość danych // lub wywołanie funkcji set z parametrem 5, jeśli właściwość accessorokreśla,
+// * faktycznieczy przypisanie ma mieć miejsce w przypadek właściwości danych // zależy również od obecności i wartości zapisywalnego pola - od tego późniejpola
+Typ właściwości jest określony przezjej deskryptora, a właściwość nie może być obu typów.
+Deskryptory danych 
+Wymagane pola: wartość lub zapisywalny lub oba pola opcjonalne: konfigurowalne, przeliczalne
+Próbka:
+{wartość: 10, zapisywalna: prawdziwa; }
+Deskryptory Accessora 
+Wymagane pola: get or set lub oba pola opcjonalne: konfigurowalne, przeliczalne
+Przykład:
+{get: function () {return 10; }, enumerable: true}
+znaczenie pól i ich wartości domyślne konfigurowalne, przeliczalne i zapisywalne: Wszystkie
+te klucze mają wartość domyślną false. konfigurowalna ma wartość true wtedy i tylko wtedy, gdy typ tego deskryptora właściwości może zostać zmieniony i właściwość może zostać usunięta z odpowiedniego obiektu. przeliczalne jest prawdziwe wtedy i tylko wtedy, gdy ta właściwość pojawia się podczas wyliczania właściwości na odpowiednim obiekcie. zapisywalny jest prawdziwy wtedy i tylko wtedy, gdy wartość powiązana z właściwością może zostać zmieniona za pomocą operatora przypisania.
+get i set:
+te klucze są domyślnie niezdefiniowane. get jest funkcją, która służy jako getter dla właściwości, lub nieokreśloną, jeśli nie ma żadnego gettera. Zwrot funkcji zostanie użyty jako wartość właściwości. set to funkcja, która służy jako seter dla właściwości lub nieokreślona, ​​jeśli nie ma ustawnika. Funkcja otrzyma jako jedyny argument nową wartość przypisaną do właściwości.
+value:
+ten klucz jest domyślnie niezdefiniowany. Wartość powiązana z właściwością. Może to być dowolna poprawna wartość JavaScript (numer, obiekt, funkcja itp.).
+Przykład:
+    var obj = {propertyName1: 1}; // ta para jest faktycznie ('propertyName1', {wartość: 1, // zapisywalny: true, // przeliczalny: true, // konfigurowalny: true}) Object.defineProperty (obj, 'propertyName2', {get: function ( ) {console.log ("to będzie rejestrowane" + "za każdym razem, gdy uzyskuje się dostęp do właściwości nazwa_domeny2, aby uzyskać jej wartość");}, ustaw: function () {console.log ("i będzie rejestrowane" + "za każdym razem, gdy właściwość nazwa2 \ 's wartość jest próbowana być ustawione ") // będzie traktowane tak, jak ma przeliczalne: false, konfigurowalne: false}}); // właściwośćNazwa1 to nazwa właściwości danych obiektu //, ato nazwa właściwości programu korzystającego
+nazwa_właściwości2obj.propertyName1 = 3; console.log (obj.propertyName1); // 3
+obj.propertyName2 = 3; // i to będzie rejestrowane za każdym razem, gdy próbujemy ustawić wartość właściwości propertyName2 na console.log (obj.propertyName2); // to będzie rejestrowane za każdym razem, gdy uzyskuje się dostęp do właściwości NazwaNazwa2, aby uzyskać jej wartość Sekcja 13.19: Object.keys
+Wersja ≥ 5
+Object.keys (obj) zwraca tablicę kluczy danego obiektu.
+var obj = {a: "cześć", b: "to jest", c: "javascript!" };
+var keys = Object.keys (obj);
+console.log (klucze); // ["a", "b", "c"] Rozdział 13.20: Właściwości ze znakami specjalnymi lub słowami zastrzeżonymi
+Podczas gdy notacja właściwości obiektu jest zwykle zapisywana jako myObject.property, dozwolone będą tylko znaki normalnie występujące w nazwach zmiennych JavaScript , czyli głównie litery, cyfry i podkreślenie (_).
+Jeśli potrzebujesz znaków specjalnych, takich jak spacja, ☺ lub treść dostarczona przez użytkownika, jest to możliwe za pomocą notacji nawiasów [].
+myObject ['special property ☺'] = 'to działa!' console.log (myObject ['specjalna właściwość ☺']) All-digit properties:
+Oprócz znaków specjalnych, nazwy właściwości, które są pełnymi cyframi będą wymagały zapisu nawiasów. Jednak w tym przypadku właściwość nie musi być zapisywana jako ciąg znaków.
+myObject [123] = "cześć!" // liczba 123 jest automatycznie konwertowana na ciąg konsolowy.log (myObject ['123']) // zauważ, jak za pomocą ciągu 123 utworzono ten sam wynik console.log (myObject ['12 '+' 3 ']) // string concatenation console.log (myObject [120 + 3]) // arytmetyczna, nadal daje 123 i produkuje ten sam wynik console.log (myObject [123.0]) // to też działa, ponieważ 123.0 ocenia do 123 console.log (myObject [ '123.0']) // to NIE działa, ponieważ '123'! = '123.0'początkowe
+Jednakzera nie są zalecane, ponieważ są interpretowane jako notacja dziesiętna. (TODO, powinniśmy utworzyć i połączyć się z przykładem opisującym notację ósemkową, szesnastkową i wykładniczą)
+Zobacz także: Przykład [Tablice są obiektami]. Rozdział 13.21: Tworzenie obiektu
+Iterable Wersja ≥ 6 var myIterableObject = {}; // Obiekt Iterable musi definiować metodę znajdującą się przy kluczu Symbol.iterator: myIterableObject [Symbol.iterator] = function () {// Iterator powinien zwracać return obiektu Iterator {// Obiekt Iterator musi implementować metodę, następnie () next: function () {// next musi sam zwrócić obiekt IteratorResult, jeśli (! this.iterated) {this.iterated = true; // Obiekt IteratorResult ma dwie właściwości return {//, czy iteracja jest zakończona, i wykonane: false, // wartość bieżącej wartości iteracji: 'Jeden'}; } return {// Po zakończeniu iteracji wystarczy wykonać właściwość done done: true}; }, iterowane: false}; };
+dla (var c of myIterableObject) {console.log (c); }
+Wyjście konsoli
+Jedna
+sekcja 13.22: Iterowanie po obiektach - Object.entries ()
+Wersja ≥ 8
+Proponowana metoda Object.entries () zwraca tablicę par klucz / wartość dla danego obiektu. Nie zwraca on iteratora takiego jak Array.prototype.entries (), ale tablica zwrócona przez Object.entries () może być iterowana
+niezależnie.
+const obj = {one: 1, two: 2, three: 3};
+Object.entries (obj);
+Wyniki w:
+[["jeden", 1], ["dwa", 2], ["trzy", 3]]
+Jest to przydatny sposób na iterację par klucz / wartość obiektu:
+dla (const [key , value] z Object.entries (obj)) {console.log (key); // "jeden", "dwa" i "trzy" console.log (wartość); // 1, 2 i 3} Rozdział 13.23: Object.values ​​()
+Wersja ≥ 8
+Metoda Object.values ​​() zwraca tablicę własnych wyliczalnych wartości właściwości danego obiektu, w tej samej kolejności, w jakiej dostarczono dla obiektu .. .in loop (różnica jest taka, że ​​pętla for-in wylicza również właściwości w łańcuchu prototypów).
+var obj = {0: 'a', 1: 'b', 2: 'c'}; console.log (Object.values ​​(obj)); // ['a', 'b', 'c']
+Uwaga:
+Aby uzyskać wsparcie dla przeglądarki, odsyłamy do tego łącza
+
+Rozdział 14: Arytmetyka (matematyka) Rozdział 14.1: Stałe
+Stałe Opis Przybliżona Math.E Podstawa logarytmu naturalnego e 2.718 Math.LN10 Logarytm naturalny z 10 2.302 Math.LN2 Logarytm naturalny z 2 0.693 Math.LOG10E Logarytm Base 10 o 0.434 Math.LOG2E Logarytm Base 2 o 1.442 Math.PI Pi: stosunek obwodu koła do średnicy (π) 3.14 Math.SQRT1_2 Pierwiastek kwadratowy z 1/2 0,707 Math.SQRT2 Pierwiastek kwadratowy z 2 1,414
+Liczba.EPSILON Różnica
+między jedną a najmniejszą wartością większą niż jedna reprezentowana jako liczba
+2.2204460492503130808472633361816E-16
+Number.MAX_SAFE_INTEGER
+Największa liczba całkowita n taka, że ​​n n + 1 są dokładnie przedstawiane jako liczba
+2 ^ 53 - 1
+Number.MAX_VALUE Największa pozytywna, pełna wartość Number 1.79E + 308
+Number.MIN_SAFE_INTEGER
+Najmniejsza liczba całkowita n taka, że ​​n i n - 1 są dokładnie reprezentowane jako liczba
+- ( 2 ^ 53 - 1)
+Number.MIN_VALUE Najmniejsza wartość dodatnia dla N umber 5E-324 Number.NEGATIVE_INFINITY Wartość ujemnej nieskończoności (-∞) Liczba POSITIVE_INFINITY Wartość dodatniej nieskończoności (∞) Nieskończoność Wartość dodatniej nieistotności (∞) Sekcja 14.2: Reszta / moduł (%)
+Reszta / operator modulus (%) zwraca resztę po dzieleniu (całkowitym).
+console.log (42% 10); // 2 console.log (42% -10); // 2 console.log (-42% 10); // -2 console.log (-42% -10); // -2 console.log (-40% 10); // -0 console.log (40% 10); // 0
+Ten operator zwraca resztę pozostałą, gdy jeden operand jest podzielony przez drugi operand. Gdy pierwszy operand jest wartością ujemną, wartość zwracana zawsze będzie ujemna i odwrotnie dla wartości dodatnich.
+W powyższym przykładzie, 10 można odjąć cztery razy od 42, zanim nie będzie już wystarczająco dużo, aby odjąć ponownie bez zmiany znaku. Pozostała część jest następująca: 42 - 4 * 10 = 2.
+Operator pozostały może być przydatny dla następujących problemów:
+Sprawdź, czy liczba całkowita jest (nie) podzielna przez inny numer: 1.
+ x% 4 == 0 // prawda, jeśli x jest podzielna przez 4 x% 2 == 0 // prawda, jeśli x jest liczbą parzystą
+      - 130
+ x% 2! = 0 // prawda, jeśli x jest liczbą nieparzystą
+Od 0 === -0, to również działa dla x <= -0.
+Zaimplementuj cykliczne zwiększanie / zmniejszanie wartości w ramach przedziału [0, n).
+Załóżmy, że musimy zwiększyć wartość całkowitą z 0 do (ale nie włączając) n, więc następna wartość po n-1 wynosi 0. Można to zrobić za pomocą takiego pseudokod:
+var n = ...; // podane n var i = 0; function inc () {i = (i + 1)% n; } while (true) {inc (); // zaktualizuj coś za pomocą i}
+Teraz uogólnij powyższy problem i załóżmy, że musimy zezwolić zarówno na zwiększanie, jak i zmniejszanie tej wartości od 0 do (nie wliczając) n, więc następna wartość po n-1 wynosi 0, a poprzednia wartość przed 0 to n-1.
+var n = ...; // podane n var i = 0; function delta (d) {// d - dowolna liczba całkowita ze znakiem i = (i + d + n)% n; // dodajemy n do (i + d), aby zapewnić, że suma jest dodatnia}
+Teraz możemy wywołać funkcję delta () przekazującą dowolną liczbę całkowitą, zarówno dodatnią, jak i ujemną, jako parametr delta.
+Użycie modułu do uzyskania ułamkowej części liczby var myNum = 10/4; // 2.5 var fraction = myNum% 1; // 0,5 myNum = -20 / 7; // -2.857142857142857 fraction = myNum% 1; // -0.857142857142857 Rozdział 14.3: Zaokrąglanie w
+zaokrągleniu
+Math.round () będzie zaokrąglało wartość do najbliższej liczby całkowitej za pomocą półokrągła do zerwania więzi.
+var a = Math.round (2.3); // a jest teraz 2 var b = Math.round (2.7); // b jest teraz 3 var c = Math.round (2.5); // c jest teraz 3
+Ale
+var c = Math.round (-2.7); // c jest teraz -3 var c = Math.round (-2,5); // c jest teraz -2
+Zwróć uwagę, że -2,5 jest zaokrąglone do -2. Dzieje się tak dlatego, że wartości połowy są zawsze zaokrąglane w górę, to znaczy są zaokrąglane do liczby całkowitej z następną wyższą wartością.
+Zaokrąglenie
+Math.ceil () spowoduje zaokrąglenie wartości do góry.
+var a = Math.ceil (2.3); // a jest teraz 3 var b = Math.ceil (2.7); // b jest teraz 3
+stropem, a liczba ujemna zaokrągli się w kierunku zera
+var c = Math.ceil (-1.1); // c jest teraz 1
+Zaokrąglanie w dół
+Math.floor () zaokrągla wartość w dół.
+var a = Math.floor (2.3); // a jest teraz 2 var b = Math.floor (2.7); // b to teraz 2
+piętra, a liczba ujemna zaokrągli ją do zera.
+var c = Math.floor (-1.1); // c jest teraz -1
+Skasuj
+zastrzeżenia: używanie operatorów bitowych (z wyjątkiem >>>) dotyczy tylko numerów od -2147483649 do 2147483648.
+2.3 | 0; // 2 (podłoga) -2.3 | 0; // -2 (ceil) NaN | 0; // 0 Wersja ≥ 6
+Math.trunc ()
+Math.trunc (2.3); // 2 (podłoga) Math.trunc (-2,3); // -2 (ceil) Math.trunc (2147483648.1); // 2147483648 (piętro) Math.trunc (-2147483649.1); // -2147483649 (ceil) Math.trunc (NaN); // NaN
+Zaokrąglanie do miejsc dziesiętnych
+Math.floor, Math.ceil () i Math.round () mogą być użyte do zaokrąglenia do liczby miejsc po przecinku
+Aby zaokrąglić do 2 miejsc dziesiętnych:
+ var myNum = 2/3; // 0.6666666666666666 mnożnik var = 100; var a = Math.round (multiplikator myNum *) / mnożnik; // 0.67 var b = Math.ceil (mnożnik myNum *) / mnożnik; // 0.67 var c = Math.floor (mnożnik myNum *) / mnożnik; // 0.66
+Możesz także zaokrąglić do liczby cyfr:
+ var myNum = 10000/3; // 3333.3333333333335 multiplikator var = 1/100; var a = Math.round (multiplikator myNum *) / mnożnik; // 3300
+ var b = Math.ceil (multiplikator myNum *) / mnożnik; // 3400 var c = Math.floor (mnożnik myNum *) / mnożnik; // 3300
+Jako bardziej użyteczna funkcja:
+ // wartość jest wartością zaokrąglenia // miejsca, jeśli dodatnia liczba miejsc po przecinku do zaokrąglonych do // miejsc, jeśli jest ujemna liczba cyfr do zaokrąglenia do funkcji roundTo (wartość, miejsca) { var power = Math.pow (10, miejsca); return Math.round (wartość * moc) / moc; } var myNum = 10000/3; // 3333.3333333333335 roundTo (myNum, 2); // 3333.33 roundTo (myNum, 0); // 3333 roundTo (myNum, -2); // 3300
+A warianty dla sufitu i podłogi:
+ funkcja ceilTo (value, places) {var power = Math.pow (10, miejsca); return Math.ceil (wartość * moc) / moc; } function floorTo (value, places) {var power = Math.pow (10, miejsca); return Math.floor (wartość * moc) / moc; } Rozdział 14.4: Trygonometria
+Wszystkie kąty poniżej są w radianach. Kąt w radianach ma miarę 180 * r / Math.PI w stopniach.
+Sine Math.sin (r);
+To zwróci sinus r, wartość między -1 a 1.
+Math.asin (r);
+To zwróci arcus sinus (rewers sinusa) r.
+Math.asinh (r)arcus sinusę
+To zwróci hiperbolicznąr.
+Cosine Math.cos (r);
+To zwróci cosinus r, wartość pomiędzy -1 i 1
+Math.acos (r);
+To zwróci arccosine (odwrotność cosinusa) r.
+Math.acosh (r);
+To zwróci hiperboliczną arkcosynę r.
+Tangent Math.tan (r);
+To zwróci styczną r.
+Math.atan (r);
+To zwróci arcus tangens (odwrotność stycznej) r. Zwróć uwagę, że zwróci kąt w radianach od -π / 2 do π / 2.
+Math.atanh (r);
+Spowoduje to powrót hiperbolicznego arcus tangensa r.
+Math.atan2 (x, y);
+To zwróci wartość kąta od (0, 0) do (x, y) w radianach. Zwróci wartość między -π a π, nie włączając π. 
+
+Sekcja 14.5: Operatory bitowe
+Należy pamiętać, że wszystkie operacje bitowe działają na 32-bitowych liczbach całkowitych, przekazując dowolne operandy do wewnętrznej funkcji ToInt32.
+Bitowy lub var a; a = 0b0011 | 0b1010; // a === 0b1011 // tabela prawdy // 1010 | (lub) // 0011 // 1011 (wynik) Bitowy i a = 0b0011 i 010010; // a === 0b0010 // tabela prawdy // 1010 & (i) // 0011 // 0010 (wynik) Bitwise not a = 0b0011; // a === 0b1100 // tabela prawdy // 10 ~ (nie) // 01 (wynik) Bitowe xor (wyłączne lub) a = 0b1010 ^ 0b0011; // a === 0b1001 // tabela prawdy // 1010 ^ (xor) // 0011 // 1001 (wynik) Bitowe przesunięcie lewe a = 0b0001 << 1; // a === 0b0010 a = 0b0001 << 2; // a === 0b0100 a = 0b0001 << 3; // a === 0b1000
+Przesunięcie w lewo jest równoważne liczbie całkowitej mnożonej przez Math.pow (2, n). Podczas wykonywania matematyki całkowitej zmiana może znacznie poprawić szybkość niektórych operacji matematycznych.
+var n = 2; var a = 5,4; var result = (a << n) === Math.floor (a) * Math.pow (2, n); // wynik jest prawdziwy a = 5.4 << n; // 20 Bitowe przesunięcie w prawo >> (Przesunięcie propagujące znak) >>> (Zero- lll right shift) a = 0b1001 >> 1; // a === 0b0100 a = 0b1001 >> 2; // a === 0b0010 a = 0b1001 >> 3; // a === 0b0001
+a = 0b1001 >>> 1; // a === 0b0100 a = 0b1001 >>> 2; // a === 0b0010 a = 0b1001 >>> 3; // a === 0b0001
+Ujemna wartość 32-bitowa zawsze ma włączony lewy bit:
+a = 0b11111111111111111111111111110111 | 0; console.log (a); // -9 b = a >> 2; // Najdalszy bit jest przesunięty o 1 w prawo, a nowy lewy najbardziej ustawiony jest na on (1) console.log (b); // -3 b = a >>> 2; // Najdalszy bit jest przesunięty o 1 w prawo. nowy lewy najwyższy bit jest ustawiony na off (0) console.log (b); // 2147483643
+Wynik operacji >>> zawsze jest dodatni. Wynik >> jest zawsze tym samym znakiem co zmieniona wartość.
+Prawe przesunięcie na liczbach dodatnich jest równoznaczne z dzieleniem przez Math.pow (2, n) i przepuszczaniem wyniku:
+a = 256,67; n = 4; result = (a >> n) === Math.floor (Math.floor (a) / Math.pow (2, n)); // wynik jest prawdziwy a = a >> n; // 16
+result = (a >>> n) === Math.floor (Math.floor (a) / Math.pow (2, n)); // wynik jest prawdziwy a = a >>> n; // 16
+Prawe przesunięcie zero fi ll (>>>) na liczbach ujemnych jest różne. Ponieważ JavaScript nie konwertuje na unsigned ints podczas wykonywania operacji bitowych nie ma operacyjnego odpowiednika:
+a = -256.67; result = (a >>> n) === Math.floor (Math.floor (a) / Math.pow (2, n)); // wynik jest fałszywy Operatory przypisania bitowego
+Z wyjątkiem nie (~) wszystkie powyższe operatory bitowe mogą być używane jako operatory przypisania:
+a | = b; // tak samo jak: a = a | b; a ^ = b; // tak samo jak: a = a ^ b; a & = b; // tak samo jak: a = a & b; a >> = b; // tak samo jak: a = a >> b; a >>> = b; // tak samo jak: a = a >>> b; a << = b; // tak samo jak: a = a << b;
+Ostrzeżenie: JavaScript używa Big Endian do przechowywania liczb całkowitych. To nie zawsze będzie pasowało do Endian urządzenia / systemu operacyjnego. W przypadku korzystania z tablic maszynowych o długościach bitów większych niż 8 bitów przed zastosowaniem operacji bitowych należy sprawdzić, czy środowisko to Little Endian lub Big Endian.
+Ostrzeżenie: Operatory bitowe, takie jak & i | nie są takie same jak operatory logiczne && (and) i || (lub). Dostarczą niepoprawne wyniki, jeśli są używane jako operatory logiczne. Operator ^ nie jest operatorem mocy (ab). Punkt 14.6: Inkrementacja (++)
+Operator inkrementacji (++) zwiększa swój operand o jeden.
+Jeśli użyto go jako post-x, to zwraca wartość przed inkrementacją. W przypadku użycia jako prefiksu, zwraca wartość po inkrementacji.
+// postfix var a = 5, // 5 b = a ++, // 5 c = a // 6
+W tym przypadku wartość a jest zwiększana po ustawieniu b. Zatem b będzie 5, a c będzie 6.
+// przedrostek var a = 5, // 5 b = ++ a, // 6 c = a // 6
+W tym przypadku wartość a jest zwiększana przed ustawieniem b. Zatem b będzie 6, a c będzie 6.
+Operatory inkrementacji i dekrementacji są powszechnie używane w pętlach, na przykład:
+dla (var i = 0; i <42; ++ i) {// zrobić coś niesamowitego! }
+Zwróć uwagę, w jaki sposób używany jest wariant wstępny. Zapewnia to, że zmienna tymczasowa nie jest niepotrzebnie tworzona (aby zwrócić wartość przed operacją). Rozdział 14.7: Potęgowanie (Math.pow () lub **)
+Potęgowanie powoduje, że drugi operand jest potęgą pierwszego operandu (ab).
+var a = 2, b = 3, c = Math.pow (a, b);
+c będzie teraz8
+wersjąWersja> 6
+Stopień 3 ES2016 (ECMAScript 7) Wniosek:
+niech a = 2, b = 3,
+    c = a ** b;
+c będzie teraz 8
+Użyj Math.pow, aby znaleźć n-ty pierwiastek liczby.
+Znalezienie n-tego korzenia jest odwrotnością podniesienia do n-tej siły. Na przykład 2 do potęgi 5 wynosi 32. Piąty korzeń z 32 wynosi 2.
+Math.pow (v, 1 / n); // gdzie v jest dowolną dodatnią liczbą rzeczywistą //, a n jest dowolną dodatnią liczbą całkowitą
+var a = 16; var b = Math.pow (a, 1/2); // zwraca pierwiastek kwadratowy z 16 = 4 var c = Math.pow (a, 1/3); // zwraca podstawową kostkę 16 = 2,5198420997897464 var d = Math.pow (a, 1/4); // zwraca czwarty katalog główny z 16 = 2 Rozdział 14.8: Losowe liczby całkowite i zmienne
+var a = Math.random ();
+Przykładowa wartość: 0.21322848065742162 Math.random
+() zwraca losową liczbę między 0 (włącznie) i 1 (wyłączną)
+funkcją getRandom () {return Math.random (); }
+Aby użyć Math.random (), aby uzyskać liczbę z dowolnego zakresu (nie [0,1), użyj tej funkcji, aby uzyskać liczbę losową między min (włącznie) a maks. (Wyłączną): przedział [min, max]
+function getRandomArbitrary (min, max) {return Math.random () * (max - min) + min; }
+Aby użyć Math.random () do uzyskania liczby całkowitej z dowolnego zakresu (nie [0,1)), użyj tej funkcji, aby uzyskać liczbę losową między min (włącznie) a maks. (Wyłączną): przedział [min, max]
+function getRandomInt (min, max) {return Math.floor (Math.random () * (max - min)) + min; }
+Aby użyć Math.random (), aby uzyskać liczbę całkowitą z dowolnego zakresu (nie [0,1), użyj tej funkcji, aby uzyskać liczbę losową między min (włącznie) a maks. (Włącznie): przedział [min, max]
+funkcja getRandomIntInclusive (min, max) {return Math.floor (Math.random () * (max - min + 1)) + min; }
+Funkcje zaczerpnięte z https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+Rozdział 14.9: Dodawanie (+)
+Operator dodawania (+) dodaje liczby.
+var a = 9, b = 3, c = a + b;
+c będzie teraz 12
+Ten operand może być również użyty wiele razy w jednym zadaniu:
+var a = 9, b = 3, c = 8, d = a + b + c;
+d będzie teraz mieć wartość 20.
+Obydwa operandy są konwertowane na typy pierwotne. Następnie, jeśli jeden z nich jest ciągiem znaków, oba są konwertowane na ciągi i łączone. W przeciwnym razie oba są konwertowane na liczby i dodawane.
+null + null; // 0 null + undefined; // NaN null + {}; // "null [object Object]" null + ''; // "null"
+Jeśli operandy są ciągiem i liczbą, liczba jest konwertowana na ciąg znaków, a następnie są one łączone, co może prowadzić do nieoczekiwanych wyników podczas pracy z ciągami, które wyglądają na liczbowe.
+"123" + 1; // "1231" (nie 124)
+Jeśli wartość boolowska jest podana zamiast dowolnej wartości liczbowej, wartość logiczna jest konwertowana na liczbę (0 dla fałszu, 1 dla prawdziwej) przed obliczeniem sumy:
+prawda + 1 ; // 2 false + 5; // 5 null + 1; // 1 undefined + 1; // NaN
+Jeśli wartość boolowska jest podana wraz z wartością ciągu, wartość boolowska jest konwertowana na ciąg znaków:
+true + "1"; // "true1" false + "bar"; // "falsebar" Rozdział 14.10: Little / Big endian dla tablic maszynowych przy użyciu operatorów bitowych
+Aby wykryć endian urządzenia
+var isLittleEndian = true; (() => {var buf = new ArrayBuffer (4); var buf8 = new Uint8ClampedArray (buf);
+    var data = new Uint32Array (buf); data [0] = 0x0F000000; if (buf8 [0] == = 0x0f) {isLittleEndian = false;}}) ();  
+Little-Endian przechowuje większość znaczących bajtów od prawej do lewej.
+Big-Endian przechowuje większość znaczących bajtów od lewej do prawej.
+var myNum = 0x11223344 | 0; // 32-bitowa liczba całkowita ze znakiem var buf = new ArrayBuffer (4); var data8 = new Uint8ClampedArray (buf); var data32 = new Uint32Array (buf); data32 [0] = myNum; // przechowuj numer w tablicy 32Bit
+Jeśli system używa Little-Endian, to wartościamibędą
+8bitowymikonsole console.log (data8 [0] .toString (16)); // 0x44 console.log (data8 [1] .toString (16)); // 0x33 console.log (data8 [2] .toString (16)); // 0x22 console.log (data8 [3] .toString (16)); // 0x11
+Jeśli system używa Big-Endian, wówczas wartościami 8-bajtowymi będą
+console.log (data8 [0] .toString (16)); // 0x11 console.log (data8 [1] .toString (16)); // 0x22 console.log (data8 [2] .toString (16)); // 0x33 console.log (data8 [3] .toString (16)); // 0x44
+Przykład, gdzie typ Endian jest ważny
+var canvas = document.createElement ("canvas"); var ctx = canvas.getContext ("2d"); var imgData = ctx.getImageData (0, 0, canvas.width, canvas.height); // Aby przyspieszyć odczyt i zapis z bufora obrazu, możesz utworzyć widok bufora, który będzie // 32-bitowy, pozwalając na odczyt / zapis piksela w pojedynczej operacji var buf32 = new Uint32Array (imgData.data.buffer); // Maskuj kanały Red i Blue var mask = 0x00FF00FF; // bigEndianskie kanały pikseli Czerwony, zielony, niebieski, alfa, jeśli (isLittleEndian) {maska ​​= 0xFF00FF00; // małe estetyczne kanały pikseli Alpha, Blue, Green, Red} var len = buf32.length; var i = 0; while (i <len) {// Maskuj wszystkie piksele buf32 [i] & = mask; // Maskuj czerwony i niebieski} ctx.putImageData (imgData); Sekcja 14.11: Losuj między dwiema liczbami
+Zwraca losową liczbę całkowitą między min i maks:
+funkcja randomBetween (min, max) {return Math.floor (Math.random () * (max - min + 1) + min); }
+Przykłady:
+// randomBetween (0, 10); Math.floor (Math.random () * 11);
+// randomBetween (1, 10); Math.floor (Math.random () * 10) + 1;
+// randomBetween (5, 20); Math.floor (Math.random () * 16) + 5;
+// randomBetween (-10, -2); Math.floor (Math.random () * 9) - 10; 
+
+Rozdział 14.12: Symulowanie zdarzeń z różnymi prawdopodobieństwami
+Czasami możesz potrzebować tylko symulować zdarzenie z dwoma wynikami, być może z różnymi prawdopodobieństwami, ale możesz znaleźć się w sytuacji, która wymaga wielu możliwych wyników z różnymi prawdopodobieństwami. Wyobraźmy sobie, że chcesz symulować zdarzenie, które ma sześć równie prawdopodobnych wyników. To jest całkiem proste.
+function simulateEvent (numEvents) {var event = Math.floor (numEvents * Math.random ()); wydarzenie powrotne; }
+// symulacja fair konsoli console.log ("Rolled a" + (simulateEvent (6) +1)); // Zwinięte 2
+Jednak nie możesz chcieć równie prawdopodobnych wyników. Załóżmy, że masz listę trzech wyników przedstawionych jako tablica prawdopodobieństw w procentach lub wielokrotnościach prawdopodobieństwa. Taki przykład może być ważoną kością. Możesz przepisać poprzednią funkcję, aby zasymulować takie zdarzenie.
+function simulateEvent (szanse) {var sum = 0; chance.forEach (function (chance) {sum + = chance;}); var rand = Math.random (); var chance = 0; dla (var i = 0; i <szansa.length; i ++) {szansa + = szanse [i] / suma; if (rand <chance) {return i; }} // nigdy nie powinno być osiągnięte, chyba że suma prawdopodobieństw jest mniejsza niż 1 //, ponieważ wszystkie są równe zeru lub niektóre są ujemnymi prawdopodobieństwami return -1; }
+// symuluj ważone kości, gdzie 6 jest dwa razy bardziej prawdopodobne niż jakakolwiek inna twarz // używając wielokrotności prawdopodobieństwa console.log ("Rolled a" + (simulateEvent ([1,1,1,1,1,2]) + 1 )); // Przetoczenie 1
+// przy użyciu prawdopodobieństwa console.log ("Zwinięte" + (simulateEvent ([1 / 7,1 / 7,1 / 7,1 / 7,1 / 7,2 / 7]) + 1) ); // Zwinięte 6
+Jak zapewne zauważyłeś, funkcje te zwracają indeks, więc możesz mieć bardziej opisowe wyniki przechowywane w tablicy. Oto przykład.
+var rewards = ["złota moneta", "srebrna moneta", "diament", "bożek miecz"]; var likelihoods = [5,9,1,0]; // najmniej prawdopodobne, że zdobędziesz miecza bożego (0/15 = 0%, nigdy), // najprawdopodobniej dostaniesz srebrną monetę (9/15 = 60%, więcej niż połowę czasu)
+// symulacja zdarzenia, nagroda z dziennika console.log ("Otrzymasz" + nagrody [simulateEvent (likelihoods)]); // Otrzymujesz srebrną monetę Sekcja 14.13: Odejmowanie (-)
+Operator odejmowania (-) odejmuje liczby.
+var a = 9; var b = 3; var c = a - b;
+c będzie teraz 6
+Jeśli zamiast wartości liczbowej zostanie podany łańcuch lub wartość logiczna, zostanie ona przekształcona na liczbę przed obliczeniem różnicy (0 dla fałszu, 1 dla prawdziwej):
+"5" - 1; // 4 7 - "3"; // 4 "5" - prawda; // 4
+Jeśli nie można przekształcić wartości ciągu w liczbę, wynikiem będzie NaN:
+"foo" - 1; // NaN 100 - "bar"; // NaN
+
+Sekcja 14.14: Mnożenie (*)
+Operator mnożenia (*) wykonuje mnożenie arytmetyczne na liczbach (literałach lub zmiennych).
+console.log (3 * 5); // 15 console.log (-3 * 5); // -15 console.log (3 * -5); // -15 console.log (-3 * -5); // 15 
+
+Sekcja 14.15: Maksymalne i minimalne
+Funkcja Math.max () zwraca największą liczbę zero lub więcej.
+Math.max (4, 12); // 12 Math.max (-1, -15); // -1
+Funkcja Math.min () zwraca najmniejszą z zera lub więcej liczb.
+Math.min (4, 12); // 4 Math.min (-1, -15); // -15
+Uzyskiwanie maksimum i minimum z tablicy: var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9], max = Math.max.apply (Math, arr), min = Math.min.apply (Math, arr);
+console.log (max); // Logi: 9 console.log (min); // Logi: 1
+operator rozprzestrzeniania ECMAScript 6, uzyskanie maksimum i minimum tablicy:
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9], max = Math.max (.. .arr), min = Math.min (... arr);
+console.log (max); // Logi: 9 console.log (min); // Logi: 1 
+
+Sekcja 14.16: Ograniczanie liczby do zakresu Min / Max
+Jeśli potrzebujesz zacisnąć liczbę, aby utrzymać ją w specyficznym ogranicznikuzakresu
+funkcji(min, max, val) {return Math.min (Math.max (min , + val), max); }
+console.log (clamp (-10, 10, "4,30")); // 4.3 console.log (clamp (-10, 10, -8)); // -8 console.log (zacisk (-10, 10, 12)); // 10 console.log (clamp (-10, 10, -15)); // -10
+Przykład użycia przypadku (jsFiddle) Punkt 14.17: Sufit i sufit
+()
+Metoda ceil () zaokrągla liczbę w górę do najbliższej liczby całkowitej i zwraca wynik.
+Składnia:
+Math.ceil (n);
+Przykład:
+console.log (Math.ceil (0.60)); // 1 console.log (Math.ceil (0.40)); // 1 console.log (Math.ceil (5.1)); // 6 console.log (Math.ceil (-5.1)); // -5 console.log (Math.ceil (-5.9)); // -5
+floor ()
+Metoda floor () zaokrągla liczbę w dół do najbliższej liczby całkowitej i zwraca wynik.
+Składnia:
+Math.floor (n);
+Przykład:
+console.log (Math.ceil (0.60)); // 0 console.log (Math.ceil (0.40)); // 0 console.log (Math.ceil (5.1)); // 5 console.log (Math.ceil (-5.1)); // -6 console.log (Math.ceil (-5.9)); // -6 Rozdział 14.18: Pobieranie pierwiastka z liczby
+Pierwiastek kwadratowy
+Użyj Math.sqrt (), aby znaleźć pierwiastek kwadratowy liczby
+Math.sqrt (16) # => 4
+Korzeń Cube
+Aby znaleźć pierwiastek z liczby, użyj Funkcja Math.cbrt ()
+Wersja ≥ 6 Math.cbrt (27) # => 3 Znajdowanie n-roots
+Aby znaleźć n-root, użyj funkcji Math.pow () i podaj wykładnik cząstkowy.
+Math.pow (64, 1/6) # => 2 
+
+Sekcja 14.19: Losowo z rozkładem gaussowskim
+Funkcja Math.random () powinna dawać liczby losowe, które mają odchylenie standardowe zbliżone do 0. Podczas wybierania z talii kart lub symulacji rzut kostką to jest to, czego chcemy.
+Ale w większości sytuacji jest to nierealistyczne. W świecie rzeczywistym przypadkowość ma tendencję do gromadzenia się wokół wspólnej wartości normalnej. Jeśli zostanie narysowany na wykresie, otrzymasz klasyczną krzywą dzwonową lub rozkład gaussowski.
+W tym celu przy pomocy funkcji Math.random () jest względnie prosta.
+var randNum = (Math.random () + Math.random ()) / 2; var randNum = (Math.random () + Math.random () + Math.random ()) / 3; var randNum = (Math.random () + Math.random () + Math.random () + Math.random ()) / 4;
+Dodanie losowej wartości do ostatniej zwiększa wariancję liczb losowych. Dzielenie przez liczbę dodawanych wynikówwynik do zakresu 0-1.
+normalizuje Dodanie więcej niż kilku random jest kłopotliwe, prosta funkcja pozwoli ci wybrać wariancję, którą chcesz.
+// v to liczba losowań zsumowanych i powinna być większa niż> = 1 // zwracana liczba losowa między 0-1 wyłączną funkcją randomG (v) {var r = 0; dla (var i = v; i> 0; i -) {r + = Math.random ();
+    } return r / v; }
+Obrazek pokazuje rozkład losowych wartości dla różnych wartości v. Górny lewy jest standardowym pojedynczym poleceniem Math.random (), dolny prawy jest Math.random () zsumowany 8 razy. Jest to 5 000 000 próbek za pomocą Chrome.
+Ta metoda jest najbardziej skuteczna przy v <5 
+
+Sekcja 14.20: Math.atan2 w celu znalezienia kierunku
+Jeśli pracujesz z wektorami lub liniami, na pewnym etapie będziesz chciał uzyskać kierunek wektora lub linii. Lub kierunek od punktu do innego punktu.
