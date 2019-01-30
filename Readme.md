@@ -2368,3 +2368,3034 @@ Ta metoda jest najbardziej skuteczna przy v <5
 
 Sekcja 14.20: Math.atan2 w celu znalezienia kierunku
 Jeśli pracujesz z wektorami lub liniami, na pewnym etapie będziesz chciał uzyskać kierunek wektora lub linii. Lub kierunek od punktu do innego punktu.
+
+Punkt 14.21: Sin i Cos, aby utworzyć wektor o danym kierunku i odległości
+
+Jeśli masz wektor w formie biegunowej (kierunek i odległość), będziesz chciał go przekonwertować na wektor kartezjański z komponentem ax i y. Dla odniesienia układ współrzędnych ekranu ma kierunki 0 punktów od lewej do prawej, 90 (PI / 2) punktów w dół ekranu i tak dalej w kierunku zgodnym z ruchem wskazówek zegara.
+
+var dir = 1.4536; // kierunek w radianach var dist = 200; // odległość var ​​vec = {}; vec.x = Math.cos (dir) * dist; // pobierz komponent x
+
+- 144
+
+vec.y = Math.sin (dir) * dist; // pobierz komponent y
+
+Możesz także zignorować odległość, aby utworzyć znormalizowany (1 jednostkę długości) wektor w kierunku reż
+
+var dir = 1.4536; // kierunek w radianach var vec = {}; vec.x = Math.cos (dir); // pobierz x komponent vec.y = Math.sin (dir); // pobierz komponent y
+
+Jeśli twój układ współrzędnych ma y jak wyżej, musisz zmienić cos i sin. W tym przypadku dodatni kierunek jest w kierunku przeciwnym do ruchu wskazówek zegara od osi x.
+
+// pobierz wektor kierunkowy, w którym y wskazuje do góry var dir = 1.4536; // kierunek w radianach var vec = {}; vec.x = Math.sin (dir); // pobierz komponent x vec.y = Math.cos (dir); // pobierz komponent y Sekcja 14.22: Math.hypot
+
+Aby znaleźć odległość między dwoma punktami, używamy pythagoras, aby uzyskać pierwiastek kwadratowy z sumy kwadratu składowej wektora między nimi.
+
+var v1 = {x: 10, y: 5}; var v2 = {x: 20, y: 10}; var x = v2.x - v1.x; var y = v2.y - v1.y; var distance = Math.sqrt (x * x + y * y); // 11.180339887498949
+
+W ECMAScript 6 pojawił się Math.hypot, który robi to samo
+
+var v1 = {x: 10, y: 5}; var v2 = {x: 20, y: 10}; var x = v2.x - v1.x; var y = v2.y - v1.y; var distance = Math.hypot (x, y); // 11.180339887498949
+
+Teraz nie musisz utrzymywać tymczasowych zmiennych, aby kod przestał być bałaganem zmiennych
+
+var v1 = {x: 10, y: 5}; var v2 = {x: 20, y: 10}; var distance = Math.hypot (v2.x - v1.x, v2.y - v1.y); // 11.180339887498949
+
+Math.hypot może przyjmować dowolną liczbę wymiarów
+
+// znajdź odległość w 3D var v1 = {x: 10, y: 5, z: 7}; var v2 = {x: 20, y: 10, z: 16}; var dist = Math.hypot (v2.x - v1.x, v2.y - v1.y, v2.z - v1.z); // 14.352700094407325
+
+// znajdź długość wektora 11 wymiaru var v = [1,3,2,6,1,7,3,7,5,3,1]; var i = 0; dist = Math.hypot (v [i ++], v [i ++], v [i ++], v [i ++], v [i ++], v [i ++], v [i ++], v [i ++], v [i ++] , v [i ++], v [i ++]);
+
+- 145
+
+Sekcja 14.23: Funkcje okresowe z wykorzystaniem Math.sin
+
+Math.sin i Math.cos są cykliczne z okresem 2 * PI radianów (360 stopni) wysyłają falę o amplitudzie 2 w zakresie od -1 do 1.
+
+Wykres funkcji sinus i cosinus: (dzięki uprzejmości Wikipedia)
+
+Są bardzo przydatne w wielu typach obliczeń okresowych, od tworzenia fal dźwiękowych po animacje, a nawet kodowania i dekodowania danych obrazu
+
+Ten przykład pokazuje, jak utworzyć prostą falę sinową z kontrolą nad okresem / częstotliwością, fazą, amplitudą i ustawieniem.
+
+Jednostką czasu jest sekunda. Najprostsza forma z kontrolą tylko częstotliwości.
+
+// czas to czas w sekundach, kiedy chcemy uzyskać próbkę // Częstotliwość reprezentuje liczbę oscylacji na sekundę oscylatora funkcji (czas, częstotliwość) {return Math.sin (time * 2 * Math.PI * frequency); }
+
+W prawie wszystkich przypadkach będziesz chciał wprowadzić pewne zmiany w zwracanej wartości. Wspólne warunki modyfikacji
+
+Faza: ustawienie ustawione pod względem częstotliwości od początku oscylacji. Jest to wartość z zakresu od 0 do 1, gdzie wartość 0.5 przesuwa falę w czasie o połowę częstotliwości. Wartość 0 lub 1 nie powoduje żadnych zmian. Amplitude: Odległość od najniższej wartości do najwyższej wartości podczas jednego cyklu. Amplituda 1 ma zakres 2. Najniższy punkt (najniższy) -1 do najwyższego (szczyt) 1. W przypadku fali o częstotliwości 1 szczyt wynosi 0,25 sekundy, a najniższy - 0,75. O ff set: przesuwa całą falę w górę lub w dół.
+
+Aby uwzględnić wszystkie te funkcje:
+
+oscylator funkcji (czas, częstotliwość = 1, amplituda = 1, faza = 0, przesunięcie = 0) {czas t = czas * częstotliwość * Math.PI * 2; // zdobądź fazę w czasie
+
+- 146
+
+t + = faza * Math.PI * 2; // dodaj przesunięcie fazy var v = Math.sin (t); // pobierz wartość w obliczonej pozycji w cyklu v * = amplituda; // ustaw amplitudę v + = przesunięcie; // dodaj zwrot przesunięcia v; }
+
+Lub w bardziej zwartej (i nieco szybszej formie):
+
+oscylator funkcji (czas, częstotliwość = 1, amplituda = 1, faza = 0, przesunięcie = 0) {return Math.sin (czas * częstotliwość * Math.PI * 2 + faza * Math.PI * 2) * amplituda + przesunięcie; }
+
+Wszystkie argumenty poza czasem są opcjonalne Rozdział 14.24: Podział (/)
+
+Operator dzielenia (/) wykonuje podział arytmetyczny na liczby (literały lub zmienne).
+
+console.log (15/3); // 5 console.log (15/4); // 3.75 Sekcja 14.25: Zmniejszanie (-)
+
+Operator dekrementacji (-) zmniejsza liczbę o jeden.
+
+W przypadku użycia jako post-fi do n, operator zwraca bieżący n, a następnie przypisuje zmniejszoną wartość. W przypadku użycia jako prefiksu do n, operator przypisuje zmniejszoną wartość n, a następnie zwraca zmienioną wartość.
+
+var a = 5, // 5 b = a--, // 5 c = a // 4
+
+W tym przypadku b jest ustawione na wartość początkową a. Zatem b będzie 5, a c będzie 4.
+
+var a = 5, // 5 b = - a, // 4 c = a // 4
+
+W tym przypadku b jest ustawione na nową wartość a. Zatem b będzie 4, a c będzie 4.
+
+Typowe zastosowania
+
+Operatory dekrementacji i inkrementacji są powszechnie używane w pętlach, na przykład:
+
+dla (var i = 42; i> 0; --i) {console.log (i)}
+
+Zwróć uwagę, w jaki sposób używany jest wariant wstępny. Zapewnia to, że zmienna tymczasowa nie jest niepotrzebnie tworzona (aby zwrócić wartość przed operacją).
+
+Uwaga: Ani - ani ++ nie są jak normalni operatorzy matematyczni, ale raczej są bardzo zwięzłym operatorem przypisania. Niezależnie od zwracanej wartości, oba
+
+- 147
+
+x-i -x ponownie przypisz do X takie, że x = x - 1.
+
+const x = 1; console.log (x--) // TypeError: Przyporządkowanie do zmiennej stałej. console.log (- x) // TypeError: Przyporządkowanie do zmiennej stałej. console.log (- 3) // ReferenceError: Niepoprawne wyrażenie rozmiaru lewej ręki w operacji prefiksu. console.log (3--) // ReferenceError: Niepoprawne wyrażenie po lewej stronie w operacji Postfix.
+
+- 148
+
+Rozdział 15: Operatory bitowe Punkt 15.1: Operatory bitowe
+
+Operatory bitowe wykonują operacje na wartościach bitowych danych. Operatory te konwertują operandy na podpisane 32-bitowe liczby całkowite w uzupełnieniu dwóch.
+
+Konwersja do 32-bitowych liczb całkowitych
+
+Liczby z więcej niż 32 bitami odrzucają ich najważniejsze bitów. Na przykład następująca liczba całkowita z więcej niż 32 bitami jest konwertowana na 32-bitową liczbę całkowitą:
+
+Przed: 10100110111110100000000010000011110001000001 Po: 10100000000010000011110001000001 Po: 10100000000010000011110001000001
+
+Uzupełnienie dwóch
+
+W normalnym pliku binarnym znajdujemy wartość binarną, dodając wartości 1 w oparciu o ich pozycję jako moce 2 - Prawy bity to 2 ^ 0, a lewy lewy jest to 2 ^ n-1, gdzie n to liczba bitów. Na przykład, używając 4 bitów:
+
+// Normalny plik binarny // 8 4 2 1 0 1 1 0 => 0 + 4 + 2 + 0 => 6
+
+Format dwóch elementów uzupełniających oznacza, że ​​ujemny odpowiednik liczby (6 względem -6) to wszystkie bity dla liczby odwróconej plus jeden. Odwrócone bity 6 to:
+
+// Normalny plik binarny 0 1 1 0 // Uzupełnienie jednego (wszystkie odwrócone bity) 1 0 0 1 => -8 + 0 + 0 + 1 => -7 // Uzupełnienie dwójkowe (dodaj 1 do własnego dopełnienia) 1 0 1 0 => -8 + 0 + 2 + 0 => -6
+
+Uwaga: Dodanie kolejnych 1 na lewo od liczby binarnej nie zmienia jej wartości w komplementie dwóch osób. Wartości 1010 i 1111111111010 są -6.
+
+Bitowy AND
+
+Bitowa operacja AND a & b zwraca wartość binarną z 1, gdzie oba operandy binarne mają 1 w określonej pozycji, a 0 we wszystkich innych pozycjach. Na przykład:
+
+13 i 7 => 5 // 13: 0..01101 // 7: 0..00111 // ---------------- // 5: 0..00101 (0 + 0 + 4 + 0 + 1)
+
+Przykład świata rzeczywistego: Kontrola parzystości numeru
+
+Zamiast tego "arcydzieło" (niestety zbyt często widziane w wielu rzeczywistych częściach kodu):
+
+funkcja isEven (n) {return n% 2 == 0; }
+
+- 149
+
+function isOdd (n) {if (isEven (n)) {return false; } else {return true; }}
+
+Możesz sprawdzić parzystość liczby całkowitej w dużo bardziej skuteczny i prosty sposób:
+
+if (n & 1) {console.log ("ODD!"); } else {console.log ("EVEN!"); }
+
+Bitowy LUB
+
+Bitowa operacja OR a | b zwraca wartość binarną z 1, gdzie oba operandy lub oba operandy mają 1 w konkretnej pozycji, i 0, gdy obie wartości mają 0 w pozycji. Na przykład:
+
+13 | 7 => 15 // 13: 0..01101 // 7: 0..00111 // ---------------- // 15: 0..01111 (0 + 8 + 4 + 2 + 1)
+
+Bitowy NIE
+
+Bitowa operacja NOT ~ a przeskakuje bity o zadanej wartości a. Oznacza to, że wszystkie 1 zostaną oznaczone jako 0, a wszystkie 0 jako 1.
+
+~ 13 => -14 // 13: 0..01101 // ---------------- // - 14: 1..10010 (-16 + 0 + 0 + 2 + 0)
+
+Bitowe XOR
+
+Bitowa operacja XOR (wyłączna lub) a ^ b ustawia wartość 1 tylko wtedy, gdy dwa bity są różne. Wyłączny lub oznacza jeden lub drugi, ale nie oba.
+
+13 ^ 7 => 10 // 13: 0..01101 // 7: 0..00111 // ---------------- // 10: 0..01010 (0 + 8 + 0 + 2 + 0)
+
+Przykład rzeczywisty: zamiana dwóch wartości całkowitych bez dodatkowej alokacji pamięci
+
+var a = 11, b = 22; a = a ^ b; b = a ^ b; a = a ^ b; console.log ("a =" + a + "; b =" + b); // a jest teraz 22, a b jest teraz 11
+
+- 150
+
+Punkt 15.2: Operatory zmian
+
+Przesunięcie bitowe można uważać za "przesuwające" bity w lewo lub w prawo, a przez to zmianę wartości obsługiwanych danych.
+
+Lewy Shift
+
+Lewy operator przesunięcia (wartość) << (wartość przesunięcia) przesunie bity w lewo o (przesunięcie) bitów; nowe bity przychodzące z prawej strony będą zerami:
+
+5 << 2 => 20 // 5: 0..000101 // 20: 0..010100 <= dodaje dwa 0 w prawo
+
+Prawe przesunięcie (propagowanie znaku)
+
+Prawy operator przesunięcia (wartość) >> (wartość przesunięcia) jest również znany jako "przesunięcie prawej propagacji znaku", ponieważ zachowuje znak początkowego argumentu operacji. Prawy operator zmiany przesuwa wartość określoną liczbę przesunięć bitów w prawo. Nadmiarowe bity przesunięte z prawej są odrzucane. Nowe bity przychodzące od lewej będą oparte na znaku początkowego argumentu. Jeśli lewy skrajny bit był równy 1, wszystkie nowe bity będą równe 1 i odwrotnie dla 0.
+
+20 >> 2 => 5 // 20: 0..010100 // 5: 0..000101 <= dodano dwie 0 z lewej strony i odciąć 00 z prawej
+
+-5 >> 3 => -1 // -5: 1..111011 // -2: 1..111111 <= dodano trzy 1 z lewej strony i odcięto 011 z prawej
+
+Prawy Shift (Zero FIll)
+
+Operator z zerowym wskaźnikiem przesunięcia w prawo (wartość) >>> (wartość przesunięcia) przesunie bity w prawo, a nowe bity będą miały wartość 0. Wartości 0 są przesunięte z lewej strony, a nadmiarowe bity po prawej stronie są przesunięte i odrzucone. Oznacza to, że może on przekształcić liczby ujemne w pozytywne.
+
+-30 >>> 2 => 1073741816 // -30: 111..1100010 // 1073741816: 001..1111000
+
+Zero-fi ll przesunięcie w prawo i propagowanie propagacji w prawo dają ten sam wynik dla liczb nieujemnych.
+
+- 151
+
+Rozdział 16: Funkcje konstruktora Rozdział 16.1: Deklarowanie funkcji konstruktora
+
+Funkcje konstruktora są funkcjami zaprojektowanymi do konstruowania nowego obiektu. W funkcji konstruktora słowo kluczowe odnosi się do nowo utworzonego obiektu, do którego można przypisać wartości. Funkcje konstruktora automatycznie "zwrócą" ten nowy obiekt.
+
+function Cat (name) {this.name = nazwa; this.sound = "Meow"; }
+
+Funkcje konstruktora wywoływane są za pomocą nowego słowa kluczowego:
+
+niech cat = new Cat ("Tom"); cat.sound; // Zwraca "Meow"
+
+Funkcje konstruktora mają również właściwość prototypową, która wskazuje obiekt, którego właściwości są automatycznie dziedziczone przez wszystkie obiekty utworzone za pomocą tego konstruktora:
+
+Cat.prototype.speak = function () {console.log (this.sound); }
+
+cat.speak (); // Wyprowadza "Meow" na konsolę
+
+Obiekty tworzone przez funkcje konstruktora mają również specjalną właściwość na ich prototypie zwaną konstruktorem, która wskazuje na funkcję użytą do ich utworzenia:
+
+cat.constructor // Zwraca funkcję `Cat`
+
+Obiekty tworzone przez funkcje konstruktora są również uważane za "instancje" funkcji konstruktora przez operatora instanceof:
+
+cat instanceof Cat // Zwraca "true"
+
+- 152
+
+Rozdział 17: Deklaracje i przypisania Rozdział 17.1: Modyfikowanie stałych
+
+Deklarowanie zmiennej zmiennej tylko zapobiega zastąpieniu jej wartości nową wartością. const nie nakłada żadnych ograniczeń na stan wewnętrzny obiektu. Poniższy przykład pokazuje, że można zmienić wartość właściwości obiektu const, a nawet nowe właściwości można dodać, ponieważ obiekt przypisany do osoby jest modyfikowany, ale nie zastępowany.
+
+const person = {name: "John"}; console.log ("Nazwa osoby to", person.name);
+
+person.name = "Steve"; console.log ("Nazwa osoby to", person.name);
+
+person.surname = "Fox"; console.log ("Nazwisko osoby to", person.name, "a nazwisko to", person.surname);
+
+Wynik:
+
+Imię osoby to John. Nazwisko osoby to Steve. Nazwisko osoby to Steve, a nazwisko to Fox
+
+W tym przykładzie stworzyliśmy obiekt stały o nazwie person i ponownie przypisaliśmy właściwość person.name i utworzyliśmy nową właściwość person.surname. Sekcja 17.2: Deklaracja i inicjalizacja stałych
+
+Możesz zainicjować stałą za pomocą słowa kluczowego const.
+
+const foo = 100; const bar = false; const person = {name: "John"}; const fun = function () = {/ * ... * /}; const arrowFun = () => / * ... * /;
+
+Ważne Musisz zadeklarować i zainicjować stałą w tej samej instrukcji. Sekcja 17.3: Deklaracja
+
+Istnieją cztery podstawowe sposoby deklarowania zmiennej w JavaScript: używanie zmiennych, let lub const keywords lub bez słowa kluczowego (deklaracja "bare"). Zastosowana metoda określa wynikowy zakres zmiennej lub reaswalalność w przypadku const.
+
+Słowo kluczowe var tworzy zmienną function-scope. Słowo kluczowe let umożliwia utworzenie zmiennej blokowej. Słowo kluczowe const tworzy zmienną blokową, której nie można ponownie przypisać. Pusta deklaracja tworzy zmienną globalną.
+
+var a = 'foo'; // Zakres funkcji
+
+- 153
+
+niech b = "foo"; // Block-scope const c = 'foo'; // Zakres blokady i niezmienny odnośnik
+
+Należy pamiętać, że nie można zadeklarować stałych bez inicjowania ich w tym samym czasie.
+
+const foo; // "Uncaught SyntaxError: Brak inicjalizatora w deklaracji const"
+
+(Przykład deklaracji zmiennej bez słów kluczowych nie został uwzględniony powyżej z przyczyn technicznych.) Kontynuuj czytanie, aby zobaczyć przykład.) Rozdział 17.4: Nieznane
+
+Deklarowana zmienna bez wartości będzie miała niezdefiniowaną wartość
+
+var a;
+
+console.log (a); // logs: undefined
+
+Próba odzyskania wartości niezadeklarowanych zmiennych powoduje błąd ReferenceError. Jednak oba rodzaje niezadeklarowanych i zindywidualizowanych zmiennych są "niedoszacowane":
+
+var a; console.log (typeof a === "undefined"); // logs: true console.log (typeof variableDoesNotExist === "undefined"); // logs: true Sekcja 17.5: Typy danych
+
+Zmienne JavaScript mogą zawierać wiele typów danych: liczby, łańcuchy, tablice, obiekty i nie tylko:
+
+// Number var length = 16;
+
+// String var message = "Hello, World!";
+
+// Array var carNames = ["Chevrolet", "Nissan", "BMW"];
+
+// Object var person = {firstName: "John", lastName: "Doe"};
+
+JavaScript ma typy dynamiczne. Oznacza to, że ta sama zmienna może być używana jako różne typy:
+
+var a; // a jest niezdefiniowane var a = 5; // a to liczba var a = "John"; // a jest sekcją String 17.6: Matematyczne operacje i przypisanie
+
+Przyrost o var a = 9, b = 3;
+
+- 154
+
+b + = a;
+
+b będzie teraz 12
+
+Jest to funkcjonalnie takie samo jak
+
+b = b + a;
+
+Zmniejsz o var a = 9, b = 3; b - = a;
+
+b będzie teraz 6
+
+Jest to funkcjonalnie takie samo jak
+
+b = b - a;
+
+Pomnóż przez var a = 5, b = 3; b * = a;
+
+b będzie miało teraz 15 lat
+
+Jest to funkcjonalnie takie samo jak
+
+b = b * a;
+
+Podziel przez var a = 3, b = 15; b / = a;
+
+b będzie teraz 5
+
+Jest to funkcjonalnie takie samo jak
+
+b = b / a;
+
+Wersja ≥ 7 Wyniesiona do potęgi var a = 3, b = 15; b ** = a;
+
+b będzie teraz 3375
+
+Jest to funkcjonalnie takie samo jak
+
+b = b ** a;
+
+- 155
+
+Sekcja 17.7: Cesja
+
+Aby przypisać wartość do wcześniej zadeklarowanej zmiennej, użyj operatora przypisania, =:
+
+a = 6; b = "Foo";
+
+Jako alternatywę dla niezależnej deklaracji i przypisania, możliwe jest wykonanie obu kroków w jednym komunikacie:
+
+var a = 6; niech b = "Foo";
+
+W tej składni globalne zmienne mogą być zadeklarowane bez słowa kluczowego; gdyby zadeklarować pustą zmienną bez przypisania bezpośrednio po nim, interpreter nie byłby w stanie odróżnić deklaracji globalnych a; od odniesień do zmiennych a ;.
+
+c = 5; c = "Teraz wartość jest ciągiem."; myNewGlobal; // ReferenceError
+
+Należy jednak pamiętać, że powyższa składnia jest ogólnie odradzana i nie jest zgodna ze ścisłym trybem. Ma to na celu uniknięcie scenariusza, w którym programista niechcący odrzuca słowo kluczowe let lub var z ich instrukcji, przez przypadek tworząc zmienną w globalnej przestrzeni nazw, nie zdając sobie z tego sprawy. Może to zanieczyścić globalny obszar nazw i kon fl ikt z bibliotekami oraz prawidłowe działanie skryptu. Dlatego też globalne zmienne powinny być zadeklarowane i zainicjowane za pomocą słowa kluczowego var w kontekście obiektu okna, tak aby cel był wyraźnie określony.
+
+Dodatkowo, zmienne mogą być zadeklarowane po kilka naraz, oddzielając każdą deklarację (i opcjonalne przypisanie wartości) od przecinka. Używając tej składni, słowa kluczowe var i let muszą być użyte tylko raz na początku każdej instrukcji.
+
+globalA = "1", globalB = "2"; niech x, y = 5; var person = 'John Doe', foo, age = 14, date = new Date ();
+
+Zauważ w poprzednim fragmencie kodu, że kolejność, w której występują wyrażenia deklaracji i przydziału (var a, b, c = 2, d;) nie ma znaczenia. Możesz dowolnie mieszać te dwa.
+
+Funkcja deklaracji efektywnie tworzy również zmienne.
+
+- 156
+
+Rozdział 18: Pętle Sekcja 18.1: Standardowe pętle "dla"
+
+Standardowe użycie dla (var i = 0; i <100; i ++) {console.log (i); }
+
+Oczekiwany wynik:
+
+0 1 ... 99
+
+Wiele deklaracji
+
+Powszechnie używane do buforowania długości tablicy.
+
+var array = ["a", "b", "c"]; dla (var i = 0; i <array.length; i ++) {console.log (array [i]); }
+
+Oczekiwany wynik:
+
+"a" b "c"
+
+Zmiana inkrementu dla (var i = 0; i <100; i + = 2 / * Może również być: i = i + 2 * /) {console.log (i); }
+
+Oczekiwany wynik:
+
+0 2 4 ... 98
+
+Zmniejszona pętla dla (var i = 100; i> = 0; i--) {console.log (i); }
+
+- 157
+
+Oczekiwany wynik:
+
+100 99 98 ... 0
+
+Sekcja 18.2: "dla ... z" pętli
+
+Wersja ≥ 6 const iterable = [0, 1, 2]; for (let it of iterable) {console.log (i); }
+
+Oczekiwany wynik:
+
+0 1 2
+
+Zalety pętli for ... of to:
+
+Jest to najbardziej zwięzła, bezpośrednia składnia do zapętlenia elementów tablicy Uniknięcie wszystkich pułapek dla ... w przeciwieństwie do forEach (), działa z przerwą, kontynuacją i powrotem
+
+Wsparcie dla ... w innych kolekcjach Ciągi
+
+for ... of traktuje ciąg jako sekwencję znaków Unicode:
+
+const string = "abc"; for (let chr of string) {console.log (chr); }
+
+Oczekiwany wynik:
+
+ABC
+
+Zestawy
+
+dla ... prac na obiektach Ustaw.
+
+Uwaga:
+
+Obiekt Set wyeliminuje duplikaty. Sprawdź to odwołanie do obsługi przeglądarki Set ().
+
+- 158
+
+const names = ['bob', 'alejandro', 'zandra', 'anna', 'bob'];
+
+const uniqueNames = new Set (names);
+
+for (let name of uniqueNames) {console.log (name); }
+
+Oczekiwany wynik:
+
+Bob alejandro zandra anna
+
+Mapy
+
+Możesz także użyć ... pętli do iteracji w Mapach. Działa to podobnie do tablic i zestawów, z tym że zmienna iteracyjna przechowuje zarówno klucz, jak i wartość.
+
+const map = new Map () .set ('abc', 1) .set ('def', 2)
+
+for (const iteration of map) {console.log (iteracja) // zaloguje się ['abc', 1], a następnie ['def', 2]}
+
+Możesz użyć funkcji destructuring assignment, aby przechwycić klucz i wartość oddzielnie:
+
+const map = new Map () .set ('abc', 1) .set ('def', 2)
+
+dla (const [klucz, wartość] mapy) {console.log (klucz + 'jest odwzorowany na "wartość +)) / * Logi: abc jest zmapowany do 1 def jest mapowany na 2 * /
+
+Obiekty
+
+dla ... z pętli nie działają bezpośrednio na zwykłych obiektach; ale możliwe jest iterowanie po właściwościach obiektu poprzez przełączenie do pętli for ... in lub Object.keys ():
+
+const someObject = {name: 'Mike'};
+
+for (niech klucz Object.keys (someObject)) {console.log (key + ":" + someObject [key]); }
+
+Oczekiwany wynik:
+
+- 159
+
+imię: Mike
+
+Sekcja 18.3: pętla "dla ... w"
+
+Ostrzeżenie dla ... w jest przeznaczone do iterowania kluczy obiektów, a nie indeksów tablicowych. Używanie go do przechodzenia przez tablicę jest ogólnie odradzane. Obejmuje również właściwości z prototypu, więc może być konieczne sprawdzenie, czy klucz znajduje się w obiekcie przy użyciu hasOwnProperty. Jeśli jakiekolwiek atrybuty w obiekcie są definiowane przez metodę defineProperty / defineProperties i ustawiają parametry wyliczalne: false, te atrybuty będą niedostępne.
+
+var object = {"a": "foo", "b": "bar", "c": "baz"}; // "a" jest niedostępne Object.defineProperty (object, 'a', {wyliczalne: false,}); for (klawisz var w obiekcie) {if (object.hasOwnProperty (key)) {console.log ('object.' + key + ',' + object [key]); }}
+
+Oczekiwany wynik:
+
+object.b, bar object.c, baz
+
+Punkt 18.4: "while" Pętle
+
+Standardowy podczas pętli
+
+Standardowa pętla while zostanie wykonana, dopóki podany warunek nie będzie fałszywy:
+
+var i = 0; while (i <100) {console.log (i); i ++; }
+
+Oczekiwany wynik:
+
+0 1 ... 99
+
+Zmniejszona pętla var i = 100; while (i> 0) {
+
+- 160
+
+console.log (i); ja--; / * równoważne i = i-1 * /}
+
+Oczekiwany wynik:
+
+100 99 98 ... 1
+
+Wykonuj ... podczas pętli
+
+Pętla do ... while jest zawsze wykonywana co najmniej raz, niezależnie od tego, czy warunek jest prawdziwy czy fałszywy:
+
+var i = 101; zrób {console.log (i); } while (i <100);
+
+Oczekiwany wynik:
+
+101
+
+Punkt 18.5: "kontynuuj" pętlę
+
+Kontynuacja pętli "for"
+
+Po umieszczeniu słowa kluczowego continue w pętli for wykonywanie wykonuje skok do wyrażenia aktualizacji (i ++ w przykładzie):
+
+dla (var i = 0; i <3; i ++) {if (i === 1) {continue; } console.log (i); }
+
+Oczekiwany wynik:
+
+0 2
+
+Kontynuacja pętli While While
+
+Gdy kontynuujesz pętlę while, wykonanie przechodzi do warunku (i <3 w przykładzie):
+
+var i = 0; while (i <3) {if (i === 1) {i = 2; dalej;
+
+- 161
+
+} console.log (i); i ++; }
+
+Oczekiwany wynik:
+
+0 2
+
+Punkt 18.6: Przerwij specyficzne zagnieżdżone pętle
+
+Możemy nazwać nasze pętle i przerwać konkretną, gdy zajdzie taka potrzeba.
+
+Pętla zewnętrzna: dla (var i = 0; i <3; i ++) {innerloop: dla (var j = 0; j <3; j ++) {console.log (i); console.log (j); if (j == 1) {break outerop; }}}
+
+Wydajność:
+
+0 0 0 1 Sekcja 18.7: pętla "do ... while"
+
+var availableName; zrób {availableName = getRandomName (); } while (isNameUsed (name));
+
+Pętla "wykonaj podczas gry" działa co najmniej raz, ponieważ jej stan jest sprawdzany tylko pod koniec iteracji. Tradycyjna pętla while może przebiegać zero lub więcej razy, ponieważ jej stan jest sprawdzany na początku iteracji. Część 18.8: Przerwa i kontynuuje etykiety
+
+Po instrukcji break i continue może następować opcjonalna etykieta, która działa jak instrukcja goto, wznawia wykonywanie z pozycji wskazanej etykiety
+
+for (var i = 0; i <5; i ++) {nextLoop2Iteration: for (var j = 0; j <5; j ++) {if (i == j) break nextLoop2Iteration; console.log (i, j); }
+
+- 162
+
+}
+
+i = 0 j = 0 pomija resztę wartości j 1 0 i = 1 j = 1 pomija resztę wartości j 2 0 2 1 i = 2 j = 2 pomija resztę wartości j 3 0 3 1 3 2 i = 3 j = 3 przeskakuje resztę wartości j 4 0 4 1 4 2 4 3 i = 4 j = 4 nie rejestruje i wykonuje pętle
+
+- 163
+
+Rozdział 19: Funkcje
+
+Funkcje JavaScriptu zapewniają uporządkowany, wielokrotnego użytku kod do wykonania zestawu działań. Funkcje upraszczają proces kodowania, zapobiegają zbędnej logice i ułatwiają wykonywanie kodu. W tym temacie opisano deklarację i wykorzystanie funkcji, argumentów, parametrów, instrukcji return i zakresu w JavaScript. Sekcja 19.1: Scoping funkcji
+
+Po zdefiniowaniu funkcji tworzy zakres.
+
+Wszystko, co zdefiniowano w funkcji, nie jest dostępne za pomocą kodu spoza funkcji. Tylko kod w tym zakresie może widzieć jednostki zdefiniowane wewnątrz zakresu.
+
+function foo () {var a = "cześć"; console.log (a); // => "cześć"}
+
+console.log (a); // błąd odniesienia
+
+Zagnieżdżone funkcje są możliwe w JavaScript i obowiązują te same zasady.
+
+function foo () {var a = "cześć";
+
+ 
+
+function bar () {var b = 'world'; console.log (a); // => 'hello' console.log (b); // => 'world'}
+
+console.log (a); // => 'hello' console.log (b); // błąd referencyjny}
+
+console.log (a); // błąd odniesienia console.log (b); // błąd odniesienia
+
+Gdy JavaScript próbuje rozwiązać referencję lub zmienną, zaczyna ją szukać w bieżącym zakresie. Jeśli nie jest w stanie znaleźć tej deklaracji w obecnym zakresie, wspina się o jeden zakres, aby ją poszukać. Proces ten powtarza się, dopóki nie zostanie znaleziona deklaracja. Jeśli analizator składni JavaScript osiągnie zasięg globalny i nadal nie będzie mógł znaleźć odwołania, zostanie zgłoszony błąd referencyjny.
+
+var a = "cześć";
+
+function foo () {var b = 'world';
+
+function bar () {var c = '!!';
+
+console.log (a); // => 'hello' console.log (b); // => 'world' console.log (c); // => '!!' console.log (d); // błąd referencyjny}
+
+- 164
+
+}
+
+Takie zachowanie wspinaczkowe może również oznaczać, że jedno odniesienie może "cieniem" nad podobnie nazwanym odniesieniem w zakresie zewnętrznym, ponieważ staje się widoczne.
+
+var a = "cześć";
+
+function foo () {var a = 'world';
+
+function bar () {console.log (a); // => 'world'}} Wersja ≥ 6
+
+Sposób, w jaki JavaScript rozwiązuje ustalanie zakresu, dotyczy również słowa kluczowego const. Deklarowanie zmiennej słowem kluczowym const oznacza, że ​​nie wolno jej ponownie przypisywać wartości, ale deklarowanie jej w funkcji tworzy nowy zakres, a wraz z nim nową zmienną.
+
+function foo () {const a = true;
+
+function bar () {const a = false; // inna zmienna console.log (a); // fałszywe }
+
+const a = false; // SyntaxError a = false; // TypeError console.log (a); // prawdziwe }
+
+Jednak funkcje nie są jedynymi blokami, które tworzą zasięg (jeśli używasz let lub const). Deklaracje let i const mają zasięg najbliższego bloku. Zobacz tutaj, aby uzyskać bardziej szczegółowy opis.
+
+Punkt 19.2: Currying
+
+Currying to przekształcenie funkcji n lub argumentów w sekwencję n funkcji przyjmujących tylko jeden argument.
+
+Przypadki użycia: gdy wartości niektórych argumentów są dostępne przed innymi, możesz użyć funkcji currying, aby rozłożyć funkcję na szereg funkcji, które kończą pracę etapami, gdy nadejdzie każda wartość. Może to być przydatne:
+
+Kiedy wartość argumentu prawie nigdy się nie zmienia (np. Współczynnik konwersji), ale musisz zachować elastyczność ustawienia tej wartości (zamiast twardego kodowania jej jako stałej). Gdy wynik funkcji curried jest przydatny przed uruchomieniem innych funkcji curry. Aby potwierdzić nadejście funkcji w określonej kolejności.
+
+Na przykład objętość pryzmatu prostokątnego można wyjaśnić funkcją trzech czynników: długości (l), szerokości (w) i wysokości (h):
+
+var prism = funkcja (l, w, h) {return l * w * h; }
+
+- 165
+
+Zwinięta wersja tej funkcji będzie wyglądać następująco:
+
+function prism (l) {funkcja powrotu (w) {funkcja powrotu (h) {powrót l * w * h; }}} Wersja ≥ 6 // alternatywnie, z zwięzłą składnią ECMAScript 6+: var prism = l => w => h => l * w * h;
+
+Możesz wywołać te sekwencje funkcji za pomocą pryzmatu (2) (3) (5), który powinien mieć wartość 30.
+
+Bez niektórych dodatkowych mechanizmów (jak w przypadku bibliotek), curry mają ograniczoną elastyczność składniową w JavaScript (ES 5/6) ze względu na brak wartości zastępczych; tak więc, podczas gdy możesz użyć var ​​a = prism (2) (3), aby utworzyć częściowo zastosowaną funkcję, nie możesz użyć pryzmatu () (3) (5). Punkt 19.3: Wyrażenia funkcji natychmiast wywołanych
+
+Czasami nie chcesz, aby twoja funkcja była dostępna / przechowywana jako zmienna. Możesz utworzyć Wyrażenie funkcji Natychmiastowe Wywołanie (IIFE w skrócie). Są to w zasadzie samo-wykonujące anonimowe funkcje. Mają dostęp do otaczającego zakresu, ale sama funkcja i wszelkie zmienne wewnętrzne będą niedostępne z zewnątrz. Ważną rzeczą, o której należy pamiętać o IIFE jest to, że nawet jeśli nazwiesz swoją funkcję, IIFE nie są podnoszone jak standardowe funkcje i nie mogą być wywołane przez nazwę funkcji, którą są zadeklarowane.
+
+(function () {alert ("Uruchomiłem - ale nie można go uruchomić ponownie, ponieważ jestem natychmiast wywoływany w czasie wykonywania, pozostawiając tylko wynik, który generuję");} ());
+
+To jest inny sposób na napisanie IIFE. Zwróć uwagę, że nawias zamykający przed średnikiem został przeniesiony i umieszczony zaraz po zamykającym nawiasie klamrowym:
+
+(function () {alert ("To też jest IIFE.");}) ();
+
+Możesz łatwo przekazać parametry do IIFE:
+
+(function (message) {alert (message);} ("Hello World!"));
+
+Dodatkowo możesz zwrócić wartości do otaczającego zakresu:
+
+var example = (function () {return 42;} ()); console.log (przykład); // => 42
+
+W razie potrzeby można nazwać IIFE. Choć ten model jest rzadziej spotykany, ma kilka zalet, takich jak zapewnienie odniesienia, które może być użyte do rekursji i może uprościć debugowanie, ponieważ nazwa jest zawarta w tym obszarze.
+
+- 166
+
+(function namedIIFE () {błąd throw; // Możemy teraz zobaczyć błąd generowany w 'namedIIFE ()'} ());
+
+Owijanie funkcji w nawiasach jest najczęstszym sposobem oznaczania parsera JavaScript, aby oczekiwał wyrażenia, w miejscach, w których wyrażenie jest już oczekiwane, notacja może być bardziej zwięzła:
+
+var a = function () {return 42} (); console.log (a) // => 42
+
+Strzałkowa wersja natychmiast przywołanej funkcji:
+
+Wersja ≥ 6 (() => console.log ("Hello!"))) (); // => Hello! Rozdział 19.4: Funkcje nazwane
+
+Funkcje mogą być nazwane lub nienazwane (funkcje anonimowe):
+
+var namedSum = function function (a, b) {// named return a + b; }
+
+var anonSum = funkcja (a, b) {// anonimowy return a + b; }
+
+namedSum (1, 3); anonSum (1, 3);
+
+4 4
+
+Ale ich nazwy są prywatne do ich zakresu:
+
+var sumTwoNumbers = suma funkcji (a, b) {return a + b; }
+
+suma (1, 3);
+
+Uncaught ReferenceError: suma nie jest określona
+
+Funkcje nazwane różnią się od anonimowych funkcji w wielu scenariuszach:
+
+Podczas debugowania nazwa funkcji pojawi się w śladzie błędu / stosu Funkcje nazwane są podnoszone, podczas gdy funkcje anonimowe nie są nazwanymi funkcjami, a funkcje anonimowe zachowują się różnie podczas obsługi rekursji. W zależności od wersji ECMAScript, funkcje nazwane i anonimowe mogą traktować funkcję nazwijmy własność di ff erently
+
+Funkcje nazwane są podnoszone
+
+- 167
+
+Podczas korzystania z funkcji anonimowej funkcja może być wywołana tylko po linii deklaracji, natomiast nazwaną funkcję można wywołać przed deklaracją. Rozważać
+
+bla(); var foo = function () {// przy użyciu anonimowej funkcji console.log ('bar'); }
+
+Uncaught TypeError: foo nie jest funkcją
+
+bla(); function foo () {// przy użyciu nazwanej funkcji console.log ('bar'); }
+
+bar
+
+Nazwane funkcje w rekurencyjnym scenariuszu
+
+Funkcja rekursywna może być zdefiniowana jako:
+
+var say = function (times) {if (razy> 0) {console.log ("Hello!");
+
+say (razy - 1); }}
+
+// możesz nazwać "powiedz" bezpośrednio, // ale w ten sposób po prostu ilustruje przykład var sayHelloTimes = say;
+
+sayHelloTimes (2);
+
+Witaj! Witaj!
+
+Co się stanie, jeśli gdzieś w kodzie zostanie przywrócone pierwotne powiązanie funkcji?
+
+var say = function (times) {if (razy> 0) {console.log ("Hello!");
+
+say (razy - 1); }}
+
+var sayHelloTimes = say; say = "oops";
+
+sayHelloTimes (2);
+
+- 168
+
+Witaj! Uncaught TypeError: say nie jest funkcją
+
+Można to rozwiązać za pomocą nazwanej funkcji
+
+// Zmienna zewnętrzna może mieć nawet taką samą nazwę jak funkcja // ponieważ są one zawarte w różnych zakresach var say = funkcja say (times) {if (razy> 0) {console.log ("Hello!");
+
+// tym razem "powiedz" nie używa zewnętrznej zmiennej // używa nazwanej funkcji say (razy - 1); }}
+
+var sayHelloTimes = say; say = "oops";
+
+sayHelloTimes (2);
+
+Witaj! Witaj!
+
+Jako bonus, nazwana funkcja nie może być ustawiona na undefined, nawet od wewnątrz:
+
+var say = function say (times) {// to nic nie mówi = nieokreślone; if (czasy> 0) {console.log ("Hello!");
+
+// tym razem "powiedz" nie używa zewnętrznej zmiennej // używa nazwanej funkcji say (razy - 1); }}
+
+var sayHelloTimes = say; say = "oops";
+
+sayHelloTimes (2);
+
+Witaj! Witaj!
+
+Właściwość name funkcji
+
+Przed ES6 funkcje nazw miały właściwości nazw ustawione na ich nazwy funkcji, a funkcje anonimowe miały właściwości nazwy ustawione na pusty ciąg znaków.
+
+- 169
+
+Wersja ≤ 5 var foo = function () {} console.log (foo.name); // wyniki ""
+
+function foo () {} console.log (foo.name); // wyprowadza "foo"
+
+Post ES6, nazwane i nienazwane funkcje zarówno ustawiają swoje właściwości nazwy:
+
+Wersja ≥ 6 var foo = function () {} console.log (foo.name); // wyprowadza "foo"
+
+function foo () {} console.log (foo.name); // wyprowadza "foo"
+
+var foo = pasek funkcji () {} console.log (foo.name); // wyprowadza "pasek" sekcja 19.5: Wiązanie "tego" i argumentów
+
+Wersja ≥ 5.1
+
+Kiedy odwołujesz się do metody (właściwości, która jest funkcją) w JavaScript, zazwyczaj nie pamięta ona obiektu, do którego była pierwotnie dołączona. Jeśli metoda musi odwoływać się do tego obiektu, ponieważ nie będzie to możliwe, a wywołanie go prawdopodobnie spowoduje awarię.
+
+Możesz użyć metody .bind () dla funkcji, aby utworzyć opakowanie, które zawiera wartość tej i dowolnej liczby wiodących argumentów.
+
+var monitor = {threshold: 5, check: function (value) {if (wartość> this.threshold) {this.display ("Wartość jest za wysoka!"); }}, display (message) {alert (wiadomość); }};
+
+monitor.check (7); // Wartość `this` jest implikowana przez składnię wywołania metody.
+
+var badCheck = monitor.check; badCheck (15); // Wartość `this` jest obiektem window, a this.threshold jest niezdefiniowana, więc wartość> this.threshold jest fałszywa
+
+var check = monitor.check.bind (monitor); sprawdź (15); // Ta wartość `this` została jawnie ograniczona, funkcja działa.
+
+var check8 = monitor.check.bind (monitor, 8); check8 (); // Ograniczamy także argument do `8` tutaj. Nie można go ponownie określić.
+
+Gdy nie jest w trybie ścisłym, funkcja używa obiektu globalnego (okna w przeglądarce) w ten sposób, chyba że funkcja jest wywoływana jako metoda, związana lub wywoływana za pomocą metody .call.
+
+window.x = 12;
+
+- 170
+
+function example () {return this.x; }
+
+console.log (przyklad ()); // 12
+
+W trybie ścisłym jest to domyślnie niezdefiniowane
+
+window.x = 12; function example () {"użyj ścisłego"; return this.x; }
+
+console.log (przyklad ()); // Uncaught TypeError: Nie można odczytać właściwości 'x' z undefined (...) Wersja ≥ 7 Operatora wiązania
+
+Operator podwójnego dwukropka może być użyty jako skrócona składnia dla wyjaśnionej powyżej koncepcji:
+
+var log = console.log.bind(console); // long version const log = ::console.log; // short version
+
+foo.bar.call(foo); // long version foo::bar(); // short version
+
+foo.bar.call(foo, arg1, arg2, arg3); // long version foo::bar(arg1, arg2, arg3); // short version
+
+foo.bar.apply(foo, args); // long version foo::bar(...args); // short version
+
+This syntax allows you to write normally, without worrying about binding this everywhere.
+
+Binding console functions to variables var log = console.log.bind(console);
+
+Usage:
+
+log('one', '2', 3, [4], {5: 5});
+
+Wydajność:
+
+one 2 3 [4] Object {5: 5}
+
+Why would you do that?
+
+One use case can be when you have custom logger and you want to decide on runtime which one to use.
+
+var logger = require('appLogger');
+
+var log = logToServer ? logger.log : console.log.bind(console);
+
+– 171
+
+Section 19.6: Functions with an Unknown Number of Arguments (variadic functions)
+
+To create a function which accepts an undetermined number of arguments, there are two methods depending on your environment.
+
+Version ≤ 5
+
+Whenever a function is called, it has an Array-like arguments object in its scope, containing all the arguments passed to the function. Indexing into or iterating over this will give access to the arguments, for example
+
+function logSomeThings() { for (var i = 0; i < arguments.length; ++i) { console.log(arguments[i]); } }
+
+logSomeThings('hello', 'world'); // logs "hello" // logs "world"
+
+Note that you can convert arguments to an actual Array if need-be; see: Converting Array-like Objects to Arrays
+
+Version ≥ 6
+
+From ES6, the function can be declared with its last parameter using the rest operator (...). This creates an Array which holds the arguments from that point onwards
+
+function personLogsSomeThings(person, ...msg) { msg.forEach(arg => { console.log(person, 'says', arg); }); }
+
+personLogsSomeThings('John', 'hello', 'world'); // logs "John says hello" // logs "John says world"
+
+Functions can also be called with similar way, the spread syntax
+
+const logArguments = (...args) => console.log(args) const list = [1, 2, 3]
+
+logArguments('a', 'b', 'c', ...list) // output: Array [ "a", "b", "c", 1, 2, 3 ]
+
+This syntax can be used to insert arbitrary number of arguments to any position, and can be used with any iterable(apply accepts only array-like objects).
+
+const logArguments = (...args) => console.log(args) function* generateNumbers() { yield 6 yield 5 yield 4 }
+
+logArguments('a', ...generateNumbers(), ...'pqr', 'b') // output: Array [ "a", 6, 5, 4, "p", "q", "r", "b" ]
+
+– 172
+
+Section 19.7: Anonymous Function
+
+Deﬁning an Anonymous Function
+
+When a function is deﬁned, you often give it a name and then invoke it using that name, like so:
+
+foo();
+
+function foo(){ // ... }
+
+When you deﬁne a function this way, the JavaScript runtime stores your function in memory and then creates a reference to that function, using the name you've assigned it. That name is then accessible within the current scope. This can be a very convenient way to create a function, but JavaScript does not require you to assign a name to a function. The following is also perfectly legal:
+
+function() { // ... }
+
+When a function is deﬁned without a name, it's known as an anonymous function. The function is stored in memory, but the runtime doesn't automatically create a reference to it for you. At ﬁrst glance, it may appear as if such a thing would have no use, but there are several scenarios where anonymous functions are very convenient.
+
+Assigning an Anonymous Function to a Variable
+
+A very common use of anonymous functions is to assign them to a variable:
+
+var foo = function(){ /*...*/ };
+
+foo();
+
+This use of anonymous functions is covered in more detail in Functions as a variable
+
+Supplying an Anonymous Function as a Parameter to Another Function
+
+Some functions may accept a reference to a function as a parameter. These are sometimes referred to as "dependency injections" or "callbacks", because it allows the function your calling to "call back" to your code, giving you an opportunity to change the way the called function behaves. For example, the Array object's map function allows you to iterate over each element of an array, then build a new array by applying a transform function to each element.
+
+var nums = [0,1,2]; var doubledNums = nums.map( function(element){ return element * 2; } ); // [0,2,4]
+
+It would be tedious, sloppy and unnecessary to create a named function, which would clutter your scope with a function only needed in this one place and break the natural ﬂow and reading of your code (a colleague would have to leave this code to ﬁnd your function to understand what's going on).
+
+Returning an Anonymous Function From Another Function
+
+Sometimes it's useful to return a function as the result of another function. For example:
+
+var hash = getHashFunction( 'sha1' );
+
+– 173
+
+var hashValue = hash( 'Secret Value' );
+
+function getHashFunction( algorithm ){
+
+if ( algorithm === 'sha1' ) return function( value ){ /*...*/ }; else if ( algorithm === 'md5' ) return function( value ){ /*...*/ };
+
+} Immediately Invoking an Anonymous Function
+
+Unlike many other languages, scoping in JavaScript is function-level, not block-level. (See Function Scoping ). In some cases, however, it's necessary to create a new scope. For example, it's common to create a new scope when adding code via a <script> tag, rather than allowing variable names to be deﬁned in the global scope (which runs the risk of other scripts colliding with your variable names). A common method to handle this situation is to deﬁne a new anonymous function and then immediately invoke it, safely hiding you variables within the scope of the anonymous function and without making your code accessible to third-parties via a leaked function name. For example:
+
+<!-- My Script --> <script> function initialize(){ // foo is safely hidden within initialize, but... var foo = ''; }
+
+// ...my initialize function is now accessible from global scope. // There is a risk someone could call it again, probably by accident. initialize(); </script>
+
+<script> // Using an anonymous function, and then immediately // invoking it, hides my foo variable and guarantees // no one else can call it a second time. (function(){ var foo = ''; }()) // <--- the parentheses invokes the function immediately </script> Self-Referential Anonymous Functions
+
+Sometimes it's useful for an anonymous function to be able to refer to itself. For example, the function may need to recursively call itself or add properties to itself. If the function is anonymous, though, this can be very diﬃcult as it requires knowledge of the variable that the function has been assigned to. This is the less than ideal solution:
+
+var foo = function(callAgain){ console.log( 'Whassup?' ); // Less than ideal... we're dependent on a variable reference... if (callAgain === true) foo(false); };
+
+foo(true);
+
+// Console Output: // Whassup? // Whassup?
+
+// Assign bar to the original function, and assign foo to another function. var bar = foo; foo = function(){
+
+– 174
+
+console.log('Bad.') };
+
+bar(true);
+
+// Console Output: // Whassup? // Bad.
+
+The intent here was for the anonymous function to recursively call itself, but when the value of foo changes, you end up with a potentially diﬃcult to trace bug.
+
+Instead, we can give the anonymous function a reference to itself by giving it a private name, like so:
+
+var foo = function myself(callAgain){ console.log( 'Whassup?' ); // Less than ideal... we're dependent on a variable reference... if (callAgain === true) myself(false); };
+
+foo(true);
+
+// Console Output: // Whassup? // Whassup?
+
+// Assign bar to the original function, and assign foo to another function. var bar = foo; foo = function(){ console.log('Bad.') };
+
+bar(true);
+
+// Console Output: // Whassup? // Whassup?
+
+Note that the function name is scoped to itself. The name has not leaked into the outer scope:
+
+myself(false); // ReferenceError: myself is not defined
+
+This technique is especially useful when dealing with recursive anonymous functions as callback parameters:
+
+Version ≥ 5 // Calculate the Fibonacci value for each number in an array: var fib = false, result = [1,2,3,4,5,6,7,8].map( function fib(n){ return ( n <= 2 ) ? 1 : fib( n - 1 ) + fib( n - 2 ); }); // result = [1, 1, 2, 3, 5, 8, 13, 21] // fib = false (the anonymous function name did not overwrite our fib variable) Section 19.8: Default parameters
+
+Before ECMAScript 2015 (ES6), a parameter's default value could be assigned in the following way:
+
+function printMsg(msg) {
+
+– 175
+
+msg = typeof msg !== 'undefined' ? // if a value was provided msg : // then, use that value in the reassignment 'Default value for msg.'; // else, assign a default value console.log(msg); }
+
+ES6 provided a new syntax where the condition and reassignment depicted above is no longer necessary:
+
+Version ≥ 6 function printMsg(msg='Default value for msg.') { console.log(msg); } printMsg(); // -> "Default value for msg." printMsg(undefined); // -> "Default value for msg." printMsg('Now my msg in different!'); // -> "Now my msg in different!"
+
+This also shows that if a parameter is missing when the function is invoked, its value is kept as undefined, as it can be conﬁrmed by explicitly providing it in the following example (using an arrow function):
+
+Version ≥ 6 let param_check = (p = 'str') => console.log(p + ' is of type: ' + typeof p);
+
+param_check(); // -> "str is of type: string" param_check(undefined); // -> "str is of type: string"
+
+param_check(1); // -> "1 is of type: number" param_check(this); // -> "[object Window] is of type: object" Functions/variables as default values and reusing parameters
+
+The default parameters' values are not restricted to numbers, strings or simple objects. A function can also be set as the default value callback = function(){}:
+
+Version ≥ 6 function foo(callback = function(){ console.log('default'); }) { callback(); }
+
+foo(function (){ console.log('custom'); }); // custom
+
+foo(); //default
+
+There are certain characteristics of the operations that can be performed through default values:
+
+A previously declared parameter can be reused as a default value for the upcoming parameters' values. Inline operations are allowed when assigning a default value to a parameter. Variables existing in the same scope of the function being declared can be used in its default values. Functions can be invoked in order to provide their return value into a default value.
+
+Version ≥ 6 let zero = 0; function multiply(x) { return x * 2;}
+
+function add(a = 1 + zero, b = a, c = b + a, d = multiply(c)) { console.log((a + b + c), d);
+
+– 176
+
+}
+
+add(1); // 4, 4 add(3); // 12, 12 add(2, 7); // 18, 18 add(1, 2, 5); // 8, 10 add(1, 2, 5, 10); // 8, 20 Reusing the function's return value in a new invocation's default value: Version ≥ 6 let array = [1]; // meaningless: this will be overshadowed in the function's scope function add(value, array = []) { array.push(value); return array; } add(5); // [5] add(6); // [6], not [5, 6] add(6, add(5)); // [5, 6] arguments value and length when lacking parameters in invocation
+
+The arguments array object only retains the parameters whose values are not default, ie those that are explicitly provided when the function is invoked:
+
+Version ≥ 6 function foo(a = 1, b = a + 1) { console.info(arguments.length, arguments); console.log(a,b); }
+
+foo(); // info: 0 >> [] | log: 1, 2 foo(4); // info: 1 >> [4] | log: 4, 5 foo(5, 6); // info: 2 >> [5, 6] | log: 5, 6 Section 19.9: Call and apply
+
+Functions have two built-in methods that allow the programmer to supply arguments and the this variable diﬀerently: call and apply.
+
+This is useful, because functions that operate on one object (the object that they are a property of) can be repurposed to operate on another, compatible object. Additionally, arguments can be given in one shot as arrays, similar to the spread (...) operator in ES6.
+
+let obj = { a: 1, b: 2, set: function (a, b) { this.a = a; this.b = b; } };
+
+obj.set(3, 7); // normal syntax obj.set.call(obj, 3, 7); // equivalent to the above obj.set.apply(obj, [3, 7]); // equivalent to the above; note that an array is used
+
+console.log(obj); // prints { a: 3, b: 5 }
+
+let myObj = {}; myObj.set(5, 4); // fails; myObj has no `set` property
+
+– 177
+
+obj.set.call(myObj, 5, 4); // success; `this` in set() is re-routed to myObj instead of obj obj.set.apply(myObj, [5, 4]); // same as above; note the array
+
+console.log(myObj); // prints { a: 3, b: 5 } Version ≥ 5
+
+ECMAScript 5 introduced another method called bind() in addition to call() and apply() to explicitly set this value of the function to speciﬁc object.
+
+It behaves quite diﬀerently than the other two. The ﬁrst argument to bind() is the this value for the new function. All other arguments represent named parameters that should be permanently set in the new function.
+
+function showName(label) { console.log(label + ":" + this.name); } var student1 = { name: "Ravi" }; var student2 = { name: "Vinod" };
+
+// create a function just for student1 var showNameStudent1 = showName.bind(student1); showNameStudent1("student1"); // outputs "student1:Ravi"
+
+// create a function just for student2 var showNameStudent2 = showName.bind(student2, "student2"); showNameStudent2(); // outputs "student2:Vinod"
+
+// attaching a method to an object doesn't change `this` value of that method. student2.sayName = showNameStudent1; student2.sayName("student2"); // outputs "student2:Ravi" Section 19.10: Partial Application
+
+Similar to currying, partial application is used to reduce the number of arguments passed to a function. Unlike currying, the number need not go down by one.
+
+Example:
+
+This function ...
+
+function multiplyThenAdd(a, b, c) { return a * b + c; }
+
+... can be used to create another function that will always multiply by 2 and then add 10 to the passed value;
+
+function reversedMultiplyThenAdd(c, b, a) { return a * b + c; }
+
+function factory(b, c) { return reversedMultiplyThenAdd.bind(null, c, b); }
+
+var multiplyTwoThenAddTen = factory(2, 10);
+
+– 178
+
+multiplyTwoThenAddTen(10); // 30
+
+The "application" part of partial application simply means ﬁxing parameters of a function. Section 19.11: Passing arguments by reference or value
+
+In JavaScript all arguments are passed by value. When a function assigns a new value to an argument variable, that change will not be visible to the caller:
+
+var obj = {a: 2}; function myfunc(arg){ arg = {a: 5}; // Note the assignment is to the parameter variable itself } myfunc(obj); console.log(obj.a); // 2
+
+However, changes made to (nested) properties of such arguments, will be visible to the caller:
+
+var obj = {a: 2}; function myfunc(arg){ arg.a = 5; // assignment to a property of the argument } myfunc(obj); console.log(obj.a); // 5
+
+This can be seen as a call by reference: although a function cannot change the caller's object by assigning a new value to it, it could mutate the caller's object.
+
+As primitive valued arguments, like numbers or strings, are immutable, there is no way for a function to mutate them:
+
+var s = 'say'; function myfunc(arg){ arg += ' hello'; // assignment to the parameter variable itself } myfunc(s); console.log(s); // 'say'
+
+When a function wants to mutate an object passed as argument, but does not want to actually mutate the caller's object, the argument variable should be reassigned:
+
+Version ≥ 6 var obj = {a: 2, b: 3}; function myfunc(arg){ arg = Object.assign({}, arg); // assignment to argument variable, shallow copy arg.a = 5; } myfunc(obj); console.log(obj.a); // 2
+
+As an alternative to in-place mutation of an argument, functions can create a new value, based on the argument, and return it. The caller can then assign it, even to the original variable that was passed as argument:
+
+var a = 2; function myfunc(arg){ arg++; return arg;
+
+– 179
+
+} a = myfunc(a); console.log(obj.a); // 3 Section 19.12: Function Arguments, "arguments" object, rest and spread parameters
+
+Functions can take inputs in form of variables that can be used and assigned inside their own scope. The following function takes two numeric values and returns their sum:
+
+function addition (argument1, argument2){ return argument1 + argument2; }
+
+console.log(addition(2, 3)); // -> 5 arguments object
+
+The arguments object contains all the function's parameters that contain a non-default value. It can also be used even if the parameters are not explicitly declared:
+
+(function() { console.log(arguments) })(0,'str', [2,{3}]) // -> [0, "str", Array[2]]
+
+Although when printing arguments the output resembles an Array, it is in fact an object:
+
+(function() { console.log(typeof arguments) })(); // -> object Rest parameters: function (...parm) {}
+
+In ES6, the ... syntax when used in the declaration of a function's parameters transforms the variable to its right into a single object containing all the remaining parameters provided after the declared ones. This allows the function to be invoked with an unlimited number of arguments, which will become part of this variable:
+
+(function(a, ...b){console.log(typeof b+': '+b[0]+b[1]+b[2]) })(0,1,'2',[3],{i:4}); // -> object: 123 Spread parameters: function_name(...varb);
+
+In ES6, the ... syntax can also be used when invoking a function by placing an object/variable to its right. This allows that object's elements to be passed into that function as a single object:
+
+let nums = [2,42,-1]; console.log(...['a','b','c'], Math.max(...nums)); // -> abc 42 Section 19.13: Function Composition
+
+Composing multiple functions into one is a functional programming common practice;
+
+composition makes a pipeline through which our data will transit and get modiﬁed simply working on the functioncomposition (just like snapping pieces of a track together)...
+
+you start out with some single responsibility functions:
+
+Version ≥ 6 const capitalize = x => x.replace(/^\w/, m => m.toUpperCase()); const sign = x => x + ',\nmade with love';
+
+– 180
+
+and easily create a transformation track:
+
+Version ≥ 6 const formatText = compose(capitalize, sign);
+
+formatText('this is an example') //This is an example, //made with love
+
+NB Composition is achieved through a utility function usually called compose as in our example.
+
+Implementation of compose are present in many JavaScript utility libraries (lodash, rambda, etc.) but you can also start out with a simple implementation such as:
+
+Version ≥ 6 const compose = (...funs) => x => funs.reduce((ac, f) => f(ac), x); Section 19.14: Get the name of a function object
+
+Version ≥ 6
+
+ES6:
+
+myFunction.name
+
+Explanation on MDN. As of 2015 works in Node.js and all major browsers except IE.
+
+Version ≥ 5
+
+ES5:
+
+If you have a reference to the function, you can do:
+
+function functionName( func ) { // Match: // - ^ the beginning of the string // - function the word 'function' // - \s+ at least some white space // - ([\w\$]+) capture one or more valid JavaScript identifier characters // - \( followed by an opening brace // var result = /^function\s+([\w\$]+)\(/.exec( func.toString() ) return result ? result[1] : '' } Section 19.15: Recursive Function
+
+A recursive function is simply a function, that would call itself.
+
+function factorial (n) { if (n <= 1) { return 1; }
+
+– 181
+
+return n * factorial(n - 1); }
+
+The above function shows a basic example of how to perform a recursive function to return a factorial.
+
+Another example, would be to retrieve the sum of even numbers in an array.
+
+function countEvenNumbers (arr) { // Sentinel value. Recursion stops on empty array. if (arr.length < 1) { return 0; } // The shift() method removes th e first element from an array // and returns that element. This method changes the length of the array. var value = arr.shift();
+
+// `value % 2 === 0` tests if the number is even or odd // If it's even we add one to the result of counting the remainder of // the array. If it's odd, we add zero to it. return ((value % 2 === 0) ? 1 : 0) + countEvens(arr); }
+
+It is important that such functions make some sort of sentinel value check to avoid inﬁnite loops. In the ﬁrst example above, when n is less than or equal to 1, the recursion stops, allowing the result of each call to be returned back up the call stack. Section 19.16: Using the Return Statement
+
+The return statement can be a useful way to create output for a function. The return statement is especially useful if you do not know in which context the function will be used yet.
+
+//An example function that will take a string as input and return //the first character of the string.
+
+function firstChar (stringIn){ return stringIn.charAt(0); }
+
+Now to use this function, you need to put it in place of a variable somewhere else in your code:
+
+Using the function result as an argument for another function:
+
+console.log(firstChar("Hello world"));
+
+Console output will be:
+
+> H
+
+The return statement ends the function
+
+If we modify the function in the beginning, we can demonstrate that the return statement ends the function.
+
+function firstChar (stringIn){ console.log("The first action of the first char function"); return stringIn.charAt(0); console.log("The last action of the first char function");
+
+– 182
+
+}
+
+Running this function like so will look like this:
+
+console.log(firstChar("JS"));
+
+Console output:
+
+> The first action of the first char function > J
+
+It will not print the message after the return statement, as the function has now been ended.
+
+Return statement spanning multiple lines:
+
+In JavaScript, you can normally split up a line of code into many lines for readability purposes or organization. This is valid JavaScript:
+
+var name = "bob", age = 18;
+
+When JavaScript sees an incomplete statement like var it looks to the next line to complete itself. However, if you make the same mistake with the return statement, you will not get what you expected.
+
+return "Hi, my name is "+ name + ". " + "I'm "+ age + " years old.";
+
+This code will return undefined because return by itself is a complete statement in JavaScript, so it will not look to the next line to complete itself. If you need to split up a return statement into multiple lines, put a value next to return before you split it up, like so.
+
+return "Hi, my name is " + name + ". " + "I'm " + age + " years old."; Section 19.17: Functions as a variable
+
+A normal function declaration looks like this:
+
+function foo(){ }
+
+A function deﬁned like this is accessible from anywhere within its context by its name. But sometimes it can be useful to treat function references like object references. For example, you can assign an object to a variable based on some set of conditions and then later retrieve a property from one or the other object:
+
+var name = 'Cameron'; var spouse;
+
+if ( name === 'Taylor' ) spouse = { name: 'Jordan' }; else if ( name === 'Cameron' ) spouse = { name: 'Casey' };
+
+var spouseName = spouse.name;
+
+– 183
+
+In JavaScript, you can do the same thing with functions:
+
+// Example 1 var hashAlgorithm = 'sha1'; var hash;
+
+if ( hashAlgorithm === 'sha1' ) hash = function(value){ /*...*/ }; else if ( hashAlgorithm === 'md5' ) hash = function(value){ /*...*/ };
+
+hash('Fred');
+
+In the example above, hash is a normal variable. It is assigned a reference to a function, after which the function it references can be invoked using parentheses, just like a normal function declaration.
+
+The example above references anonymous functions... functions that do not have their own name. You can also use variables to refer to named functions. The example above could be rewritten like so:
+
+// Example 2 var hashAlgorithm = 'sha1'; var hash;
+
+if ( hashAlgorithm === 'sha1' ) hash = sha1Hash; else if ( hashAlgorithm === 'md5' ) hash = md5Hash;
+
+hash('Fred');
+
+function md5Hash(value){ // ... }
+
+function sha1Hash(value){ // ... }
+
+Or, you can assign function references from object properties:
+
+// Example 3 var hashAlgorithms = { sha1: function(value) { /**/ }, md5: function(value) { /**/ } };
+
+var hashAlgorithm = 'sha1'; var hash;
+
+if (hashAlgorithm === 'sha1') hash = hashAlgorithms.sha1; else if (hashAlgorithm === 'md5') hash = hashAlgorithms.md5;
+
+hash ("Fred");
+
+Możesz przypisać odwołanie do funkcji przechowywanej przez jedną zmienną do drugiej, pomijając nawiasy. Może to spowodować łatwą do popełnienia pomyłkę: próbę przypisania wartości zwracanej funkcji do innej zmiennej, ale przypadkowe przypisanie odniesienia do funkcji.
+
+// Przykład 4 var a = getValue; var b = a; // b jest teraz odniesieniem do getValue. var c = b (); // b jest wywoływane, więc c ma teraz wartość zwróconą przez getValue (41)
+
+- 184
+
+function getValue () {return 41; }
+
+Odwołanie do funkcji jest jak każda inna wartość. Jak widzieliśmy, referencję można przypisać do zmiennej, a wartość odniesienia tej zmiennej może być później przypisana do innych zmiennych. Można przekazywać odniesienia do funkcji, takich jak każda inna wartość, w tym przekazywanie odwołania do funkcji jako wartości zwracanej innej funkcji. Na przykład:
+
+// Przykład 5 // getHashingFunction zwraca funkcję, która jest przypisana do wartości skrótu do późniejszego użycia: var hash = getHashingFunction ('sha1'); // ... hash ("Fred");
+
+// zwraca funkcję odpowiadającą danemu algorytmowiName funkcja getHashingFunction (algorithmName) {// zwraca odwołanie do anonimowej funkcji, jeśli (algorithmName === 'sha1') zwraca funkcję (wartość) {/ ** /}; // zwraca odwołanie do deklarowanej funkcji else, jeśli (algorithmName === 'md5') zwraca md5; }
+
+function md5Hash (value) {// ...}
+
+Nie trzeba przypisywać referencji do zmiennej w celu jej wywołania. Ten przykład, na przykład od zera 5, wywoła funkcję getHashingFunction, a następnie natychmiast wywoła funkcję zwracaną i przekaże jej wartość zwracaną do hashedValue.
+
+// Przykład 6 var hashedValue = getHashingFunction ('sha1') ('Fred'); Uwaga dotycząca podnoszenia
+
+Należy pamiętać, że w przeciwieństwie do zwykłych deklaracji funkcji, zmienne, które odwołują się do funkcji, nie są "wyciągane". W przykładzie 2 funkcje md5Hash i sha1Hash są definiowane na samym dole skryptu, ale są natychmiast dostępne wszędzie. Niezależnie od tego, gdzie definiujesz funkcję, tłumacz "wyciąga" ją na szczyt jej zasięgu, dzięki czemu jest natychmiast dostępna. Nie dotyczy to zmiennych definicji, więc złamie się następujący kod:
+
+var functionVariable;
+
+hoistedFunction (); // działa, ponieważ funkcja jest "podniesiona" do górnej części jej funkcji functionVariable (); // błąd: undefined nie jest funkcją.
+
+function hoistedFunction () {} functionVariable = function () {};
+
+- 185
+
+Rozdział 20: Funkcjonalna sekcja JavaScript 20.1: Funkcje wyższego rzędu
+
+Ogólnie rzecz biorąc, funkcje, które działają na innych funkcjach, albo przyjmując je jako argumenty, albo zwracając je (lub oba), nazywane są funkcjami wyższego rzędu.
+
+Funkcja wyższego rzędu jest funkcją, która może przyjąć inną funkcję jako argument. Podczas przekazywania połączeń zwrotnych używasz funkcji wyższego rzędu.
+
+function iAmCallbackFunction () {console.log ("wywołanie zwrotne zostało wywołane"); }
+
+function iAmJustFunction (callbackFn) {// wykonaj pewne czynności ...
+
+// wywołaj funkcję zwrotną. callbackFn (); }
+
+// wywołaj funkcję wyższego rzędu z funkcją zwrotną. iAmJustFunction (iAmCallbackFunction);
+
+Funkcja wyższego rzędu jest również funkcją, która zwraca inną funkcję jako jej wynik.
+
+function iAmJustFunction () {// wykonaj pewne czynności ...
+
+// zwraca funkcję. funkcja powrotu iAmReturnedFunction () {console.log ("zwrócona funkcja została wywołana"); }}
+
+// wywołaj funkcję wyższego rzędu i zwróconą funkcję. iAmJustFunction () (); Sekcja 20.2: Monada tożsamości
+
+Jest to przykład implementacji monada tożsamości w JavaScript i może służyć jako punkt wyjścia do tworzenia innych monad.
+
+Na podstawie konferencji Douglasa Crockforda na temat monad i gonad
+
+Dzięki temu podejściu ponowne wykorzystanie twoich funkcji będzie łatwiejsze dzięki elastyczności, jaką zapewnia ta monada i koszmarom kompozycji:
+
+f (g (h (i (j (k (wartość), j1), i2), h1, h2), g1, g2), f1, f2)
+
+czytelny, ładny i czysty:
+
+identityMonad (value) .bind (k) .bind (j, j1, j2) .bind (i, i2)
+
+- 186
+
+.ind (h, h1, h2) .indy (g, g1, g2) .bind (f, f1, f2);
+
+function identityMonad (value) {var monad = Object.create (null); // func powinien zwrócić monad monad.bind = function (func, ... args) {return func (value, ... args); };
+
+// Cokolwiek func robi, otrzymujemy monadę z powrotem monad.call = function (func, ... args) {func (value, ... args);
+
+return identityMonad (wartość); }; // func nie musi nic wiedzieć o monadach monad.apply = function (func, ... args) {return identityMonad (func (value, ... args)); };
+
+// Uzyskaj wartość zapakowaną w monadę monad.value = function () {return value; }; powrót monada; };
+
+Działa z wartościami pierwotnymi
+
+var wartość = 'foo', f = x => x + "zmieniony", g = x => x + "ponownie";
+
+identityMonad (value) .apply (f) .apply (g) .bind (alert); // Alerts "foo znowu się zmienił"
+
+A także z przedmiotami
+
+var value = {foo: 'foo'}, f = x => identityMonad (Object.assign (x, {foo: 'bar'})), g = x => Object.assign (x, {bar: 'foo '}), h = x => console.log (' foo: '+ x.foo +', bar: '+ x.bar);
+
+identityMonad (value) .bind (f) .apply (g) .bind (h); // Logs 'foo: bar, bar: foo'
+
+Spróbujmy wszystkiego:
+
+var add = (x, ... args) => x + args.reduce ((r, n) => r + n, 0), mnożenie = (x, ... args) => x * args.reduce ((r, n) => r * n, 1),
+
+- 187
+
+divideMonad = (x, ... args) => identityMonad (x / multiply (... args)), log = x => console.log (x), substract = (x, ... args) => x - add (... args);
+
+identityMonad (100) .apply (add, 10, 29, 13) .apply (mnożenie, 2) .bind (divideMonad, 2) .apply (odejmowanie, 67, 34) .apply (mnożenie, 1239) .bind (divideMonad, 20, 54, 2) .apply (Math.round) .call (log); // Dzienniki 29 Rozdział 20.3: Czyste funkcje
+
+Podstawową zasadą programowania funkcjonalnego jest to, że unika on zmiany stanu aplikacji (bezpaństwowości) i zmiennych poza jej zakresem (niezmienność).
+
+Czyste funkcje to funkcje, które:
+
+przy danym wejściu, zawsze zwracają te same dane wyjściowe, które nie zależą od żadnej zmiennej poza ich zakresem, nie modyfikują stanu aplikacji (brak skutków ubocznych)
+
+Rzućmy okiem na kilka przykładów:
+
+Czyste funkcje nie mogą zmieniać żadnych zmiennych poza ich zakresem
+
+Zanieczyszczona funkcja
+
+let obj = {a: 0}
+
+const impure = (input) => // Modyfikuje input.a input.a = input.a + 1; return input.a; }
+
+niech b = nieczysty (obj) console.log (obj) // Loguje {"a": 1} console.log (b) // Logi 1
+
+Funkcja zmieniła wartość obj.a, która znajduje się poza jej zakresem.
+
+Czysta funkcja
+
+let obj = {a: 0}
+
+const pure = (input) => {// Nie modyfikuje obj let output = input.a + 1; return output; }
+
+- 188
+
+niech b = czysty (obj) console.log (obj) // Loguje {"a": 0} console.log (b) // Logi 1
+
+Funkcja nie zmieniła wartości obiektu obj
+
+Czyste funkcje nie mogą polegać na zmiennych spoza ich zakresu
+
+Zanieczyszczona funkcja
+
+let a = 1;
+
+let impure = (input) => { // Multiply with variable outside function scope let output = input * a; return output; }
+
+console.log(impure(2)) // Logs 2 a++; // a becomes equal to 2 console.log(impure(2)) // Logs 4
+
+This impure function rely on variable a that is deﬁned outside its scope. So, if a is modiﬁed, impure's function result will be diﬀerent.
+
+Pure function
+
+let pure = (input) => { let a = 1; // Multiply with variable inside function scope let output = input * a; return output; }
+
+console.log(pure(2)) // Logs 2
+
+The pure's function result does not rely on any variable outside its scope. Section 20.4: Accepting Functions as Arguments
+
+function transform(fn, arr) { let result = []; for (let el of arr) { result.push(fn(el)); // We push the result of the transformed item to result } return result; }
+
+console.log(transform(x => x * 2, [1,2,3,4])); // [2, 4, 6, 8]
+
+As you can see, our transform function accepts two parameters, a function and a collection. It will then iterate the collection, and push values onto the result, calling fn on each of them.
+
+Looks familiar? This is very similar to how Array.prototype.map() works!
+
+– 189
+
+console.log([1, 2, 3, 4].map(x => x * 2)); // [2, 4, 6, 8]
+
+– 190
+
+Chapter 21: Prototypes, objects
+
+In the conventional JS there are no class instead we have prototypes. Like the class, prototype inherits the properties including the methods and the variables declared in the class. We can create the new instance of the object whenever it is necessary by, Object.create(PrototypeName); (we can give the value for the constructor as well) Section 21.1: Creation and initialising Prototype
+
+var Human = function() { this.canWalk = true; this.canSpeak = true; //
+
+};
+
+Person.prototype.greet = function() { if (this.canSpeak) { // checks whether this prototype has instance of speak this.name = "Steve" console.log('Hi, I am ' + this.name); } else{ console.log('Sorry i can not speak'); } };
+
+The prototype can be instantiated like this
+
+obj = Object.create(Person.prototype); ob.greet();
+
+We can pass value for the constructor and make the boolean true and false based on the requirement.
+
+Detailed Explanation
+
+var Human = function() { this.canSpeak = true; }; // Basic greet function which will greet based on the canSpeak flag Human.prototype.greet = function() { if (this.canSpeak) { console.log('Hi, I am ' + this.name); } };
+
+var Student = function(name, title) { Human.call(this); // Instantiating the Human object and getting the memebers of the class this.name = name; // inheriting the name from the human class this.title = title; // getting the title from the called function };
+
+Student.prototype = Object.create(Human.prototype); Student.prototype.constructor = Student;
+
+Student.prototype.greet = function() { if (this.canSpeak) { console.log('Hi, I am ' + this.name + ', the ' + this.title); } };
+
+– 191
+
+var Customer = function(name) { Human.call(this); // inheriting from the base class this.name = name; };
+
+Customer.prototype = Object.create(Human.prototype); // creating the object Customer.prototype.constructor = Customer;
+
+var bill = new Student('Billy', 'Teacher'); var carter = new Customer('Carter'); var andy = new Student('Andy', 'Bill'); var virat = new Customer('Virat');
+
+bill.greet(); // Hi, I am Bob, the Teacher
+
+carter.greet(); // Hi, I am Carter
+
+andy.greet(); // Hi, I am Andy, the Bill
+
+virat.greet();
+
+– 192
+
+Chapter 22: Classes Section 22.1: Class Constructor
+
+The fundamental part of most classes is its constructor, which sets up each instance's initial state and handles any parameters that were passed when calling new.
+
+It's deﬁned in a class block as though you're deﬁning a method named constructor, though it's actually handled as a special case.
+
+class MyClass { constructor(option) { console.log(`Creating instance using ${option} option.`); this.option = option; } }
+
+Example usage:
+
+const foo = new MyClass('speedy'); // logs: "Creating instance using speedy option"
+
+A small thing to note is that a class constructor cannot be made static via the static keyword, as described below for other methods. Section 22.2: Class Inheritance
+
+Inheritance works just like it does in other object-oriented languages: methods deﬁned on the superclass are accessible in the extending subclass.
+
+If the subclass declares its own constructor then it must invoke the parents constructor via super() before it can access this.
+
+class SuperClass {
+
+constructor() { this.logger = console.log; }
+
+log() { this.logger(`Hello ${this.name}`); }
+
+}
+
+class SubClass extends SuperClass {
+
+constructor() { super(); this.name = 'subclass'; }
+
+}
+
+const subClass = new SubClass();
+
+subClass.log(); // logs: "Hello subclass"
+
+– 193
+
+Section 22.3: Static Methods
+
+Static methods and properties are deﬁned on the class/constructor itself, not on instance objects. These are speciﬁed in a class deﬁnition by using the static keyword.
+
+class MyClass { static myStaticMethod() { return 'Hello'; }
+
+static get myStaticProperty() { return 'Goodbye'; } }
+
+console.log(MyClass.myStaticMethod()); // logs: "Hello" console.log(MyClass.myStaticProperty); // logs: "Goodbye"
+
+We can see that static properties are not deﬁned on object instances:
+
+const myClassInstance = new MyClass();
+
+console.log(myClassInstance.myStaticProperty); // logs: undefined
+
+However, they are deﬁned on subclasses:
+
+class MySubClass extends MyClass {};
+
+console.log(MySubClass.myStaticMethod()); // logs: "Hello" console.log(MySubClass.myStaticProperty); // logs: "Goodbye" Section 22.4: Getters and Setters
+
+Getters and setters allow you to deﬁne custom behaviour for reading and writing a given property on your class. To the user, they appear the same as any typical property. However, internally a custom function you provide is used to determine the value when the property is accessed (the getter), and to perform any necessary changes when the property is assigned (the setter).
+
+In a class deﬁnition, a getter is written like a no-argument method preﬁxed by the get keyword. A setter is similar, except that it accepts one argument (the new value being assigned) and the set keyword is used instead.
+
+Here's an example class which provides a getter and setter for its .name property. Each time it's assigned, we'll record the new name in an internal .names_ array. Each time it's accessed, we'll return the latest name.
+
+class MyClass { constructor() { this.names_ = []; }
+
+set name(value) { this.names_.push(value); }
+
+get name() { return this.names_[this.names_.length - 1]; } }
+
+– 194
+
+const myClassInstance = new MyClass(); myClassInstance.name = 'Joe'; myClassInstance.name = 'Bob';
+
+console.log(myClassInstance.name); // logs: "Bob" console.log(myClassInstance.names_); // logs: ["Joe", "Bob"]
+
+If you only deﬁne a setter, attempting to access the property will always return undefined.
+
+const classInstance = new class { set prop(value) { console.log('setting', value); } };
+
+classInstance.prop = 10; // logs: "setting", 10
+
+console.log(classInstance.prop); // logs: undefined
+
+If you only deﬁne a getter, attempting to assign the property will have no eﬀect.
+
+const classInstance = new class { get prop() { return 5; } };
+
+classInstance.prop = 10;
+
+console.log(classInstance.prop); // logs: 5 Section 22.5: Private Members
+
+JavaScript does not technically support private members as a language feature. Privacy - described by Douglas Crockford - gets emulated instead via closures (preserved function scope) that will be generated each with every instantiation call of a constructor function.
+
+The Queue example demonstrates how, with constructor functions, local state can be preserved and made accessible too via privileged methods.
+
+class Queue {
+
+constructor () { // - does generate a closure with each instantiation.
+
+const list = []; // - local state ("private member").
+
+this.enqueue = function (type) { // - privileged public method // accessing the local state list.push(type); // "writing" alike. return type; }; this.dequeue = function () { // - privileged public method // accessing the local state return list.shift(); // "reading / writing" alike. }; } }
+
+– 195
+
+var q = new Queue; // // q.enqueue(9); // ... first in ... q.enqueue(8); // q.enqueue(7); // // console.log(q.dequeue()); // 9 ... first out. console.log(q.dequeue()); // 8 console.log(q.dequeue()); // 7 console.log(q); // {} console.log(Object.keys(q)); // ["enqueue","dequeue"]
+
+With every instantiation of a Queue type the constructor generates a closure.
+
+Thus both of a Queue type's own methods enqueue and dequeue (see Object.keys(q)) still do have access to list that continues to live in its enclosing scope that, at construction time, has been preserved.
+
+Making use of this pattern - emulating private members via privileged public methods - one should keep in mind that, with every instance, additional memory will be consumed for every own property method (for it is code that can't be shared/reused). The same is true for the amount/size of state that is going to be stored within such a closure. Section 22.6: Methods
+
+Methods can be deﬁned in classes to perform a function and optionally return a result. They can receive arguments from the caller.
+
+class Something { constructor(data) { this.data = data }
+
+doSomething(text) { return { data: this.data, text } } }
+
+var s = new Something({}) s.doSomething("hi") // returns: { data: {}, text: "hi" } Section 22.7: Dynamic Method Names
+
+There is also the ability to evaluate expressions when naming methods similar to how you can access an objects' properties with []. This can be useful for having dynamic property names, however is often used in conjunction with Symbols.
+
+let METADATA = Symbol('metadata');
+
+class Car { constructor(make, model) { this.make = make; this.model = model; }
+
+ 
+
+// example using symbols
+
+– 196
+
+[METADATA]() { return { make: this.make, model: this.model }; }
+
+// you can also use any javascript expression
+
+// this one is just a string, and could also be defined with simply add() ["add"](a, b) { return a + b; }
+
+// this one is dynamically evaluated [1 + 2]() { return "three"; } }
+
+let MazdaMPV = new Car("Mazda", "MPV"); MazdaMPV.add(4, 5); // 9 MazdaMPV[3](); // "three" MazdaMPV[METADATA](); // { make: "Mazda", model: "MPV" } Section 22.8: Managing Private Data with Classes
+
+One of the most common obstacles using classes is ﬁnding the proper approach to handle private states. There are 4 common solutions for handling private states:
+
+Using Symbols
+
+Symbols are new primitive type introduced on in ES2015, as deﬁned at MDN
+
+A symbol is a unique and immutable data type that may be used as an identiﬁer for object properties.
+
+When using symbol as a property key, it is not enumerable.
+
+As such, they won't be revealed using for var in or Object.keys.
+
+Thus we can use symbols to store private data.
+
+const topSecret = Symbol('topSecret'); // our private key; will only be accessible on the scope of the module file export class SecretAgent{ constructor(secret){ this[topSecret] = secret; // we have access to the symbol key (closure) this.coverStory = 'just a simple gardner'; this.doMission = () => { figureWhatToDo(topSecret[topSecret]); // we have access to topSecret }; } }
+
+Because symbols are unique, we must have reference to the original symbol to access the private property.
+
+import {SecretAgent} from 'SecretAgent.js'
+
+– 197
+
+const agent = new SecretAgent('steal all the ice cream'); // ok let's try to get the secret out of him! Object.keys(agent); // ['coverStory'] only cover story is public, our secret is kept. agent[Symbol('topSecret')]; // undefined, as we said, symbols are always unique, so only the original symbol will help us to get the data.
+
+But it's not 100% private; let's break that agent down! We can use the Object.getOwnPropertySymbols method to get the object symbols.
+
+const secretKeys = Object.getOwnPropertySymbols(agent); agent[secretKeys[0]] // 'steal all the ice cream' , we got the secret.
+
+Using WeakMaps
+
+WeakMap is a new type of object that have been added for es6.
+
+As deﬁned on MDN
+
+The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. The keys must be objects and the values can be arbitrary values.
+
+Another important feature of WeakMap is, as deﬁned on MDN.
+
+The key in a WeakMap is held weakly. What this means is that, if there are no other strong references to the key, the entire entry will be removed from the WeakMap by the garbage collector.
+
+The idea is to use the WeakMap, as a static map for the whole class, to hold each instance as key and keep the private data as a value for that instance key.
+
+Thus only inside the class will we have access to the WeakMap collection.
+
+Let's give our agent a try, with WeakMap:
+
+const topSecret = new WeakMap(); // will hold all private data of all instances. export class SecretAgent{ constructor(secret){ topSecret.set(this,secret); // we use this, as the key, to set it on our instance private data this.coverStory = 'just a simple gardner'; this.doMission = () => { figureWhatToDo(topSecret.get(this)); // we have access to topSecret }; } }
+
+Because the const topSecret is deﬁned inside our module closure, and since we didn't bind it to our instance properties, this approach is totally private, and we can't reach the agent topSecret.
+
+Deﬁne all methods inside the constructor
+
+The idea here is simply to deﬁne all our methods and members inside the constructor and use the closure to access private members without assigning them to this.
+
+export class SecretAgent{
+
+– 198
+
+constructor(secret){ const topSecret = secret; this.coverStory = 'just a simple gardner'; this.doMission = () => { figureWhatToDo(topSecret); // we have access to topSecret }; } }
+
+In this example as well the data is 100% private and can't be reached outside the class, so our agent is safe.
+
+Using naming conventions
+
+We will decide that any property who is private will be preﬁxed with _.
+
+Note that for this approach the data isn't really private.
+
+export class SecretAgent{ constructor(secret){ this._topSecret = secret; // it private by convention this.coverStory = 'just a simple gardner'; this.doMission = () => { figureWhatToDo(this_topSecret); }; } } Section 22.9: Class Name binding
+
+ClassDeclaration's Name is bound in diﬀerent ways in diﬀerent scopes
+
+The scope in which the class is deﬁned - let binding1. The scope of the class itself - within { and } in class {} - const binding2.
+
+class Foo { // Foo inside this block is a const binding } // Foo here is a let binding
+
+Na przykład,
+
+class A { foo() { A = null; // will throw at runtime as A inside the class is a `const` binding } } A = null; // will NOT throw as A here is a `let` binding
+
+This is not the same for a Function
+
+function A() { A = null; // works } A.prototype.foo = function foo() { A = null; // works } A = null; // works
+
+– 199
+
+Chapter 23: Namespacing Section 23.1: Namespace by direct assignment
+
+//Before: antipattern 3 global variables var setActivePage = function () {}; var getPage = function() {}; var redirectPage = function() {};
+
+//After: just 1 global variable, no function collision and more meaningful function names var NavigationNs = NavigationNs || {}; NavigationNs.active = function() {} NavigationNs.pagination = function() {} NavigationNs.redirection = function() {} Section 23.2: Nested Namespaces
+
+When multiple modules are involved, avoid proliferating global names by creating a single global namespace. From there, any sub-modules can be added to the global namespace. (Further nesting will slow down performance and add unnecessary complexity.) Longer names can be used if name clashes are an issue:
+
+var NavigationNs = NavigationNs || {}; NavigationNs.active = {}; NavigationNs.pagination = {}; NavigationNs.redirection = {}; // The second level start here. Navigational.pagination.jquery = function(); Navigational.pagination.angular = function(); Navigational.pagination.ember = function();
+
+– 200
+
+Chapter 24: Context (this) Section 24.1: this with simple objects
+
+var person = { name: 'John Doe', age: 42, gender: 'male', bio: function() { console.log('My name is ' + this.name); } }; person.bio(); // logs "My name is John Doe" var bio = person.bio; bio(); // logs "My name is undefined"
+
+In the above code, person.bio makes use of the context (this). When the function is called as person.bio(), the context gets passed automatically, and so it correctly logs "My name is John Doe". When assigning the function to a variable though, it loses its context.
+
+In non-strict mode, the default context is the global object (window). In strict mode it is undefined. Section 24.2: Saving this for use in nested functions / objects
+
+One common pitfall is to try and use this in a nested function or an object, where the context has been lost.
+
+document.getElementById('myAJAXButton').onclick = function(){ makeAJAXRequest(function(result){ if (result) { // success this.className = 'success'; } }) }
+
+Here the context (this) is lost in the inner callback function. To correct this, you can save the value of this in a variable:
+
+document.getElementById('myAJAXButton').onclick = function(){ var self = this; makeAJAXRequest(function(result){ if (result) { // success self.className = 'success'; } }) } Version ≥ 6
+
+ES6 introduced arrow functions which include lexical this binding. The above example could be written like this:
+
+document.getElementById('myAJAXButton').onclick = function(){ makeAJAXRequest(result => { if (result) { // success this.className = 'success'; } }) }
+
+– 201
+
+Section 24.3: Binding function context
+
+Version ≥ 5.1
+
+Every function has a bind method, which will create a wrapped function that will call it with the correct context. See here for more information.
+
+var monitor = { threshold: 5, check: function(value) { if (value > this.threshold) { this.display("Value is too high!"); } }, display(message) { alert(message); } };
+
+monitor.check(7); // The value of `this` is implied by the method call syntax.
+
+var badCheck = monitor.check; badCheck(15); // The value of `this` is window object and this.threshold is undefined, so value > this.threshold is false
+
+var check = monitor.check.bind(monitor); check(15); // This value of `this` was explicitly bound, the function works.
+
+var check8 = monitor.check.bind(monitor, 8); check8(); // We also bound the argument to `8` here. It can't be re-specified.
+
+Hard binding
+
+The object of hard binding is to "hard" link a reference to this. Advantage: It's useful when you want to protect particular objects from being lost. Example:
+
+function Person(){ console.log("I'm " + this.name); }
+
+var person0 = {name: "Stackoverflow"} var person1 = {name: "John"}; var person2 = {name: "Doe"}; var person3 = {name: "Ala Eddine JEBALI"};
+
+var origin = Person; Person = function(){ origin.call(person0); }
+
+Person(); //outputs: I'm Stackoverflow
+
+Person.call(person1); //outputs: I'm Stackoverflow
+
+Person.apply(person2);
+
+– 202
+
+//outputs: I'm Stackoverflow
+
+Person.call(person3); //outputs: I'm Stackoverflow
+
+So, as you can remark in the example above, whatever object you pass to Person, it'll always use person0 object: it's hard binded. Section 24.4: this in constructor functions
+
+When using a function as a constructor, it has a special this binding, which refers to the newly created object:
+
+function Cat(name) { this.name = name; this.sound = "Meow"; }
+
+var cat = new Cat("Tom"); // is a Cat object cat.sound; // Returns "Meow"
+
+var cat2 = Cat("Tom"); // is undefined -- function got executed in global context window.name; // "Tom" cat2.name; // error! cannot access property of undefined
+
+– 203
+
+Chapter 25: Setters and Getters
+
+Setters and getters are object properties that call a function when they are set/gotten. Section 25.1: Deﬁning a Setter/Getter Using Object.deﬁneProperty
+
+var setValue; var obj = {}; Object.defineProperty(obj, "objProperty", { get: function(){ return "a value"; }, set: function(value){ setValue = value; } }); Section 25.2: Deﬁning an Setter/Getter in a Newly Created Object
+
+JavaScript allows us to deﬁne getters and setters in the object literal syntax. Here's an example:
+
+var date = { year: '2017', month: '02', day: '27', get date() { // Get the date in YYYY-MM-DD format return `${this.year}-${this.month}-${this.day}` }, set date(dateString) { // Set the date from a YYYY-MM-DD formatted string var dateRegExp = /(\d{4})-(\d{2})-(\d{2})/; // Check that the string is correctly formatted if (dateRegExp.test(dateString)) { var parsedDate = dateRegExp.exec(dateString); this.year = parsedDate[1]; this.month = parsedDate[2]; this.day = parsedDate[3]; } else { throw new Error('Date string must be in YYYY-MM-DD format'); } } };
+
+Uzyskanie dostępu do właściwości date.date zwróci wartość 2017-02-27. Ustawienie date.date = '2018-01-02 wywołałoby funkcję ustawiającą, która następnie analizowałaby ciąg znaków i ustaw datę date.year =' 2018 ', date.month =' 01 'i date.day =' 02 '. Próba przekazania niepoprawnie sformatowanego ciągu znaków (takiego jak "hello") spowodowałaby błąd. Rozdział 25.3: Definiowanie modułów pobierających i ustawiających w klasie ES6
+
+class Person {konstruktor (imię, nazwisko) {
+
+- 204
+
+this._firstname = firstname; this._lastname = lastname; }
+
+get firstname () {return this._firstname; }
+
+set firstname (name) {this._firstname = name; }
+
+get lastname () {return this._lastname; }
+
+set lastname (name) {this._lastname = name; }}
+
+niech osoba = nowa osoba ("Jan", "Doe");
+
+console.log (person.firstname, person.lastname); // Nieznany z nazwiska
+
+person.firstname = 'Foo'; person.lastname = 'Bar';
+
+console.log (person.firstname, person.lastname); // Foo Bar
+
+Rozdział 26: Wydarzenia Sekcja 26.1: Ładowanie strony, DOM i przeglądarki
+
+Jest to przykład wyjaśniający zmiany obciążeń.
+
+onload event1.
+
+<body onload = "someFunction ()"> <img src = "image1" /> <img src = "image2" /> </ body>
+
+<script> function someFunction () {console.log ("Hi! I'm loaded"); } </ script>
+
+W takim przypadku wiadomość jest rejestrowana po całkowitym załadowaniu całej zawartości strony, w tym obrazów i arkuszy stylów (jeśli istnieją).
+
+DOMContentLoaded event2.
+
+document.addEventListener ("DOMContentLoaded", funkcja (zdarzenie) {console.log ("Hello! I'm loaded");});
+
+W powyższym kodzie komunikat jest rejestrowany tylko po załadowaniu DOM / dokumentu (tj. Po skonstruowaniu DOM).
+
+Samodzielna funkcja anonimowa3.
+
+(function () {console.log ("Cześć, jestem anonimową funkcją! Jestem ładowany");}) ();
+
+Tutaj wiadomość jest rejestrowana, gdy tylko przeglądarka interpretuje anonimową funkcję. Oznacza to, że ta funkcja może zostać wykonana nawet przed załadowaniem DOM.
+
+- 206
+
+Rozdział 27: Dziedziczenie Rozdział 27.1: Standardowy prototyp funkcji
+
+Zacznij od zdefiniowania funkcji Foo, której użyjemy jako konstruktora.
+
+funkcja Foo () {}
+
+Edytując Foo.prototype, możemy zdefiniować właściwości i metody, które będą wspólne dla wszystkich instancji Foo.
+
+Foo.prototype.bar = function () {return "Jestem bar"; };
+
+Następnie możemy utworzyć instancję za pomocą nowego słowa kluczowego i wywołać metodę.
+
+var foo = new Foo ();
+
+console.log (foo.bar ()); // logs `I am bar` Sekcja 27.2: Różnica między Object.key a Object.prototype.key
+
+W przeciwieństwie do języków takich jak Python, właściwości statyczne funkcji konstruktora nie są dziedziczone do instancji. Instancje dziedziczą tylko ze swojego prototypu, który dziedziczy po prototypie rodzica. Właściwości statyczne nigdy nie są dziedziczone.
+
+funkcja Foo () {}; Foo.style = "pogrubiony";
+
+var foo = new Foo ();
+
+console.log (Foo.style); // "pogrubiona" konsola.log (foo.style); // niezdefiniowany
+
+Foo.prototype.style = 'italic';
+
+console.log (Foo.style); // "pogrubiona" konsola.log (foo.style); // "kursywa" Sekcja 27.3: Dziedziczenie prototypowe
+
+Załóżmy, że mamy prosty obiekt o nazwie prototyp:
+
+var prototype = {foo: 'foo', bar: function () {return this.foo; }};
+
+Teraz chcemy kolejnego obiektu o nazwie obj, który dziedziczy z prototypu, co jest tym samym, co powiedzenie, że prototyp jest prototypem obiektu
+
+var obj = Object.create (prototype);
+
+Teraz wszystkie właściwości i metody z prototypu będą dostępne dla obj
+
+console.log (obj.foo);
+
+- 207
+
+console.log (obj.bar ());
+
+Wyjście konsoli
+
+"foo" "foo"
+
+Prototypowe dziedziczenie jest wykonywane wewnętrznie poprzez odwołania do obiektów, a obiekty są całkowicie zmienne. Oznacza to, że każda zmiana dokonana na prototypie natychmiast spowoduje, że każdy inny obiekt będzie prototypem prototypu.
+
+prototype.foo = "bar"; console.log (obj.foo);
+
+Wyjście konsoli
+
+"bar"
+
+Object.prototype jest prototypem każdego obiektu, więc zdecydowanie zaleca się, aby go nie zepsuć, szczególnie jeśli korzystasz z jakiejkolwiek biblioteki innej firmy, ale możemy z nią trochę pograć.
+
+Object.prototype.breakingLibraries = 'foo'; console.log (obj.breakingLibraries); console.log (prototype.breakingLibraries);
+
+Wyjście konsoli
+
+"foo" "foo"
+
+Cieszę się, że użyłem konsoli przeglądarki, aby utworzyć te przykłady i zepsuć tę stronę, dodając tę ​​właściwość breakingLibraries.
+
+Sekcja 27.4: Pseudo-klasyczne dziedziczenie
+
+Jest to emulacja klasycznego dziedzictwa z wykorzystaniem prototypowego dziedziczenia, które pokazuje, jak potężne są prototypy. Zostało stworzone, aby uczynić język bardziej atrakcyjnym dla programistów pochodzących z innych języków.
+
+Wersja <6
+
+WAŻNA UWAGA: Od ES6 nie ma sensu używać dziedziczenia pseudo-klasycznego, ponieważ język symuluje konwencjonalne klasy. Jeśli nie używasz ES6, powinieneś. Jeśli nadal chcesz używać klasycznego wzorca dziedziczenia i jesteś w środowisku ECMAScript 5 lub niższym, najlepszym wyborem jest pseudo-klasyczna.
+
+"Klasa" jest po prostu funkcją, która ma zostać wywołana z nowym operandem i jest używana jako konstruktor.
+
+funkcja Foo (id, nazwa) {this.id = id; this.name = nazwa; }
+
+var foo = new Foo (1, 'foo');
+
+- 208
+
+console.log (foo.id);
+
+Wyjście konsoli
+
+1
+
+foo jest instancją Foo. Konwencja kodowania JavaScript mówi, że jeśli funkcja zaczyna się od dużej litery, może być wywołana jako konstruktor (z nowym operandem).
+
+To add properties or methods to the "class" you have to add them to its prototype, which can be found in the prototype property of the constructor.
+
+Foo.prototype.bar = 'bar'; console.log(foo.bar);
+
+Console output
+
+bar
+
+In fact what Foo is doing as a "constructor" is just creating objects with Foo.prototype as it's prototype.
+
+You can ﬁnd a reference to its constructor on every object
+
+console.log(foo.constructor);
+
+function Foo(id, name) { ...
+
+console.log({ }.constructor);
+
+function Object() { [native code] }
+
+And also check if an object is an instance of a given class with the instanceof operator
+
+console.log(foo instanceof Foo);
+
+true
+
+console.log(foo instanceof Object);
+
+true
+
+Section 27.5: Setting an Object's prototype
+
+Version ≥ 5
+
+With ES5+, the Object.create function can be used to create an Object with any other Object as it's prototype.
+
+– 209
+
+const anyObj = { hello() { console.log(`this.foo is ${this.foo}`); }, };
+
+let objWithProto = Object.create(anyObj); objWithProto.foo = 'bar';
+
+objWithProto.hello(); // "this.foo is bar"
+
+To explicitly create an Object without a prototype, use null as the prototype. This means the Object will not inherit from Object.prototype either and is useful for Objects used for existence checking dictionaries, eg
+
+let objInheritingObject = {}; let objInheritingNull = Object.create(null);
+
+'toString' in objInheritingObject; // true 'toString' in objInheritingNull ; // false Version ≥ 6
+
+From ES6, the prototype of an existing Object can be changed using Object.setPrototypeOf, for example
+
+let obj = Object.create({foo: 'foo'}); obj = Object.setPrototypeOf(obj, {bar: 'bar'});
+
+obj.foo; // undefined obj.bar; // "bar"
+
+This can be done almost anywhere, including on a this object or in a constructor.
+
+Note: This process is very slow in current browsers and should be used sparingly, try to create the Object with the desired prototype instead.
+
+Version < 5
+
+Before ES5, the only way to create an Object with a manually deﬁned prototype was to construct it with new, for example
+
+var proto = {fizz: 'buzz'};
+
+function ConstructMyObj() {} ConstructMyObj.prototype = proto;
+
+var objWithProto = new ConstructMyObj(); objWithProto.fizz; // "buzz"
+
+This behaviour is close enough to Object.create that it is possible to write a polyﬁll.
+
+– 210
+
+Chapter 28: Method Chaining Section 28.1: Chainable object design and chaining
+
+Chaining and Chainable is a design methodology used to design object behaviors so that calls to object functions return references to self, or another object, providing access to additional function calls allowing the calling statement to chain together many calls without the need to reference the variable holding the object/s.
+
+Objects that can be chained are said to be chainable. If you call an object chainable, you should ensure that all returned objects / primitives are of the correct type. It only takes one time for your chainable object to not return the correct reference (easy to forget to add return this) and the person using your API will lose trust and avoid chaining. Chainable objects should be all or nothing (not a chainable object even if parts are). An object should not be called chainable if only some of its functions are.
+
+Object designed to be chainable function Vec(x = 0, y = 0){ this.x = x; this.y = y; // the new keyword implicitly implies the return type // as this and thus is chainable by default. } Vec.prototype = { add : function(vec){ this.x += vec.x; this.y += vec.y; return this; // return reference to self to allow chaining of function calls }, scale : function(val){ this.x *= val; this.y *= val; return this; // return reference to self to allow chaining of function calls }, log :function(val){ console.log(this.x + ' : ' + this.y); return this; }, clone : function(){ return new Vec(this.x,this.y); } } Chaining example var vec = new Vec(); vec.add({x:10,y:10}) .add({x:10,y:10}) .log() // console output "20 : 20" .add({x:10,y:10}) .scale(1/30) .log() // console output "1 : 1" .clone() // returns a new instance of the object .scale(2) // from which you can continue chaining .log()
+
+Don't create ambiguity in the return type
+
+Not all function calls return a useful chainable type, nor do they always return a reference to self. This is where common sense use of naming is important. In the above example the function call .clone() is unambiguous. Inny
+
+– 211
+
+examples are .toString() implies a string is returned.
+
+An example of an ambiguous function name in a chainable object.
+
+// line object represents a line line.rotate(1) .vec(); // ambiguous you don't need to be looking up docs while writing.
+
+line.rotate(1) .asVec() // unambiguous implies the return type is the line as a vec (vector) .add({x:10,y:10) // toVec is just as good as long as the programmer can use the naming // to infer the return type
+
+Syntax convention
+
+There is no formal usage syntax when chaining. The convention is to either chain the calls on a single line if short or to chain on the new line indented one tab from the referenced object with the dot on the new line. Use of the semicolon is optional but does help by clearly denoting the end of the chain.
+
+vec.scale(2).add({x:2,y:2}).log(); // for short chains
+
+vec.scale(2) // or alternate syntax .add({x:2,y:2}) .log(); // semicolon makes it clear the chain ends here
+
+// and sometimes though not necessary vec.scale(2) .add({x:2,y:2}) .clone() // clone adds a new reference to the chain .log(); // indenting to signify the new reference
+
+// for chains in chains vec.scale(2) .add({x:2,y:2}) .add(vec1.add({x:2,y:2}) // a chain as an argument .add({x:2,y:2}) // is indented .scale(2)) .log();
+
+// or sometimes vec.scale(2) .add({x:2,y:2}) .add(vec1.add({x:2,y:2}) // a chain as an argument .add({x:2,y:2}) // is indented .scale(2) ).log(); // the argument list is closed on the new line A bad syntax vec // new line before the first function call .scale() // can make it unclear what the intention is .log();
+
+vec. // the dot on the end of the line scale(2). // is very difficult to see in a mass of code scale(1/2); // and will likely frustrate as can easily be missed // when trying to locate bugs
+
+Left hand side of assignment
+
+– 212
+
+When you assign the results of a chain the last returning call or object reference is assigned.
+
+var vec2 = vec.scale(2) .add(x:1,y:10) .clone(); // the last returned result is assigned // vec2 is a clone of vec after the scale and add
+
+In the above example vec2 is assigned the value returned from the last call in the chain. In this case, that would be a copy of vec after the scale and add.
+
+streszczenie
+
+The advantage of changing is clearer more maintainable code. Some people prefer it and will make chainable a requirement when selecting an API. There is also a performance beneﬁt as it allows you to avoid having to create variables to hold interim results. With the last word being that chainable objects can be used in a conventional way as well so you don't enforce chaining by making an object chainable. Section 28.2: Method Chaining
+
+Method chaining is a programming strategy that simpliﬁes your code and beautiﬁes it. Method chaining is done by ensuring that each method on an object returns the entire object, instead of returning a single element of that object. For example:
+
+function Door() { this.height = ''; this.width = ''; this.status = 'closed'; }
+
+Door.prototype.open = function() { this.status = 'opened'; return this; }
+
+Door.prototype.close = function() { this.status = 'closed'; return this; } Door.prototype.setParams = function(width,height) { this.width = width; this.height = height; return this; }
+
+Door.prototype.doorStatus = function() { console.log('The',this.width,'x',this.height,'Door is',this.status); return this; }
+
+var smallDoor = new Door(); smallDoor.setParams(20,100).open().doorStatus().close().doorStatus();
+
+Note that each method in Door.prototype returns this, which refers to the entire instance of that Door object.
+
+– 213
+
+Chapter 29: Callbacks Section 29.1: Simple Callback Usage Examples
+
+Callbacks oﬀer a way to extend the functionality of a function (or method) without changing its code. This approach is often used in modules (libraries / plugins), the code of which is not supposed to be changed.
+
+Suppose we have written the following function, calculating the sum of a given array of values:
+
+function foo(array) { var sum = 0; for (var i = 0; i < array.length; i++) { sum += array[i]; } return sum; }
+
+Now suppose that we want to do something with each value of the array, eg display it using alert(). We could make the appropriate changes in the code of foo, like this:
+
+function foo(array) { var sum = 0; for (var i = 0; i < array.length; i++) { alert(array[i]); sum += array[i]; } return sum; }
+
+But what if we decide to use console.log instead of alert()? Obviously changing the code of foo, whenever we decide to do something else with each value, is not a good idea. It is much better to have the option to change our mind without changing the code of foo. That's exactly the use case for callbacks. We only have to slightly change foo's signature and body:
+
+function foo(array, callback) { var sum = 0; for (var i = 0; i < array.length; i++) { callback(array[i]); sum += array[i]; } return sum; }
+
+And now we are able to change the behaviour of foo just by changing its parameters:
+
+var array = []; foo(array, alert); foo(array, function (x) { console.log(x); });
+
+Examples with Asynchronous Functions
+
+In jQuery, the $.getJSON() method to fetch JSON data is asynchronous. Therefore, passing code in a callback makes sure that the code is called after the JSON is fetched.
+
+– 214
+
+$.getJSON() syntax:
+
+$.getJSON( url, dataObject, successCallback );
+
+Example of $.getJSON() code:
+
+$.getJSON("foo.json", {}, function(data) { // data handling code });
+
+The following would not work, because the data-handling code would likely be called before the data is actually received, because the $.getJSON function takes an unspeciﬁed length of time and does not hold up the call stack as it waits for the JSON.
+
+$.getJSON("foo.json", {}); // data handling code
+
+Another example of an asynchronous function is jQuery's animate() function. Because it takes a speciﬁed time to run the animation, sometimes it is desirable to run some code directly following the animation.
+
+.animate() syntax:
+
+jQueryElement.animate( properties, duration, callback );
+
+For example, to create a fading-out animation after which the element completely disappears, the following code can be run. Note the use of the callback.
+
+elem.animate( { opacity: 0 }, 5000, function() { elem.hide(); } );
+
+This allows the element to be hidden right after the function has ﬁnished execution. This diﬀers from:
+
+elem.animate( { opacity: 0 }, 5000 ); elem.hide();
+
+because the latter does not wait for animate() (an asynchronous function) to complete, and therefore the element is hidden right away, producing an undesirable eﬀect. Section 29.2: Continuation (synchronous and asynchronous)
+
+Callbacks can be used to provide code to be executed after a method has completed:
+
+/** * @arg {Function} then continuation callback */ function doSomething(then) { console.log('Doing something'); then(); }
+
+// Do something, then execute callback to log 'done' doSomething(function () { console.log('Done'); });
+
+– 215
+
+console.log('Doing something else');
+
+// Outputs: // "Doing something" // "Done" // "Doing something else"
+
+The doSomething() method above executes synchronously with the callback - execution blocks until doSomething() returns, ensuring that the callback is executed before the interpreter moves on.
+
+Callbacks can also be used to execute code asynchronously:
+
+doSomethingAsync(then) { setTimeout(then, 1000); console.log('Doing something asynchronously'); }
+
+doSomethingAsync(function() { console.log('Done'); });
+
+console.log('Doing something else');
+
+// Outputs: // "Doing something asynchronously" // "Doing something else" // "Done"
+
+The then callbacks are considered continuations of the doSomething() methods. Providing a callback as the last instruction in a function is called a tail-call, which is optimized by ES2015 interpreters. Section 29.3: What is a callback?
+
+This is a normal function call:
+
+console.log("Hello World!");
+
+When you call a normal function, it does its job and then returns control back to the caller.
+
+However, sometimes a function needs to return control back to the caller in order to do its job:
+
+[1,2,3].map(function double(x) { return 2 * x; });
+
+In the above example, the function double is a callback for the function map because:
+
+The function double is given to the function map by the caller.1. The function map needs to call the function double zero or more times in order to do its job.2.
+
+Thus, the function map is essentially returning control back to the caller every time it calls the function double. Hence, the name “callback”.
+
+Functions may accept more than one callback:
+
+promise.then(function onFulfilled(value) { console.log("Fulfilled with value " + value);
+
+– 216
+
+}, function onRejected(reason) { console.log("Rejected with reason " + reason); });
+
+Here then function then accepts two callback functions, onFulfilled and onRejected. Furthermore, only one of these two callback functions is actually called.
+
+What's more interesting is that the function then returns before either of the callbacks are called. Hence, a callback function may be called even after the original function has returned. Section 29.4: Callbacks and `this`
+
+Often when using a callback you want access to a speciﬁc context.
+
+function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', function() { console.log(this.msg); // <= will fail because "this" is undefined }); }
+
+var s = new SomeClass("hello", someElement); Solutions
+
+Use bind
+
+bind eﬀectively generates a new function that sets this to whatever was passed to bind then calls the original function.
+
+function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', function() { console.log(this.msg); }.bind(this)); // <=- bind the function to `this` }
+
+Use arrow functions
+
+Arrow functions automatically bind the current this context.
+
+function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click',() => { // <=- arrow function binds `this` console.log(this.msg); }); }
+
+Often you'd like to call a member function, ideally passing any arguments that were passed to the event on to the function.
+
+Solutions:
+
+Use bind
+
+function SomeClass(msg, elem) {
+
+– 217
+
+this.msg = msg; elem.addEventListener('click', this.handleClick.bind(this)); }
+
+SomeClass.prototype.handleClick = function(event) { console.log(event.type, this.msg); };
+
+Use arrow functions and the rest operator
+
+function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', (...a) => this.handleClick(...a)); }
+
+SomeClass.prototype.handleClick = function(event) { console.log(event.type, this.msg); };
+
+For DOM event listeners in particular you can implement the EventListener interface
+
+function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', this); }
+
+SomeClass.prototype.handleEvent = function(event) { var fn = this[event.type]; if (fn) { fn.apply(this, arguments); } };
+
+ 
+
+SomeClass.prototype.click = function(event) { console.log(this.msg); };
+
+Section 29.5: Callback using Arrow function
+
+Using arrow function as callback function can reduce lines of code.
+
+The default syntax for arrow function is
+
+() => {}
+
+This can be used as callbacks
+
+For example if we want to print all elements in an array [1,2,3,4,5]
+
+without arrow function, the code will look like this
+
+[1,2,3,4,5].forEach(function(x){ console.log(x); }
+
+With arrow function, it can be reduced to
+
+– 218
+
+[1,2,3,4,5].forEach(x => console.log(x));
+
+Here the callback function function(x){console.log(x)} is reduced to x=>console.log(x) Section 29.6: Error handling and control-ﬂow branching
+
+Callbacks are often used to provide error handling. This is a form of control ﬂow branching, where some instructions are executed only when an error occurs:
+
+const expected = true;
+
+function compare(actual, success, failure) { if (actual === expected) { success(); } else { failure(); } }
+
+function onSuccess() { console.log('Value was expected'); }
+
+function onFailure() { console.log('Value was unexpected/exceptional'); }
+
+compare(true, onSuccess, onFailure); compare(false, onSuccess, onFailure);
+
+// Outputs: // "Value was expected" // "Value was unexpected/exceptional"
+
+Code execution in compare() above has two possible branches: success when the expected and actual values are the same, and error when they are diﬀerent. This is especially useful when control ﬂow should branch after some asynchronous instruction:
+
+function compareAsync(actual, success, failure) { setTimeout(function () { compare(actual, success, failure) }, 1000); }
+
+compareAsync(true, onSuccess, onFailure); compareAsync(false, onSuccess, onFailure); console.log('Doing something else');
+
+// Outputs: // "Doing something else" // "Value was expected" // "Value was unexpected/exceptional"
+
+It should be noted, multiple callbacks do not have to be mutually exclusive – both methods could be called. Similarly, the compare() could be written with callbacks that are optional (by using a noop as the default value - see Null Object pattern).
+
+– 219
+
+Chapter 30: Intervals and Timeouts Section 30.1: Recursive setTimeout
+
+To repeat a function indeﬁnitely, setTimeout can be called recursively:
+
+function repeatingFunc() { console.log("It's been 5 seconds. Execute the function again."); setTimeout(repeatingFunc, 5000); }
+
+setTimeout(repeatingFunc, 5000);
+
+Unlike setInterval, this ensures that the function will execute even if the function's running time is longer than the speciﬁed delay. However, it does not guarantee a regular interval between function executions. This behaviour also varies because an exception before the recursive call to setTimeout will prevent it from repeating again, while setInterval would repeat indeﬁnitely regardless of exceptions. Section 30.2: Intervals
+
+function waitFunc(){ console.log("This will be logged every 5 seconds"); }
+
+window.setInterval(waitFunc,5000); Section 30.3: Intervals
+
+Standard
+
+You don't need to create the variable, but it's a good practice as you can use that variable with clearInterval to stop the currently running interval.
+
+var int = setInterval("doSomething()", 5000 ); /* 5 seconds */ var int = setInterval(doSomething, 5000 ); /* same thing, no quotes, no parens */
+
+If you need to pass parameters to the doSomething function, you can pass them as additional parameters beyond the ﬁrst two to setInterval.
+
+Without overlapping
+
+setInterval, as above, will run every 5 seconds (or whatever you set it to) no matter what. Even if the function doSomething takes long than 5 seconds to run. That can create issues. If you just want to make sure there is that pause in between runnings of doSomething, you can do this:
+
+(function(){
+
+doSomething();
+
+setTimeout(arguments.callee, 5000);
+
+})()
+
+– 220
+
+Section 30.4: Removing intervals
+
+window.setInterval() returns an IntervalID, which can be used to stop that interval from continuing to run. To do this, store the return value of window.setInterval() in a variable and call clearInterval() with that variable as the only argument:
+
+function waitFunc(){ console.log("This will be logged every 5 seconds"); }
+
+var interval = window.setInterval(waitFunc,5000);
+
+window.setTimeout(function(){ clearInterval(interval); },32000);
+
+This will log This will be logged every 5 seconds every 5 seconds, but will stop it after 32 seconds. So it will log the message 6 times. Section 30.5: Removing timeouts
+
+window.setTimout() returns a TimeoutID, which can be used to stop that timeout from running. To do this, store the return value of window.setTimeout() in a variable and call clearTimeout() with that variable as the only argument:
+
+function waitFunc(){ console.log("This will not be logged after 5 seconds"); } function stopFunc(){ clearTimeout(timeout); }
+
+var timeout = window.setTimeout(waitFunc,5000); window.setTimeout(stopFunc,3000);
+
+This will not log the message because the timer is stopped after 3 seconds. Section 30.6: setTimeout, order of operations, clearTimeout
+
+setTimeout
+
+Executes a function, after waiting a speciﬁed number of milliseconds. used to delay the execution of a function.
+
+Syntax : setTimeout(function, milliseconds) or window.setTimeout(function, milliseconds)
+
+Example : This example outputs "hello" to the console after 1 second. The second parameter is in milliseconds, so 1000 = 1 sec, 250 = 0.25 sec, etc.
+
+setTimeout(function() { console.log('hello'); }, 1000);
+
+Problems with setTimeout
+
+if you're using the setTimeout method in a for loop :
+
+– 221
+
+for (i = 0; i < 3; ++i) { setTimeout(function(){ console.log(i); }, 500); }
+
+This will output the value 3 three times, which is not correct.
+
+Workaround of this problem :
+
+for (i = 0; i < 3; ++i) { setTimeout(function(j){ console.log(i); }(i), 1000); }
+
+It will output the value 0,1,2. Here, we're passing the i into the function as a parameter(j).
+
+Order of operations
+
+Additionally though, due to the fact that JavaScript is single threaded and uses a global event loop, setTimeout can be used to add an item to the end of the execution queue by calling setTimeout with zero delay. For example:
+
+setTimeout(function() { console.log('world'); }, 0);
+
+console.log('hello');
+
+Will actually output:
+
+hello world
+
+Also, zero milliseconds here does not mean the function inside the setTimeout will execute immediately. It will take slightly more than that depending upon the items to be executed remaining in the execution queue. This one is just pushed to the end of the queue.
+
+Cancelling a timeout
+
+clearTimeout() : stops the execution of the function speciﬁed in setTimeout()
+
+Syntax : clearTimeout(timeoutVariable) or window.clearTimeout(timeoutVariable)
+
+Example :
+
+var timeout = setTimeout(function() { console.log('hello'); }, 1000);
+
+clearTimeout(timeout); // The timeout will no longer be executed
+
+– 222
+
+Chapter 31: Regular expressions
+
+Flags Details g global. All matches (don't return on the ﬁrst match). m multi-line. Causes ^ & $ to match the begin/end of each line (not only begin/end of string). i insensitive. Case insensitive match (ignores case of [a-zA-Z]). u unicode : Pattern strings are treated as UTF-16. Also causes escape sequences to match Unicode characters. y sticky: matches only from the index indicated by the lastIndex property of this regular expression in the target string (and does not attempt to match from any later indexes). Section 31.1: Creating a RegExp Object
+
+Standard Creation
+
+It is recommended to use this form only when creating regex from dynamic variables.
+
+Use when the expression may change or the expression is user generated.
+
+var re = new RegExp(".*");
+
+With ﬂags:
+
+var re = new RegExp(".*", "gmi");
+
+With a backslash: (this must be escaped because the regex is speciﬁed with a string)
+
+var re = new RegExp("\\w*");
+
+Static initialization
+
+Use when you know the regular expression will not change, and you know what the expression is before runtime.
+
+var re = /.*/;
+
+With ﬂags:
+
+var re = /.*/gmi;
+
+With a backslash: (this should not be escaped because the regex is speciﬁed in a literal)
+
+var re = /\w*/; Section 31.2: RegExp Flags
+
+There are several ﬂags you can specify to alter the RegEx behaviour. Flags may be appended to the end of a regex literal, such as specifying gi in /test/gi, or they may be speciﬁed as the second argument to the RegExp constructor, as in new RegExp('test', 'gi').
+
+g - Global. Finds all matches instead of stopping after the ﬁrst.
+
+i - Ignore case. /[az]/i is equivalent to /[a-zA-Z]/.
+
+– 223
+
+m - Multiline. ^ and $ match the beginning and end of each line respectively treating \n and \r as delimiters instead of simply the beginning and end of the entire string.
+
+Version ≥ 6
+
+u - Unicode. If this ﬂag is not supported you must match speciﬁc Unicode characters with \uXXXX where XXXX is the character's value in hexadecimal.
+
+y - Finds all consecutive/adjacent matches.
+
+Section 31.3: Check if string contains pattern using .test()
+
+var re = /[az]+/; if (re.test("foo")) { console.log("Match exists."); }
+
+The test method performs a search to see if a regular expression matches a string. The regular expression [az]+ will search for one or more lowercase letters. Since the pattern matches the string, “match exists” will be logged to the console. Section 31.4: Matching With .exec()
+
+Match Using .exec()
+
+RegExp.prototype.exec(string) returns an array of captures, or null if there was no match.
+
+var re = /([0-9]+)[az]+/; var match = re.exec("foo123bar");
+
+match.index is 3, the (zero-based) location of the match.
+
+match[0] is the full match string.
+
+match[1] is the text corresponding to the ﬁrst captured group. match[n] would be the value of the nth captured group.
+
+Loop Through Matches Using .exec() var re = /a/g; var result; while ((result = re.exec('barbatbaz')) !== null) { console.log("found '" + result[0] + "', next exec starts at index '" + re.lastIndex + "'"); }
+
+Expected output
+
+found 'a', next exec starts at index '2' found 'a', next exec starts at index '5' found 'a', next exec starts at index '8'
+
+Section 31.5: Using RegExp With Strings
+
+The String object has the following methods that accept regular expressions as arguments.
+
+– 224
+
+"string".match(... "string".replace(... "string".split(... "string".search(...
+
+Match with RegExp console.log("string".match(/[in]+/)); console.log("string".match(/(r)[in]+/));
+
+Expected output
+
+Array ["in"] Array ["rin", "r"]
+
+Replace with RegExp console.log("string".replace(/[in]+/, "foo"));
+
+Expected output
+
+strfoog
+
+Split with RegExp console.log("stringstring".split(/[in]+/));
+
+Expected output
+
+Array ["str", "gstr", "g"]
+
+Search with RegExp
+
+.search() returns the index at which a match is found or -1.
+
+console.log("string".search(/[in]+/)); console.log("string".search(/[oq]+/));
+
+Expected output
+
+3 -1
+
+Section 31.6: RegExp Groups
+
+JavaScript supports several types of group in its Regular Expressions, capture groups, non-capture groups and lookaheads. Currently, there is no look-behind support.
+
+Capture
+
+Sometimes the desired match relies on its context. This means a simple RegExp will over-ﬁnd the piece of the String
+
+– Ja vaScript® Notes for Professionals 225
+
+that is of interest, so the solution is to write a capture group (pattern). The captured data can then be referenced as...
+
+String replacement "$n" where n is the n th capture group (starting from 1) The n th argument in a callback function If the RegExp is not ﬂagged g, the n+1 th item in a returned str.match Array If the RegExp is ﬂagged g, str.match discards captures, use re.exec instead
+
+Say there is a String where all + signs need to be replaced with a space, but only if they follow a letter character. This means a simple match would include that letter character and it would also be removed. Capturing it is the solution as it means the matched letter can be preserved.
+
+let str = "aa+b+cc+1+2", re = /([az])\+/g;
+
+// String replacement str.replace(re, '$1 '); // "aa b cc 1+2" // Function replacement str.replace(re, (m, $1) => $1 + ' '); // "aa b cc 1+2"
+
+Non-Capture
+
+Using the form (?:pattern), these work in a similar way to capture groups, except they do not store the contents of the group after the match.
+
+They can be particularly useful if other data is being captured which you don't want to move the indices of, but need to do some advanced pattern matching such as an OR
+
+let str = "aa+b+cc+1+2", re = /(?:\b|c)([az])\+/g;
+
+str.replace(re, '$1 '); // "aa+bc 1+2"
+
+Look-Ahead
+
+If the desired match relies on something which follows it, rather than matching that and capturing it, it is possible to use a look-ahead to test for it but not include it in the match. A positive look-ahead has the form (?=pattern), a negative look-ahead (where the expression match only happens if the look-ahead pattern did not match) has the form (?!pattern)
+
+let str = "aa+b+cc+1+2", re = /\+(?=[az])/g;
+
+str.replace(re, ' '); // "aa b cc+1+2" Section 31.7: Replacing string match with a callback function
+
+String#replace can have a function as its second argument so you can provide a replacement based on some logic.
+
+"Some string Some".replace(/Some/g, (match, startIndex, wholeString) => { if(startIndex == 0){ return 'Start'; } else { return 'End';
+
+– 226
+
+} }); // will return Start string End
+
+One line template library
+
+let data = {name: 'John', surname: 'Doe'} "My name is {surname}, {name} {surname}".replace(/(?:{(.+?)})/g, x => data[x.slice(1,-1)]);
+
+// "My name is Doe, John Doe" Section 31.8: Using Regex.exec() with parentheses regex to extract matches of a string
+
+Sometimes you doesn't want to simply replace or remove the string. Sometimes you want to extract and process matches. Here an example of how you manipulate matches.
+
+What is a match ? When a compatible substring is found for the entire regex in the string, the exec command produce a match. A match is an array compose by ﬁrstly the whole substring that matched and all the parenthesis in the match.
+
+Imagine a html string :
+
+<html> <head></head> <body> <h1>Example</h1> <p>Look at this great link : <a href="http://goalkicker.com">goalkicker</a> http://anotherlinkoutsideatag</p> Copyright <a href="https://stackoverflow.com">Stackoverflow</a> </body>
+
+You want to extract and get all the links inside an a tag. At ﬁrst, here the regex you write :
+
+var re = /<a[^>]*href="https?:\/\/.*"[^>]*>[^<]*<\/a>/g;
+
+But now, imagine you want the href and the anchor of each link. And you want it together. You can simply add a new regex in for each match OR you can use parentheses :
+
+var re = /<a[^>]*href="(https?:\/\/.*)"[^>]*>([^<]*)<\/a>/g; var str = '<html>\n <head></head>\n <body>\n <h1>Example</h1>\n <p>Look at this great link: <a href="http://goalkicker.com">goalkicker</a> http://anotherlinkoutsideatag</p>\n\n Copyright <a href="https://stackoverflow.com">Stackoverflow</a>\n </body>\';\n'; var m; var links = [];
+
+while ((m = re.exec(str)) !== null) { if (m.index === re.lastIndex) { re.lastIndex++; } console.log(m[0]); // The all substring console.log(m[1]); // The href subpart console.log(m[2]); // The anchor subpart
+
+links.push ({dopasowanie: m [0], // cały mecz href: m [1], // pierwszy nawias => (https?: \ / \ /.*)
+
+- 227
+
+anchor: m [2], // drugi => ([^ <] *)}); }
+
+Na końcu pętli masz tablicę linków z anchor i href i możesz jej użyć do napisania przeceny na przykład:
+
+links.forEach (function (link) {console.log ('[% s] (% s)', link.anchor, link.href);});
+
+Iść dalej :
+
+Zagnieżdżony nawias
+
+- 228
+
+Rozdział 32: Pliki cookie Sekcja 32.1: Sprawdź, czy są włączone pliki cookie
+
+Jeśli chcesz się upewnić, że pliki cookie są włączone przed ich użyciem, możesz użyć navigator.cookieEnabled:
+
+if (navigator.cookieEnabled === false) {alert ("Błąd: ciasteczka nie włączone!"); }
+
+Zwróć uwagę, że w starszych przeglądarkach navigator.cookieEnabled może nie istnieć i być niezarejestrowany. W takich przypadkach nie wykryjesz, że pliki cookie nie są włączone. Sekcja 32.2: Dodawanie i ustawianie plików cookie
+
+Poniższe zmienne tworzą poniższy przykład:
+
+var COOKIE_NAME = "Przykładowy plik cookie"; / * Nazwa pliku cookie. * / var COOKIE_VALUE = "Witaj, świecie!"; / * Wartość cookie. * / var COOKIE_PATH = "/ foo / bar"; / * Ścieżka pliku cookie. * / var COOKIE_EXPIRES; / * Data ważności pliku cookie (config'd poniżej). * /
+
+/ * Ustaw datę ważności pliku cookie na 1 minutę (60000ms = 1 minuta). * / COOKIE_EXPIRES = (nowa data (Date.now () + 60000)). TOUTCString (); document.cookie + = COOKIE_NAME + "=" + COOKIE_VALUE + "; expires =" + COOKIE_EXPIRES + "; ścieżka =" + COOKIE_PATH; Sekcja 32.3: Czytanie plików cookie
+
+var name = name + "=", cookie_array = document.cookie.split (';'), wartość_pliku; dla (var i = 0; i <cookie_array.length; i ++) {var cookie = cookie_array [i]; while (cookie.charAt (0) == '') cookie = cookie.substring (1, cookie.length); if (cookie.indexOf (name) == 0) cookie_value = cookie.substring (name.length, cookie.length); }
+
+To ustawi wartość cookie_value na wartość pliku cookie, jeśli istnieje. Jeśli plik cookie nie jest ustawiony, ustawi wartość cookie na wartość null Sekcja 32.4: Usuwanie plików cookie
+
+var expiry = new Date (); expiry.setTime (expiry.getTime () - 3600); document.cookie = name + "=; expires =" + expiry.toGMTString () + "; ścieżka = /"
+
+Spowoduje to usunięcie pliku cookie o podanej nazwie.
+
+- 229
+
+Rozdział 33: Przechowywanie w Internecie
+
+Parametr Opis name Klucz / nazwa wartości pozycji Wartość pozycji Section 33.1: Using localStorage
+
+Obiekt localStorage zapewnia stałe (ale nie trwałe - patrz limity poniżej) przechowywania wartości klucz-wartość łańcuchów. Wszelkie zmiany są natychmiast widoczne we wszystkich innych oknach / klatkach z tego samego pochodzenia. Zapamiętane wartości są trwałe, dopóki użytkownik nie usunie zapisanych danych lub nie określi limitu wygasania. localStorage używa interfejsu podobnego do mapy do pobierania i ustawiania wartości.
+
+localStorage.setItem ("name", "John Smith"); console.log (localStorage.getItem ('name')); // "John Smith"
+
+localStorage.removeItem ("nazwa"); console.log (localStorage.getItem ('name')); // zero
+
+Jeśli chcesz przechowywać proste dane strukturalne, możesz użyć JSON do serializowania go do i od ciągów do przechowywania.
+
+var players = [{name: "Tyler", wynik: 22}, {imię i nazwisko: "Ryan", wynik: 41}]; localStorage.setItem ("gracze", JSON.stringify (gracze));
+
+console.log (JSON.parse (localStorage.getItem ('players'))); // [Object {name: "Tyler", score: 22}, Object {name: "Ryan", score: 41}] ograniczenia localStorage w przeglądarkach
+
+Przeglądarki mobilne:
+
+Przeglądarka Google ChromeAndroid BrowserFirefoxiOS Safari Wersja 40 4.3 34 6-8 Dostępne miejsce 10 MB 2 MB 10 MB 5 MB
+
+Przeglądarki stacjonarne:
+
+Przeglądarka Google ChromeOperaFirefoxSafariInternet Explorer Wersja 40 27 34 6-8 9-11 Dostępne miejsce 10MB 10MB 10MB 5MB 10MB Sekcja 33.2: Prostszy sposób obsługi Przechowywanie
+
+localStorage, sessionStorage są obiektami JavaScript i możesz traktować je jako takie. Zamiast używać metod przechowywania takich jak .getItem (), .setItem (), itp., Oto prostsza alternatywa:
+
+// Ustaw localStorage.greet = "Cześć!"; // To samo co: window.localStorage.setItem ("pozdrawiam", "Cześć!");
+
+// Pobierz localStorage.greet; // To samo co: window.localStorage.getItem ("pozdrawiam");
+
+// Usuń element delete localStorage.greet; // To samo co: window.localStorage.removeItem ("greet");
+
+- 230
+
+// Wyczyść pamięć localStorage.clear ();
+
+Przykład:
+
+// Przechowuj wartości (ciągi, liczby) localStorage.hello = "Hello"; localStorage.year = 2017;
+
+// Przechowuj złożone dane (obiekty, tablice) var user = {name: "John", nazwisko: "Doe", książki: ["A", "B"]}; localStorage.user = JSON.stringify (użytkownik);
+
+// Ważne: Liczby są przechowywane jako String console.log (typeof localStorage.year); // Strunowy
+
+// Odzyskaj wartości var someYear = localStorage.year; // "2017"
+
+// Odzyskaj złożone dane var userData = JSON.parse (localStorage.user); var userName = userData.name; // "Jan"
+
+// Usuń określone dane usuń localStorage.year;
+
+// Wyczyść (usuń) wszystkie przechowywane dane localStorage.clear (); Sekcja 33.3: Zdarzenia magazynowania
+
+Za każdym razem, gdy wartość jest ustawiona w localStorage, zdarzenie przechowywania zostanie wysłane do wszystkich innych okien z tego samego pochodzenia. Może to służyć do synchronizowania stanu pomiędzy różnymi stronami bez ponownego ładowania lub komunikowania się z serwerem. Na przykład możemy odczytać wartość elementu wejściowego jako tekstu akapitu w innym oknie:
+
+Pierwsze okno var input = document.createElement ('input'); document.body.appendChild (input);
+
+input.value = localStorage.getItem ('user-value');
+
+input.oninput = funkcja (zdarzenie) {localStorage.setItem ("wartość użytkownika", wartość wejściowa); }; Drugie okno var output = document.createElement ("p"); document.body.appendChild (wyjście);
+
+output.textContent = localStorage.getItem ('user-value');
+
+window.addEventListener ('storage', funkcja (zdarzenie) {if (event.key === 'user-value') {output.textContent = event.newValue;}});
+
+Uwagi
+
+- 231
+
+Wydarzenie nie jest dostępne w wersji anglojęzycznej ani nie można go odszukać w Chrome, Edge i Safari, jeśli domena została zmodyfikowana za pomocą skryptu.
+
+Pierwsze okno // adres strony: http://sub.a.com/1.html document.domain = 'a.com';
+
+var input = document.createElement ("input"); document.body.appendChild (input);
+
+input.value = localStorage.getItem ('user-value');
+
+input.oninput = funkcja (zdarzenie) {localStorage.setItem ("wartość użytkownika", wartość wejściowa); }; Drugie okno // adres strony: http://sub.a.com/2.html document.domain = 'a.com';
+
+var output = document.createElement ("p"); document.body.appendChild (wyjście);
+
+// Listener nigdy nie zostanie wywołany w Chrome (53), Edge i Safari (10.0). window.addEventListener ('storage', funkcja (zdarzenie) {if (event.key === 'user-value') {output.textContent = event.newValue;}}); Sekcja 33.4: Sesja sesji
+
+Obiekt sessionStorage implementuje ten sam interfejs Storage, co localStorage. Jednak zamiast udostępniania wszystkim stronom z tego samego źródła, dane sessionStorage są przechowywane osobno dla każdego okna / karty. Zapisane dane występują między stronami w tym oknie / karcie tak długo, jak są otwarte, ale są widoczne nigdzie indziej.
+
+var audio = document.querySelector ('audio');
+
+// Zachowaj głośność, jeśli użytkownik kliknie link, a następnie nawiguje z powrotem tutaj. audio.volume = Number (sessionStorage.getItem ('volume') || 1.0); audio.onvolumechange = function (event) {sessionStorage.setItem ("volume", audio.volume); };
+
+Zapisz dane w sessionStorage
+
+sessionStorage.setItem ("klucz", "wartość");
+
+Uzyskaj zapisane dane z sessionStorage
+
+var data = sessionStorage.getItem ("klucz");
+
+Usuń zapisane dane z sessionStorage
+
+sessionStorage.removeItem ("klucz")
+
+- 232
+
+Sekcja 33.5: długość localStorage
+
+Właściwość localStorage.length zwraca liczbę całkowitą wskazującą liczbę elementów w obiekcie localStorage
+
+Przykład:
+
+Ustaw przedmioty
+
+localStorage.setItem ("StackOverflow", "Documentation"); localStorage.setItem ("czcionka", "Helvetica"); localStorage.setItem ('image', 'sprite.svg');
+
+Uzyskaj długość
+
+localStorage.length; // 3 Sekcja 33.6: Warunki błędu
+
+Większość przeglądarek, po skonfigurowaniu do blokowania plików cookie, będzie również blokować localStorage. Próby użycia go spowodują wyjątek. Nie zapomnij zarządzać tymi przypadkami.
+
+var video = document.querySelector ('video') wypróbuj {video.volume = localStorage.getItem ('volume')} catch (error) {alert ("Jeśli chcesz, aby twój wolumen został zapisany, włącz pliki cookie")} wideo.play ()
+
+Jeśli błąd nie zostanie rozwiązany, program przestanie działać poprawnie. Sekcja 33.7: Czyszczenie pamięci
+
+Aby wyczyścić pamięć, po prostu uruchom
+
+localStorage.clear (); Sekcja 33.8: Remove Storage Item
+
+Aby usunąć konkretny element z pamięci przeglądarki (przeciwieństwo setItem) użyj removeItem
+
+localStorage.removeItem ("pozdrawiam");
+
+Przykład:
+
+localStorage.setItem ("pozdrawiam", "cześć"); localStorage.removeItem ("pozdrawiam");
+
+console.log (localStorage.getItem ("greet")); // zero
+
+(To samo dotyczy sessionStorage)
+
+- 233
+
+Rozdział 34: Atrybuty danych Sekcja 34.1: Dostęp do atrybutów danych
+
+Korzystanie z właściwości zestawu danych
+
+Nowa właściwość zestawu danych umożliwia dostęp (zarówno do odczytu, jak i zapisu) do wszystkich danych atrybutów danych * na dowolnym elemencie.
+
+<p> Kraje: </ p> <ul> <li id ​​= "C1" onclick = "showDetails (this)" data-id = "US" data-dial-code = "1"> USA </ li> < li id ​​= "C2" onclick = "showDetails (this)" data-id = "CA" data-dial-code = "1"> Kanada </ li> <li id ​​= "C3" onclick = "showDetails (this) "data-id =" FF "data-dial-code =" 3 "> Francja </ li> </ ul> <button type =" button "onclick =" correctDetails () "> Prawidłowe dane kraju </ button> < script> function showDetails (item) {var msg = item.innerHTML + "\ r \ nISO ID:" + item.dataset.id + "\ r \ n Kod cyfrowy:" + item.dataset.dialCode; alert (msg); }
+
+function correctDetails (item) {var item = document.getEmementById ("C3"); item.dataset.id = "FR"; item.dataset.dialCode = "33"; } </ script>
+
+Uwaga: Właściwość dataset jest obsługiwana tylko w nowoczesnych przeglądarkach i jest nieco wolniejsza niż metody getAttribute i setAttribute, które są obsługiwane we wszystkich przeglądarkach.
+
+Korzystanie z metod getAttribute i setAttribute
+
+Jeśli chcesz obsługiwać starsze przeglądarki przed HTML5, możesz użyć metod getAttribute i setAttribute, które są używane do uzyskiwania dostępu do dowolnego atrybutu, w tym atrybutów danych. Dwie funkcje w powyższym przykładzie można zapisać w ten sposób:
+
+<script> function showDetails (item) {var msg = item.innerHTML + "\ r \ nISO ID:" + item.getAttribute ("id-danych") + "\ r \ n Kod dd:" + item.getAttribute (" kod wybierania danych "); alert (msg); }
+
+function correctDetails (item) {var item = document.getEmementById ("C3"); item.setAttribute ("id", "FR"); item.setAttribute ("kod wybierania danych", "33"); } </ script>
+
+- 234
+
+Rozdział 35: JSON
+
+Szczegóły parametrów JSON.parse Parsować ciąg znaków JSON (ciąg) Łańcuch JSON do przeanalizowania. reviver (function) Przepisuje transformację dla wejściowego łańcucha JSON. JSON.stringify Serialize serializable value (string) Wartość do serializacji zgodnie ze specyfikacją JSON. replaceer (funkcja lub String [] lub Number []) Selektywnie obejmuje pewne właściwości obiektu wartości.
+
+spacja (ciąg lub liczba)
+
+Jeśli podana jest liczba, zostanie wstawiona liczba spacji w czytelności. Jeśli podany jest łańcuch znaków, ciąg znaków (pierwsze 10 znaków) zostanie użyty jako białe spacje.
+
+JSON (JavaScript Object Notation) to lekki format wymiany danych. Łatwo jest ludziom czytać i pisać oraz łatwo je parsować i generować. Ważne jest, aby zdać sobie sprawę, że w JavaScript JSON jest ciągiem znaków, a nie obiektem.
+
+Podstawowy przegląd można znaleźć na stronie json.org, która zawiera również linki do implementacji standardu w wielu różnych językach programowania. Sekcja 35.1: JSON a literały JavaScript
+
+JSON oznacza "JavaScript Object Notation", ale nie jest to JavaScript. Pomyśl o tym, jako o formacie serializacji danych, który może być bezpośrednio użyty jako literał JavaScript. Jednak nie zaleca się bezpośredniego uruchamiania (tj. Poprzez eval ()) JSON, który jest pobierany z zewnętrznego źródła. Funkcjonalnie JSON nie różni się zbytnio od XML lub YAML - można uniknąć zamieszania, jeśli JSON jest po prostu wyobrażany jako jakiś format serializacji, który wygląda bardzo podobnie do JavaScript.
+
+Nawet jeśli nazwa oznacza tylko obiekty i mimo że większość przypadków użycia za pomocą jakiegoś API zawsze jest obiektem i tablicą, JSON nie jest przeznaczony tylko dla obiektów lub tablic. Obsługiwane są następujące typy podstawowe:
+
+String (np. "Hello World!") Liczba (np. 42) Boolean (np. True) Wartość zero
+
+undefined nie jest obsługiwany w tym sensie, że po serializacji z JSON zostanie pominięta niedoszacowana właściwość. Dlatego nie ma możliwości deserializacji JSON i kończy się na własności, której wartość jest niezdefiniowana.
+
+Ciąg "42" jest prawidłowym JSON. JSON nie zawsze musi mieć zewnętrzną powłokę "{...}" lub "[...]".
+
+Podczas gdy niektóre JSON jest również poprawne JavaScript i niektóre JavaScript jest również prawidłowy JSON, istnieją pewne subtelne różnice między obu języków i żaden język nie jest podzbiorem drugiego.
+
+Jako przykład podajemy następujący ciąg JSON:
+
+{"kolor niebieski"}
+
+Można to bezpośrednio wstawić do JavaScript. Będzie składać poprawne składnie i da prawidłową wartość:
+
+const skin = {"color": "blue"};
+
+- 235
+
+Wiemy jednak, że "kolor" jest prawidłową nazwą identyfikującą, a cytaty dotyczące nazwy właściwości można pominąć:
+
+const skin = {color: "blue"};
+
+Wiemy również, że zamiast podwójnych cytatów możemy używać pojedynczych cudzysłowów:
+
+const skin = {'color': 'blue'};
+
+Ale gdybyśmy wzięli oba te literały i potraktowaliby je jako JSON, to nie będą też syntaktycznie poprawne JSON:
+
+{color: "blue"} {'color': 'blue'}
+
+JSON bezwzględnie wymaga, aby wszystkie nazwy właściwości były podwójnie cytowane, a wartości łańcuchowe również podwójnie cytowane.
+
+Często nowi użytkownicy JSON próbują używać fragmentów kodu z literaturą JavaScript jako JSON i zdradzają swoje głowy na temat błędów składni, które otrzymują z parsera JSON.
+
+Więcej zamieszania zaczyna się pojawiać, gdy błędna terminologia jest stosowana w kodzie lub w rozmowie.
+
+Powszechnym wzorcem jest nazywanie zmiennych, które przechowują wartości inne niż JSON jako "json":
+
+fetch (url) .then (funkcja (odpowiedź) {const json = JSON.parse (response.data); // Następuje zamieszanie!
+
+// W tym momencie skończymy z pojęciem "JSON", ale koncepcja utknęła z nazwą zmiennej. });
+
+W powyższym przykładzie parametr response.data jest ciągiem JSON zwracanym przez niektóre interfejsy API. JSON zatrzymuje się w domenie odpowiedzi HTTP. Zmienna z błędem "json" zawiera tylko wartość JavaScript (może to być obiekt, tablica, a nawet prosta liczba!)
+
+Mniej mylącym sposobem napisania powyższego jest:
+
+fetch (url) .then (function (response) {const value = JSON.parse (response.data);
+
+// W tym momencie skończymy z pojęciem "JSON". // Nie mówisz o JSON po analizie JSON. });
+
+Deweloperzy często rzucają również frazą "obiekt JSON". Prowadzi to również do zamieszania. Ponieważ, jak wspomniano powyżej, ciąg JSON nie musi utrzymywać obiektu jako wartości. "Ciąg JSON" jest lepszym terminem. Podobnie jak "ciąg znaków XML" lub "ciąg znaków YAML". Dostajesz ciąg, parsujesz go, a skończysz z wartością. Sekcja 35.2: Analiza składniowa z funkcją odświeżania
+
+Funkcja odświeżania może być używana do filtrowania lub przekształcania analizowanej wartości.
+
+Wersja ≥ 5.1 var jsonString = '[{"name": "John", "score": 51}, {"name": "Jack", "score": 17}]';
+
+var data = JSON.parse (jsonString, funkcja reviver (klucz, wartość) {return key === 'name'? value.toUpperCase (): value;});
+
+- 236
+
+Wersja ≥ 6 const jsonString = '[{"name": "John", "score": 51}, {"name": "Jack", "score": 17}]';
+
+const data = JSON.parse (jsonString, (key, value) => key === 'name'? value.toUpperCase (): value);
+
+Daje to następujący wynik:
+
+[{'name': 'JOHN', 'score': 51}, {'name': 'JACK', 'score': 17}]
+
+Jest to szczególnie przydatne, gdy dane muszą być wysyłane, które wymagają serializacji / kodowania, gdy są przesyłane za pomocą JSON, ale chcemy uzyskać do nich dostęp w postaci szeregowej / zdekodowanej. W poniższym przykładzie data została zakodowana w jej reprezentacji ISO 8601. Używamy funkcji reviver do analizy tego w Dacie JavaScript.
+
+Wersja ≥ 5.1 var jsonString = '{"date": "2016-01-04T23: 00: 00.000Z"}';
+
+var data = JSON.parse (jsonString, function (key, value) {return (key === 'date')? new Date (value): value;}); Wersja ≥ 6 const jsonString = '{"date": "2016-01-04T23: 00: 00.000Z"}';
+
+const data = JSON.parse (jsonString, (key, value) => key === 'date'? new Date (value): value);
+
+Ważne jest, aby upewnić się, że funkcja reviver zwraca użyteczną wartość na końcu każdej iteracji. Jeśli funkcja reviver zwraca wartość undefined, żadna wartość lub wykonanie nie zostanie wykonane pod koniec funkcji, własność zostanie usunięta z obiektu. W przeciwnym razie właściwość zostanie zwrócona jako wartość zwracana. Sekcja 35.3: Serializowanie wartości
+
+Wartość JavaScript można przekonwertować na ciąg JSON przy użyciu funkcji JSON.stringify.
+
+JSON.stringify (value [, replacer [, space]])
+
+wartość Wartość do przekonwertowania na ciąg JSON.
+
+/ * Boolean * / JSON.stringify (true) // 'true' / * Number * / JSON.stringify (12) // '12' / * String * / JSON.stringify ('foo') // '"foo "'/ * Object * / JSON.stringify ({}) //' {} 'JSON.stringify ({foo:' baz '}) //' {" foo ":" baz "} '/ * Array * / JSON.stringify ([1, true, 'foo']) // '[1, true, "foo"]' / * Date * / JSON.stringify (new Date ()) // '"2016-08-06T17 : 25: 23.588Z "'/ * Symbol * / JSON.stringify ({x: Symbol ()}) //' {} '
+
+- 237
+
+replaceer Funkcja, która zmienia zachowanie procesu stringi fi cation lub tablicę String i Number2. obiekty, które służą jako biała lista do filtrowania właściwości obiektu wartości, który ma być zawarty w ciągu JSON. Jeśli ta wartość jest pusta lub nie zostanie podana, wszystkie właściwości obiektu zostaną uwzględnione w wynikowym łańcuchu JSON.
+
+// zamiennik jako funkcja function replacer (klucz, wartość) {// Filtrowanie właściwości, jeśli (wartość typeof === "ciąg") {return} zwracana wartość}
+
+var foo = {foundation: "Mozilla", model: "box", tydzień: 45, transport: "samochód", miesiąc: 7} JSON.stringify (foo, replacer) // -> '{"week": 45, "miesiąc": 7} '// zamiennik jako tablica JSON.stringify (foo, [' foundation ',' week ',' month ']) // ->' {"foundation": "Mozilla", "week" : 45, "month": 7} '// zachowywane są tylko właściwości `foundation`,` week` oraz `month`
+
+space Dla czytelności, liczba pól używanych do wgrania może być wyspecyfikowana jako trzeci parametr.3.
+
+JSON.stringify ({x: 1, y: 1}, null, 2) // 2 spacje będą używane do wcięcia / * wyjście: {'x': 1, 'y': 1} * /
+
+Alternatywnie, można wprowadzić wartość ciągu do wcięcia. Na przykład, przekazanie "\ t" spowoduje użycie znaku tabulacji do wcięcia.
+
+JSON.stringify ({x: 1, y: 1}, null, '\ t') / * wynik: {'x': 1, 'y': 1} * / Sekcja 35.4: Serializacja i przywracanie wystąpień klas
+
+Możesz użyć niestandardowej metody toJSON i funkcji reviver do przesyłania instancji własnej klasy w JSON. Jeśli obiekt ma metodę toJSON, jego wynik będzie serializowany zamiast samego obiektu.
+
+Wersja <6 Funkcja Samochód (kolor, prędkość) {this.color = kolor; this.speed = prędkość; }
+
+Car.prototype.toJSON = function () {return {$ type: 'com.example.Car', color: this.color,
+
+- 238
+
+speed: this.speed}; };
+
+Car.fromJSON = funkcja (dane) {return new Car (data.color, data.speed); }; Wersja ≥ 6 class Car {constructor (color, speed) {this.color = color; this.speed = prędkość; this.id_ = Math.random (); }
+
+toJSON () {return {$ type: 'com.example.Car', color: this.color, speed: this.speed}; }
+
+static fromJSON (data) {return new Car (data.color, data.speed); }} var userJson = JSON.stringify ({nazwa: "John", samochód: nowy samochód ("czerwony", "szybko")});
+
+W ten sposób powstaje ciąg o następującej treści:
+
+{"name": "John", "car": {"$ type": "com.example.Car", "color": "red", "speed": "fast"}} var userObject = JSON.parse (userJson, funkcja reviver (klucz, wartość) {return (wartość i wartość. $ type === 'com.example.Car')? Car.fromJSON (value): value;});
+
+Tworzy to następujący obiekt:
+
+{imię i nazwisko: "John", samochód: samochód {kolor: "czerwony", prędkość: "szybki", id_: 0.19349242527065402}} Sekcja 35.5: Serializacja z funkcją wymiany
+
+Funkcja zamiennika może służyć do filtrowania lub przekształcania wartości serializowanych.
+
+const userRecords = [{name: "Joe", punkty: 14.9, poziom: 31.5}, {imię i nazwisko: "Jane", punkty: 35,5, poziom: 74,4}, {imię: "Jakub", punkty: 18,5, poziom: 41,2 },
+
+- 239
+
+{imię i nazwisko: "Jessie", punkty: 15.1, poziom: 28.1},];
+
+// Usunięcie nazw i numerów okrągłych do liczb całkowitych w celu anonimizacji rekordów przed udostępnieniem const anonymousReport = JSON.stringify (userRecords, (key, value) => key === 'name'? Undefined: (typeof value === 'number'? Math.floor (value): value));
+
+W ten sposób powstaje następujący ciąg:
+
+"[{" points ": 14," level ": 31}, {" points ": 35," level ": 74}, {" points ": 18," level ": 41}, {" points ": 15 , "level": 2 8}] 'Sekcja 35.6: Parsowanie prostego łańcucha JSON
+
+Metoda JSON.parse () analizuje ciąg jako JSON i zwraca prymitywizm JavaScript, tablicę lub obiekt:
+
+const array = JSON.parse ('[1, 2, "c", "d", {"e": false}]'); console.log (tablica); // logs: [1, 2, "c", "d", {e: false}] Sekcja 35.7: Cykliczne wartości obiektów
+
+Nie wszystkie obiekty można przekonwertować na ciąg JSON. Gdy obiekt ma cykliczne odniesienia do siebie, konwersja zakończy się niepowodzeniem.
+
+Zazwyczaj ma to miejsce w przypadku hierarchicznych struktur danych, w których elementy nadrzędne i podrzędne odwołują się wzajemnie:
+
+const world = {nazwa: 'Świat ", regiony: []};
+
+world.regions.push ({nazwa: "Ameryka Północna", rodzic: "Ameryka"}); console.log (JSON.stringify (świat)); // {"name": "World", "regions": [{"name": "North America", "parent": "America"}]}
+
+world.regions.push ({name: "Asia", rodzic: świat});
+
+console.log (JSON.stringify (świat)); // Uncaught TypeError: Konwertowanie struktury kołowej na JSON
+
+Gdy tylko proces wykryje cykl, zostaje zgłoszony wyjątek. Gdyby nie było wykrycia cyklu, ciąg byłby zdecydowanie długi.
+
+- 240
+
+Rozdział 36: AJAX
+
+AJAX oznacza "Asynchroniczny JavaScript i XML". Chociaż nazwa zawiera XML, JSON jest częściej używany ze względu na prostsze formatowanie i mniejszą nadmiarowość. AJAX pozwala użytkownikowi komunikować się z zasobami zewnętrznymi bez ponownego ładowania strony. Sekcja 36.1: Wysyłanie i odbieranie danych JSON za pośrednictwem POST
+
+Wersja ≥ 6
+
+Żądanie pobierania obiecuje początkowo zwrócić obiekty odpowiedzi. Będą one zawierać informacje z nagłówka odpowiedzi, ale nie zawierają bezpośrednio treści odpowiedzi, które mogły jeszcze nie zostać załadowane. Metody obiektu Response, takie jak .json (), mogą być używane do oczekiwania na załadowanie ciała odpowiedzi, a następnie przeanalizowania go.
+
+const requestData = {method: 'getUsers'};
+
+const usersPromise = fetch ('/ api', {method: 'POST', body: JSON.stringify (requestData)}). then (response => {if (! response.ok) {throw new Error ("Got non- Odpowiedź 2XX z serwera API. ");} Return response.json ();}). Then (responseData => {return responseData.users;});
+
+usersPromise.then (users => {console.log ("Znani użytkownicy:", użytkownicy);}, error => {console.error ("Nie można pobrać użytkowników z powodu błędu:", error);}); Sekcja 36.2: Dodaj preloader AJAX
+
+Oto sposób pokazania preloadera GIF podczas wykonywania połączenia AJAX. Musimy przygotować nasze funkcje dodawania i usuwania preloaderów:
+
+function addPreloader () {// jeśli preloader jeszcze nie istnieje, dodaj jeden do strony, jeśli (! document.querySelector ('# preloader')) {var preloaderHTML = '<img id = "preloader" src = "https : //goo.gl/cNhyvX "/>"; document.querySelector ('body'). innerHTML + = preloaderHTML; }}
+
+function removePreloader () {// wybierz preloader element var preloader = document.querySelector ('# preloader'); // jeśli istnieje, usuń go ze strony, jeśli (preloader) {preloader.remove (); }}
+
+- 241
+
+Teraz przyjrzymy się, gdzie korzystać z tych funkcji.
+
+var request = new XMLHttpRequest ();
+
+Wewnątrz funkcji onreadystatechange powinieneś mieć instrukcję if z warunkiem: request.readyState == 4 && request.status == 200.
+
+Jeśli true: żądanie jest zakończone, a odpowiedź jest gotowa i tam użyjemy removePreloader ().
+
+Inaczej jeśli false: żądanie jest nadal w toku, w tym przypadku uruchomimy funkcję addPreloader ()
+
+xmlhttp.onreadystatechange = function () {
+
+if (request.readyState == 4 && request.status == 200) {// żądanie zostało zakończone, usuń preloader removePreloader (); } else {// żądanie nie jest zakończone, dodaj preloader addPreloader ()}
+
+};
+
+xmlhttp.open ('GET', your_file.php, true); xmlhttp.send (); Sekcja 36.3: Wyświetlanie najważniejszych pytań JavaScript w danym miesiącu z interfejsu API Stack Over FLOW
+
+Możemy wysłać żądanie AJAX do interfejsu API Stack Exchange, aby uzyskać listę najważniejszych pytań JavaScript dla miesiąca, a następnie przedstawić je jako listę linków. Jeśli żądanie nie powiedzie się lub zwróci błąd interfejsu API, nasza obsługa błędów przy obietnicy wyświetla błąd.
+
+Wersja ≥ 6 Wyświetl wyniki na żywo w HyperWeb. const url = 'http://api.stackexchange.com/2.2/questions?site=stackoverflow' + '& tagged = javascript & sort = miesiąc & filter = unsafe & key = gik4BOCMC7J9doavgYteRw ((';
+
+fetch (url) .then (response => response.json ()). then (data => {if (data.error_message) {throw new Error (data.error_message);}
+
+const list = document.createElement ("ol"); document.body.appendChild (list);
+
+for (const {title, link} of data.items) {const entry = document.createElement ('li'); const hyperlink = document.createElement ("a"); entry.appendChild (hiperlink); list.appendChild (wpis);
+
+hyperlink.textContent = title; hyperlink.href = link; }}). then (null, error => {const message = document.createElement ('pre');
+
+- 242
+
+document.body.appendChild (wiadomość); message.style.color = 'red';
+
+message.textContent = String (błąd); }); Sekcja 36.4: Używanie GET z parametrami
+
+Ta funkcja uruchamia wywołanie AJAX za pomocą polecenia GET, co pozwala nam przesłać parametry (obiekt) do pliku (ciąg) i uruchomić wywołanie zwrotne (funkcję) po zakończeniu żądania.
+
+funkcja ajax (plik, parametry, wywołanie zwrotne) {
+
+var url = plik + "?";
+
+// przeprowadź pętlę przez obiekt i zmontuj plik url var notFirst = false; for (klucz var w parametrach) {if (params.hasOwnProperty (key)) {url + = (notFirst? '&': '') + key + "=" + params [key]; } notFirst = true; }
+
+// utwórz wywołanie AJAX z adresem URL jako parametr var xmlhttp = new XMLHttpRequest (); xmlhttp.onreadystatechange = function () {if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {callback (xmlhttp.responseText); }}; xmlhttp.open ('GET', url, true); xmlhttp.send (); }
+
+Oto, jak z niego korzystamy:
+
+ajax ("cars.php", {typ: "Volvo", model: "300", kolor: "fioletowy"}, funkcja (odpowiedź) {// dodaj tutaj kod do wykonania, gdy dane powrócą na tę stronę / / na przykład console.log (odpowiedź) pokaże odpowiedź AJAX w konsoli});
+
