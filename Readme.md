@@ -3398,141 +3398,9 @@ multiplyTwoThenAddTen (10); // 30
 
 Część "aplikacji" częściowego zastosowania oznacza po prostu ustalenie parametrów funkcji.
 
-Section 19.11: Passing arguments by reference or value
 
-In JavaScript all arguments are passed by value. When a function assigns a new value to an argument variable, that change will not be visible to the caller:
 
-var obj = {a: 2}; function myfunc(arg){ arg = {a: 5}; // Note the assignment is to the parameter variable itself } myfunc(obj); console.log(obj.a); // 2
 
-However, changes made to (nested) properties of such arguments, will be visible to the caller:
-
-var obj = {a: 2}; function myfunc(arg){ arg.a = 5; // assignment to a property of the argument } myfunc(obj); console.log(obj.a); // 5
-
-This can be seen as a call by reference: although a function cannot change the caller's object by assigning a new value to it, it could mutate the caller's object.
-
-As primitive valued arguments, like numbers or strings, are immutable, there is no way for a function to mutate them:
-
-var s = 'say'; function myfunc(arg){ arg += ' hello'; // assignment to the parameter variable itself } myfunc(s); console.log(s); // 'say'
-
-When a function wants to mutate an object passed as argument, but does not want to actually mutate the caller's object, the argument variable should be reassigned:
-
-Version ≥ 6 var obj = {a: 2, b: 3}; function myfunc(arg){ arg = Object.assign({}, arg); // assignment to argument variable, shallow copy arg.a = 5; } myfunc(obj); console.log(obj.a); // 2
-
-As an alternative to in-place mutation of an argument, functions can create a new value, based on the argument, and return it. The caller can then assign it, even to the original variable that was passed as argument:
-
-var a = 2; function myfunc(arg){ arg++; return arg;
-
-– 179
-
-} a = myfunc(a); console.log(obj.a); // 3 
-
-Section 19.12: Function Arguments, "arguments" object, rest and spread parameters
-
-Functions can take inputs in form of variables that can be used and assigned inside their own scope. The following function takes two numeric values and returns their sum:
-
-function addition (argument1, argument2){ return argument1 + argument2; }
-
-console.log(addition(2, 3)); // -> 5 arguments object
-
-The arguments object contains all the function's parameters that contain a non-default value. It can also be used even if the parameters are not explicitly declared:
-
-(function() { console.log(arguments) })(0,'str', [2,{3}]) // -> [0, "str", Array[2]]
-
-Although when printing arguments the output resembles an Array, it is in fact an object:
-
-(function() { console.log(typeof arguments) })(); // -> object Rest parameters: function (...parm) {}
-
-In ES6, the ... syntax when used in the declaration of a function's parameters transforms the variable to its right into a single object containing all the remaining parameters provided after the declared ones. This allows the function to be invoked with an unlimited number of arguments, which will become part of this variable:
-
-(function(a, ...b){console.log(typeof b+': '+b[0]+b[1]+b[2]) })(0,1,'2',[3],{i:4}); // -> object: 123 Spread parameters: function_name(...varb);
-
-In ES6, the ... syntax can also be used when invoking a function by placing an object/variable to its right. This allows that object's elements to be passed into that function as a single object:
-
-let nums = [2,42,-1]; console.log(...['a','b','c'], Math.max(...nums)); // -> abc 42
-
-Section 19.13: Function Composition
-
-Composing multiple functions into one is a functional programming common practice;
-
-composition makes a pipeline through which our data will transit and get modiﬁed simply working on the functioncomposition (just like snapping pieces of a track together)...
-
-you start out with some single responsibility functions:
-
-Version ≥ 6 const capitalize = x => x.replace(/^\w/, m => m.toUpperCase()); const sign = x => x + ',\nmade with love';
-
-– 180
-
-and easily create a transformation track:
-
-Version ≥ 6 const formatText = compose(capitalize, sign);
-
-formatText('this is an example') //This is an example, //made with love
-
-NB Composition is achieved through a utility function usually called compose as in our example.
-
-Implementation of compose are present in many JavaScript utility libraries (lodash, rambda, etc.) but you can also start out with a simple implementation such as:
-
-Version ≥ 6 const compose = (...funs) => x => funs.reduce((ac, f) => f(ac), x); Section 19.14: Get the name of a function object
-
-Version ≥ 6
-
-ES6:
-
-myFunction.name
-
-Explanation on MDN. As of 2015 works in Node.js and all major browsers except IE.
-
-Version ≥ 5
-
-ES5:
-
-If you have a reference to the function, you can do:
-
-function functionName( func ) { // Match: // - ^ the beginning of the string // - function the word 'function' // - \s+ at least some white space // - ([\w\$]+) capture one or more valid JavaScript identifier characters // - \( followed by an opening brace // var result = /^function\s+([\w\$]+)\(/.exec( func.toString() ) return result ? result[1] : '' } Section 19.15: Recursive Function
-
-A recursive function is simply a function, that would call itself.
-
-function factorial (n) { if (n <= 1) { return 1; }
-
-– 181
-
-return n * factorial(n - 1); }
-
-The above function shows a basic example of how to perform a recursive function to return a factorial.
-
-Another example, would be to retrieve the sum of even numbers in an array.
-
-function countEvenNumbers (arr) { // Sentinel value. Recursion stops on empty array. if (arr.length < 1) { return 0; } // The shift() method removes th e first element from an array // and returns that element. This method changes the length of the array. var value = arr.shift();
-
-// `value % 2 === 0` tests if the number is even or odd // If it's even we add one to the result of counting the remainder of // the array. If it's odd, we add zero to it. return ((value % 2 === 0) ? 1 : 0) + countEvens(arr); }
-
-It is important that such functions make some sort of sentinel value check to avoid inﬁnite loops. In the ﬁrst example above, when n is less than or equal to 1, the recursion stops, allowing the result of each call to be returned back up the call stack. Section 19.16: Using the Return Statement
-
-The return statement can be a useful way to create output for a function. The return statement is especially useful if you do not know in which context the function will be used yet.
-
-//An example function that will take a string as input and return //the first character of the string.
-
-function firstChar (stringIn){ return stringIn.charAt(0); }
-
-Now to use this function, you need to put it in place of a variable somewhere else in your code:
-
-Using the function result as an argument for another function:
-
-console.log(firstChar("Hello world"));
-
-Console output will be:
-
-> H
-
-The return statement ends the function
-
-If we modify the function in the beginning, we can demonstrate that the return statement ends the function.
-
-function firstChar (stringIn){ console.log("The first action of the first char function"); return stringIn.charAt(0); console.log("The last action of the first char function");
-
-– 182
-
-}
 
 Running this function like so will look like this:
 
@@ -4662,79 +4530,79 @@ setTimeout(arguments.callee, 5000);
 
 – 220
 
-Section 30.4: Removing intervals
+Sekcja 30.4: Usuwanie odstępów
 
-window.setInterval() returns an IntervalID, which can be used to stop that interval from continuing to run. To do this, store the return value of window.setInterval() in a variable and call clearInterval() with that variable as the only argument:
+window.setInterval () zwraca wartość IntervalID, której można użyć do zatrzymania tego interwału. Aby to zrobić, przechowuj zwracaną wartość window.setInterval () w zmiennej i wywołaj clearInterval () z tą zmienną jako jedynym argumentem:
 
-function waitFunc(){ console.log("This will be logged every 5 seconds"); }
+function waitFunc () {console.log ("To będzie rejestrowane co 5 sekund"); }
 
-var interval = window.setInterval(waitFunc,5000);
+var interval = window.setInterval (waitFunc, 5000);
 
-window.setTimeout(function(){ clearInterval(interval); },32000);
+window.setTimeout (function () {clearInterval (interval);}, 32000);
 
-This will log This will be logged every 5 seconds every 5 seconds, but will stop it after 32 seconds. So it will log the message 6 times. Section 30.5: Removing timeouts
+Spowoduje to zalogowanie To będzie rejestrowane co 5 sekund co 5 sekund, ale zatrzyma go po 32 sekundach. Więc zapisze wiadomość 6 razy. Sekcja 30.5: Usuwanie limitów czasu
 
-window.setTimout() returns a TimeoutID, which can be used to stop that timeout from running. To do this, store the return value of window.setTimeout() in a variable and call clearTimeout() with that variable as the only argument:
+window.setTimout () zwraca identyfikator TimeoutID, który może być użyty do zatrzymania tego limitu czasu. Aby to zrobić, przechowuj zwracaną wartość window.setTimeout () w zmiennej i wywołaj funkcję clearTimeout () z tą zmienną jako jedynym argumentem:
 
-function waitFunc(){ console.log("This will not be logged after 5 seconds"); } function stopFunc(){ clearTimeout(timeout); }
+function waitFunc () {console.log ("To nie będzie rejestrowane po 5 sekundach"); } function stopFunc () {clearTimeout (timeout); }
 
-var timeout = window.setTimeout(waitFunc,5000); window.setTimeout(stopFunc,3000);
+var timeout = window.setTimeout (waitFunc, 5000); window.setTimeout (stopFunc, 3000);
 
-This will not log the message because the timer is stopped after 3 seconds. Section 30.6: setTimeout, order of operations, clearTimeout
+Nie spowoduje to zarejestrowania komunikatu, ponieważ timer zatrzymuje się po 3 sekundach. Sekcja 30.6: setTimeout, kolejność operacji, clearTimeout
 
 setTimeout
 
-Executes a function, after waiting a speciﬁed number of milliseconds. used to delay the execution of a function.
+Wykonuje funkcję po odczekaniu określonej liczby milisekund. używany do opóźnienia wykonania funkcji.
 
-Syntax : setTimeout(function, milliseconds) or window.setTimeout(function, milliseconds)
+Składnia: setTimeout (function, milliseconds) lub window.setTimeout (function, milliseconds)
 
-Example : This example outputs "hello" to the console after 1 second. The second parameter is in milliseconds, so 1000 = 1 sec, 250 = 0.25 sec, etc.
+Przykład: Ten przykład wyświetla "cześć" do konsoli po 1 sekundzie. Drugi parametr jest w milisekundach, więc 1000 = 1 s, 250 = 0,25 s itd.
 
-setTimeout(function() { console.log('hello'); }, 1000);
+setTimeout (function () {console.log ("cześć");}, 1000);
 
-Problems with setTimeout
+Problemy z setTimeout
 
-if you're using the setTimeout method in a for loop :
+jeśli używasz metody setTimeout w pętli for:
 
-– 221
+- 221
 
-for (i = 0; i < 3; ++i) { setTimeout(function(){ console.log(i); }, 500); }
+dla (i = 0; i <3; ++ i) {setTimeout (function () {console.log (i);}, 500); }
 
-This will output the value 3 three times, which is not correct.
+Spowoduje to wyświetlenie wartości 3 trzy razy, co nie jest poprawne.
 
-Workaround of this problem :
+Obejście tego problemu:
 
-for (i = 0; i < 3; ++i) { setTimeout(function(j){ console.log(i); }(i), 1000); }
+dla (i = 0; i <3; ++ i) {setTimeout (funkcja (j) {console.log (i);} (i), 1000); }
 
-It will output the value 0,1,2. Here, we're passing the i into the function as a parameter(j).
+Wyprowadzi wartość 0,1,2. Tutaj przekazujemy funkcję i jako parametr (j).
 
-Order of operations
+Kolejność operacji
 
-Additionally though, due to the fact that JavaScript is single threaded and uses a global event loop, setTimeout can be used to add an item to the end of the execution queue by calling setTimeout with zero delay. For example:
+Dodatkowo, ze względu na fakt, że JavaScript jest pojedynczy wątek i używa globalnej pętli zdarzeń, setTimeout może być użyty do dodania elementu do końca kolejki wykonawczej przez wywołanie setTimeout z zerowym opóźnieniem. Na przykład:
 
-setTimeout(function() { console.log('world'); }, 0);
+setTimeout (function () {console.log ("world");}, 0);
 
-console.log('hello');
+console.log ("cześć");
 
-Will actually output:
+Czy rzeczywiście wynik:
 
-hello world
+Witaj świecie
 
-Also, zero milliseconds here does not mean the function inside the setTimeout will execute immediately. It will take slightly more than that depending upon the items to be executed remaining in the execution queue. This one is just pushed to the end of the queue.
+Również zero milisekund tutaj nie oznacza, że ​​funkcja wewnątrz setTimeout zostanie natychmiast wykonana. Zajmie to nieco więcej, w zależności od pozycji do wykonania pozostałych w kolejce wykonawczej. Ten jest właśnie popychany na końcu kolejki.
 
-Cancelling a timeout
+Anulowanie limitu czasu
 
-clearTimeout() : stops the execution of the function speciﬁed in setTimeout()
+clearTimeout (): zatrzymuje wykonywanie funkcji wyspecyfikowanej w setTimeout ()
 
-Syntax : clearTimeout(timeoutVariable) or window.clearTimeout(timeoutVariable)
+Składnia: clearTimeout (timeoutVariable) lub window.clearTimeout (timeoutVariable)
 
-Example :
+Przykład:
 
-var timeout = setTimeout(function() { console.log('hello'); }, 1000);
+var timeout = setTimeout (function () {console.log ('hello');}, 1000);
 
-clearTimeout(timeout); // The timeout will no longer be executed
+clearTimeout (timeout); // Limit czasu nie będzie już wykonywany
 
-– 222
+- 222
 
 Rozdział 31: Wyrażenia regularne
 
