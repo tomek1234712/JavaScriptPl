@@ -3135,8 +3135,9 @@ Wersja ≥ 6 var foo = function () {} console.log (foo.name); // wyprowadza "foo
 
 function foo () {} console.log (foo.name); // wyprowadza "foo"
 
-var foo = pasek funkcji () {} console.log (foo.name); // wyprowadza "pasek" sekcja 19.5: Wiązanie "tego" i argumentów
+var foo = pasek funkcji () {} console.log (foo.name); // wyprowadza "pasek" 
 
+sekcja 19.5: Wiązanie "tego" i argumentów
 Wersja ≥ 5.1
 
 Kiedy odwołujesz się do metody (właściwości, która jest funkcją) w JavaScript, zazwyczaj nie pamięta ona obiektu, do którego była pierwotnie dołączona. Jeśli metoda musi odwoływać się do tego obiektu, ponieważ nie będzie to możliwe, a wywołanie go prawdopodobnie spowoduje awarię.
@@ -3177,265 +3178,227 @@ foo.bar.call(foo); // long version foo::bar(); // short version
 
 foo.bar.call(foo, arg1, arg2, arg3); // long version foo::bar(arg1, arg2, arg3); // short version
 
-foo.bar.apply(foo, args); // long version foo::bar(...args); // short version
+foo.bar.apply (foo, args); // długa wersja foo :: bar (... args); // krótka wersja
 
-This syntax allows you to write normally, without worrying about binding this everywhere.
+Ta składnia pozwala pisać normalnie, nie martwiąc się o wiązanie tego wszędzie.
 
-Binding console functions to variables var log = console.log.bind(console);
+Wiązanie funkcji konsoli do zmiennych var log = console.log.bind (console);
 
-Usage:
+Stosowanie:
 
-log('one', '2', 3, [4], {5: 5});
+log ("jeden", "2", 3, [4], {5: 5});
 
 Wydajność:
 
-one 2 3 [4] Object {5: 5}
+jeden 2 3 [4] Obiekt {5: 5}
 
-Why would you do that?
+Dlaczego chcesz to zrobić?
 
-One use case can be when you have custom logger and you want to decide on runtime which one to use.
+Jednym przypadkiem użycia może być niestandardowy program rejestrujący i użytkownik chce zdecydować, którego z nich użyć.
 
-var logger = require('appLogger');
+var logger = require ('appLogger');
 
-var log = logToServer ? logger.log : console.log.bind(console);
+var log = logToServer? logger.log: console.log.bind (console);
 
-– 171
+- 171
 
-Section 19.6: Functions with an Unknown Number of Arguments (variadic functions)
+Sekcja 19.6: Funkcje o nieznanej liczbie argumentów (funkcje variadyczne)
 
-To create a function which accepts an undetermined number of arguments, there are two methods depending on your environment.
+Aby utworzyć funkcję akceptującą nieokreśloną liczbę argumentów, istnieją dwie metody w zależności od środowiska.
 
-Version ≤ 5
+Wersja ≤ 5
 
-Whenever a function is called, it has an Array-like arguments object in its scope, containing all the arguments passed to the function. Indexing into or iterating over this will give access to the arguments, for example
+Za każdym razem, gdy wywoływana jest funkcja, w jej zasięgu znajduje się obiekt argumentów typu Array, zawierający wszystkie argumenty przekazane do funkcji. Indeksowanie lub powtarzanie tego da np. Dostęp do argumentów
 
-function logSomeThings() { for (var i = 0; i < arguments.length; ++i) { console.log(arguments[i]); } }
+function logSomeThings () {dla (var i = 0; i <arguments.length; ++ i) {console.log (argumenty [i]); }}
 
-logSomeThings('hello', 'world'); // logs "hello" // logs "world"
+logSomeThings ("cześć", "świat"); // loguje się "cześć" // loguje "świat"
 
-Note that you can convert arguments to an actual Array if need-be; see: Converting Array-like Objects to Arrays
+Zauważ, że możesz przekonwertować argumenty do rzeczywistej tablicy, jeśli zajdzie taka potrzeba; patrz: Przekształcanie obiektów podobnych do tablicowych w tablice
 
-Version ≥ 6
+Wersja ≥ 6
 
-From ES6, the function can be declared with its last parameter using the rest operator (...). This creates an Array which holds the arguments from that point onwards
+Z ES6 można zadeklarować funkcję z jej ostatnim parametrem, korzystając z operatora odpoczynku (...). Tworzy to tablicę, która przechowuje argumenty od tego momentu
 
-function personLogsSomeThings(person, ...msg) { msg.forEach(arg => { console.log(person, 'says', arg); }); }
+function personLogsSomeThings (osoba, ... msg) {msg.forEach (arg => {console.log (osoba, "mówi", arg);}); }
 
-personLogsSomeThings('John', 'hello', 'world'); // logs "John says hello" // logs "John says world"
+personLogsSomeThings ("John", "cześć", "świat"); // logi "John mówi" cześć "// logi" John mówi świat "
 
-Functions can also be called with similar way, the spread syntax
+Funkcje można również wywoływać w podobny sposób, z wykorzystaniem składni rozszerzonej
 
-const logArguments = (...args) => console.log(args) const list = [1, 2, 3]
+const logArguments = (... args) => console.log (args) const list = [1, 2, 3]
 
-logArguments('a', 'b', 'c', ...list) // output: Array [ "a", "b", "c", 1, 2, 3 ]
+logArguments ("a", "b", "c", ... list) // wyjście: Tablica ["a", "b", "c", 1, 2, 3]
 
-This syntax can be used to insert arbitrary number of arguments to any position, and can be used with any iterable(apply accepts only array-like objects).
+Ta składnia może być użyta do wstawienia dowolnej liczby argumentów do dowolnej pozycji i może być użyta z każdym iterowalnym (zastosuj tylko obiekty tablicowe akceptujące tylko akceptacje).
 
-const logArguments = (...args) => console.log(args) function* generateNumbers() { yield 6 yield 5 yield 4 }
+const logArguments = (... args) => funkcja console.log (args) * generateNumbers () {yield 6 yield 5 yield 4}
 
-logArguments('a', ...generateNumbers(), ...'pqr', 'b') // output: Array [ "a", 6, 5, 4, "p", "q", "r", "b" ]
+logArguments ('a', ... generateNumbers (), ... 'pqr', 'b') // output: Array ["a", 6, 5, 4, "p", "q", "r ", "b" ]
 
-– 172
+- 172
 
-Section 19.7: Anonymous Function
+Sekcja 19.7: Funkcja anonimowa
 
-Deﬁning an Anonymous Function
+Definiowanie funkcji anonimowej
 
-When a function is deﬁned, you often give it a name and then invoke it using that name, like so:
+Kiedy funkcja jest zdefiniowana, często podajesz jej nazwę, a następnie wywołujesz ją przy użyciu tej nazwy, jak na przykład:
 
-foo();
+bla();
 
-function foo(){ // ... }
+function foo () {// ...}
 
-When you deﬁne a function this way, the JavaScript runtime stores your function in memory and then creates a reference to that function, using the name you've assigned it. That name is then accessible within the current scope. This can be a very convenient way to create a function, but JavaScript does not require you to assign a name to a function. The following is also perfectly legal:
+Po zdefiniowaniu funkcji w ten sposób środowisko wykonawcze JavaScript przechowuje swoją funkcję w pamięci, a następnie tworzy odniesienie do tej funkcji, używając nazwy, która została mu przypisana. Ta nazwa jest dostępna w bieżącym zakresie. Może to być bardzo wygodny sposób tworzenia funkcji, ale JavaScript nie wymaga przypisania nazwy do funkcji. Poniższe informacje są również całkowicie legalne:
 
-function() { // ... }
+function () {// ...}
 
-When a function is deﬁned without a name, it's known as an anonymous function. The function is stored in memory, but the runtime doesn't automatically create a reference to it for you. At ﬁrst glance, it may appear as if such a thing would have no use, but there are several scenarios where anonymous functions are very convenient.
+Gdy funkcja jest określona bez nazwy, jest znana jako funkcja anonimowa. Funkcja jest przechowywana w pamięci, ale środowisko wykonawcze nie tworzy automatycznie dla niej odniesienia. Na pierwszy rzut oka może się wydawać, że coś takiego nie byłoby użyteczne, ale istnieje kilka scenariuszy, w których funkcje anonimowe są bardzo wygodne.
 
-Assigning an Anonymous Function to a Variable
+Przypisywanie funkcji anonimowej do zmiennej
 
-A very common use of anonymous functions is to assign them to a variable:
+Bardzo częstym zastosowaniem anonimowych funkcji jest przypisanie ich do zmiennej:
 
-var foo = function(){ /*...*/ };
+var foo = function () {/*...*/};
 
-foo();
+bla();
 
-This use of anonymous functions is covered in more detail in Functions as a variable
+To wykorzystanie anonimowych funkcji jest bardziej szczegółowo opisane w funkcji jako zmiennej
 
-Supplying an Anonymous Function as a Parameter to Another Function
+Dostarczanie funkcji anonimowej jako parametru do innej funkcji
 
-Some functions may accept a reference to a function as a parameter. These are sometimes referred to as "dependency injections" or "callbacks", because it allows the function your calling to "call back" to your code, giving you an opportunity to change the way the called function behaves. For example, the Array object's map function allows you to iterate over each element of an array, then build a new array by applying a transform function to each element.
+Niektóre funkcje mogą przyjmować odwołanie do funkcji jako parametru. Są one czasami określane jako "iniekcje zależności" lub "wywołania zwrotne", ponieważ pozwalają one funkcji wywoływania na "oddzwonienie" do kodu, co daje możliwość zmiany sposobu, w jaki zachowuje się funkcja wywoływana. Na przykład funkcja mapowania obiektu Array pozwala na iteracje na każdym elemencie tablicy, a następnie zbudowanie nowej tablicy przez zastosowanie funkcji transformacji do każdego elementu.
 
-var nums = [0,1,2]; var doubledNums = nums.map( function(element){ return element * 2; } ); // [0,2,4]
+var nums = [0,1,2]; var doubledNums = nums.map (function (element) {return element * 2;}); // [0,2,4]
 
-It would be tedious, sloppy and unnecessary to create a named function, which would clutter your scope with a function only needed in this one place and break the natural ﬂow and reading of your code (a colleague would have to leave this code to ﬁnd your function to understand what's going on).
+Byłoby nudne, niechlujne i zbędne, aby stworzyć nazwaną funkcję, która zaśmieciłaby twój zakres funkcją potrzebną tylko w tym jednym miejscu i złamał naturalny przepływ i odczyt kodu (kolega musiałby opuścić ten kod, aby znaleźć twoje funkcja, aby zrozumieć, co się dzieje).
 
-Returning an Anonymous Function From Another Function
+Zwracanie anonimowej funkcji z innej funkcji
 
-Sometimes it's useful to return a function as the result of another function. For example:
+Czasami warto zwrócić funkcję w wyniku innej funkcji. Na przykład:
 
-var hash = getHashFunction( 'sha1' );
+var hash = getHashFunction ('sha1');
 
-– 173
+- 173
 
-var hashValue = hash( 'Secret Value' );
+var hashValue = hash ("Tajna wartość");
 
-function getHashFunction( algorithm ){
+function getHashFunction (algorithm) {
 
-if ( algorithm === 'sha1' ) return function( value ){ /*...*/ }; else if ( algorithm === 'md5' ) return function( value ){ /*...*/ };
+if (algorytm === 'sha1') funkcja powrotu (wartość) {/*...*/}; w przeciwnym razie (algorytm === 'md5') funkcja powrotu (wartość) {/*...*/};
 
-} Immediately Invoking an Anonymous Function
+} Natychmiastowe wywoływanie funkcji anonimowej
 
-Unlike many other languages, scoping in JavaScript is function-level, not block-level. (See Function Scoping ). In some cases, however, it's necessary to create a new scope. For example, it's common to create a new scope when adding code via a <script> tag, rather than allowing variable names to be deﬁned in the global scope (which runs the risk of other scripts colliding with your variable names). A common method to handle this situation is to deﬁne a new anonymous function and then immediately invoke it, safely hiding you variables within the scope of the anonymous function and without making your code accessible to third-parties via a leaked function name. For example:
+W przeciwieństwie do wielu innych języków, scoping w JavaScript jest poziomem funkcjonalnym, a nie blokowym. (Zobacz Scoping funkcji). W niektórych przypadkach konieczne jest jednak utworzenie nowego zakresu. Na przykład, powszechne jest tworzenie nowego zakresu przy dodawaniu kodu za pomocą znacznika <script>, zamiast zezwalania na definiowanie nazw zmiennych w zasięgu globalnym (co grozi kolizją innych skryptów z nazwami zmiennych). Powszechną metodą radzenia sobie z tą sytuacją jest zdefiniowanie nowej anonimowej funkcji, a następnie natychmiastowe wywołanie jej, bezpieczne ukrywanie zmiennych w zakresie anonimowej funkcji i bez udostępniania kodu stronom trzecim za pośrednictwem wyciekanej nazwy funkcji. Na przykład:
 
-<!-- My Script --> <script> function initialize(){ // foo is safely hidden within initialize, but... var foo = ''; }
+<! - My Script -> <script> function initialize () {// foo jest bezpiecznie ukryty w inicjalizacji, ale ... var foo = ''; }
 
-// ...my initialize function is now accessible from global scope. // There is a risk someone could call it again, probably by accident. initialize(); </script>
+// ... moja funkcja inicjalizacji jest teraz dostępna z globalnego zasięgu. // Istnieje ryzyko, że ktoś może ponownie zadzwonić, prawdopodobnie przez przypadek. initialize (); </ script>
 
-<script> // Using an anonymous function, and then immediately // invoking it, hides my foo variable and guarantees // no one else can call it a second time. (function(){ var foo = ''; }()) // <--- the parentheses invokes the function immediately </script> Self-Referential Anonymous Functions
+<script> // Używając anonimowej funkcji, a następnie natychmiast // wywołując ją, ukrywa moją zmienną foo i gwarantuje / / że nikt inny nie może go wywołać po raz drugi. (function () {var foo = '';} ()) // <--- nawiasy wywołują funkcję natychmiast </ script> Self-Referential Anonymous Functions
 
-Sometimes it's useful for an anonymous function to be able to refer to itself. For example, the function may need to recursively call itself or add properties to itself. If the function is anonymous, though, this can be very diﬃcult as it requires knowledge of the variable that the function has been assigned to. This is the less than ideal solution:
+Czasami użyteczne jest, aby anonimowa funkcja mogła odnosić się do siebie. Na przykład funkcja może wymagać rekurencyjnego wywołania samej siebie lub dodania do siebie właściwości. Jeśli funkcja jest anonimowa, może to być bardzo trudne, ponieważ wymaga znajomości zmiennej, do której przypisano funkcję. To jest mniej niż idealne rozwiązanie:
 
-var foo = function(callAgain){ console.log( 'Whassup?' ); // Less than ideal... we're dependent on a variable reference... if (callAgain === true) foo(false); };
+var foo = funkcja (callAgain) {console.log ("Whassup?"); // Mniej niż idealna ... jesteśmy zależni od zmiennej odwołania ... if (callAgain === true) foo (false); };
 
-foo(true);
+foo (prawda);
 
-// Console Output: // Whassup? // Whassup?
+// Wyjście z konsoli: // Whasup? // Whassup?
 
-// Assign bar to the original function, and assign foo to another function. var bar = foo; foo = function(){
+// Przydziel pasek do oryginalnej funkcji i przypisz foo do innej funkcji. var bar = foo; foo = function () {
 
-– 174
+- 174
 
-console.log('Bad.') };
+console.log ("Bad.")};
 
-bar(true);
+pasek (prawda);
 
-// Console Output: // Whassup? // Bad.
+// Wyjście z konsoli: // Whasup? // Zły.
 
-The intent here was for the anonymous function to recursively call itself, but when the value of foo changes, you end up with a potentially diﬃcult to trace bug.
+Chodziło o to, by anonimowa funkcja rekurencyjnie nazywana była samą, ale gdy wartość foo zmieni się, otrzymasz potencjalnie trudny do zidentyfikowania błąd.
 
-Instead, we can give the anonymous function a reference to itself by giving it a private name, like so:
+Zamiast tego możemy nadać anonimowej funkcji odwołanie do samej siebie, nadając jej prywatną nazwę, na przykład:
 
-var foo = function myself(callAgain){ console.log( 'Whassup?' ); // Less than ideal... we're dependent on a variable reference... if (callAgain === true) myself(false); };
+var foo = funkcja myself (callAgain) {console.log ("Whassup?"); // Mniej niż idealna ... jesteśmy zależni od zmiennej odwołania ... jeśli
 
-foo(true);
-
-// Console Output: // Whassup? // Whassup?
-
-// Assign bar to the original function, and assign foo to another function. var bar = foo; foo = function(){ console.log('Bad.') };
-
-bar(true);
-
-// Console Output: // Whassup? // Whassup?
-
-Note that the function name is scoped to itself. The name has not leaked into the outer scope:
-
-myself(false); // ReferenceError: myself is not defined
-
-This technique is especially useful when dealing with recursive anonymous functions as callback parameters:
-
-Version ≥ 5 // Calculate the Fibonacci value for each number in an array: var fib = false, result = [1,2,3,4,5,6,7,8].map( function fib(n){ return ( n <= 2 ) ? 1 : fib( n - 1 ) + fib( n - 2 ); }); // result = [1, 1, 2, 3, 5, 8, 13, 21] // fib = false (the anonymous function name did not overwrite our fib variable) Section 19.8: Default parameters
-
-Before ECMAScript 2015 (ES6), a parameter's default value could be assigned in the following way:
-
-function printMsg(msg) {
-
-– 175
-
-msg = typeof msg !== 'undefined' ? // if a value was provided msg : // then, use that value in the reassignment 'Default value for msg.'; // else, assign a default value console.log(msg); }
-
-ES6 provided a new syntax where the condition and reassignment depicted above is no longer necessary:
-
-Version ≥ 6 function printMsg(msg='Default value for msg.') { console.log(msg); } printMsg(); // -> "Default value for msg." printMsg(undefined); // -> "Default value for msg." printMsg('Now my msg in different!'); // -> "Now my msg in different!"
-
-This also shows that if a parameter is missing when the function is invoked, its value is kept as undefined, as it can be conﬁrmed by explicitly providing it in the following example (using an arrow function):
-
-Version ≥ 6 let param_check = (p = 'str') => console.log(p + ' is of type: ' + typeof p);
-
-param_check(); // -> "str is of type: string" param_check(undefined); // -> "str is of type: string"
-
-param_check(1); // -> "1 is of type: number" param_check(this); // -> "[object Window] is of type: object" Functions/variables as default values and reusing parameters
-
-The default parameters' values are not restricted to numbers, strings or simple objects. A function can also be set as the default value callback = function(){}:
-
-Version ≥ 6 function foo(callback = function(){ console.log('default'); }) { callback(); }
-
-foo(function (){ console.log('custom'); }); // custom
-
-foo(); //default
-
-There are certain characteristics of the operations that can be performed through default values:
-
-A previously declared parameter can be reused as a default value for the upcoming parameters' values. Inline operations are allowed when assigning a default value to a parameter. Variables existing in the same scope of the function being declared can be used in its default values. Functions can be invoked in order to provide their return value into a default value.
-
-Version ≥ 6 let zero = 0; function multiply(x) { return x * 2;}
-
-function add(a = 1 + zero, b = a, c = b + a, d = multiply(c)) { console.log((a + b + c), d);
-
-– 176
-
+Punkt 19.8: Parametry domyślne
+Przed ECMAScript 2015 (ES6) domyślna wartość parametru mogła zostać przypisana w następujący sposób:
+funkcja printMsg (msg) {
+  msg = typeof msg! == 'undefined'? // jeśli podano wartość msg: //, użyj tej wartości w ponownym przypisaniu "Wartość domyślna dla msg."; // else, przypisz wartość domyślną console.log (msg); }
+ES6 dostarczył nową składnię, w której przedstawione powyżej warunki i przeniesienie nie są już potrzebne:
+Wersja ≥ 6 funkcja printMsg (msg = 'Wartość domyślna dla msg.') {Console.log (msg); } printMsg (); // -> "Wartość domyślna dla msg." printMsg (niezdefiniowany); // -> "Wartość domyślna dla msg." printMsg ("Teraz moje msg w różnych!"); // -> "Teraz moje msg w różnych!"
+Pokazuje to również, że jeśli brakuje parametru podczas wywoływania funkcji, jego wartość jest utrzymywana jako niezdefiniowana, ponieważ można ją potwierdzić, podając ją jawnie w poniższym przykładzie (przy użyciu funkcji strzałki):
+Wersja ≥ 6 let param_check = (p = 'str') => console.log (p + 'jest typu:' + typeof p);
+param_check (); // -> "str jest typu: string" param_check (undefined); // -> "str jest typu: string"
+param_check (1); // -> "1 jest typu: number" param_check (this); // -> "[okno obiektu] jest typu: obiekt" Funkcje / zmienne jako wartości domyślne i ponowne wykorzystanie parametrów
+Domyślne wartości parametrów nie są ograniczone do liczb, łańcuchów lub prostych obiektów. Funkcję można również ustawić jako wartość domyślną callback = function () {}:
+Wersja ≥ 6 funkcja foo (callback = function () {console.log ('default');}) {callback (); }
+foo (function () {console.log ("custom");}); // zwyczaj
+bla(); //domyślna
+Istnieją pewne cechy operacji, które można wykonać za pomocą wartości domyślnych:
+Poprzednio zadeklarowany parametr może być ponownie użyty jako wartość domyślna dla nadchodzących wartości parametrów. Operacje inline są dozwolone podczas przypisywania wartości domyślnej do parametru. Zmienne istniejące w tym samym zakresie zadeklarowanej funkcji mogą być użyte w wartościach domyślnych. Funkcje można wywoływać w celu dostarczenia ich wartości zwracanej do wartości domyślnej.
+Wersja ≥ 6 niech zero = 0; funkcja mnożenie (x) {return x * 2;}
+funkcja dodaj (a = 1 + zero, b = a, c = b + a, d = pomnożenie (c)) {console.log ((a + b + c), d);
 }
+dodaj (1); // 4, 4 dodaj (3); // 12, 12 dodaj (2, 7); // 18, 18 dodaj (1, 2, 5); // 8, 10 dodaj (1, 2, 5, 10); // 8, 20 Ponowne użycie zwracanej wartości funkcji w domyślnej wartości nowego wywołania: Version ≥ 6 let array = [1]; // bez znaczenia: to będzie przyćmione w funkcji scope function add (value, array = []) {array.push (value); return tablica; } dodaj (5); // [5] dodaj (6); // [6], a nie [5, 6] dodaj (6, dodaj (5)); // [5, 6] argumenty wartość i długość, gdy brakuje parametrów w wywołaniu
+Obiekt tablicy arguments zachowuje tylko parametry, których wartości nie są wartościami domyślnymi, tj. Te, które są jawnie podane podczas wywoływania funkcji:
+Wersja ≥ 6 funkcja foo (a = 1, b = a + 1) {console.info (arguments.length, argumenty); console.log (a, b); }
+bla(); // info: 0 >> [] | log: 1, 2 foo (4); // info: 1 >> [4] | log: 4, 5 foo (5, 6); // info: 2 >> [5, 6] | log: 5, 6
 
-add(1); // 4, 4 add(3); // 12, 12 add(2, 7); // 18, 18 add(1, 2, 5); // 8, 10 add(1, 2, 5, 10); // 8, 20 Reusing the function's return value in a new invocation's default value: Version ≥ 6 let array = [1]; // meaningless: this will be overshadowed in the function's scope function add(value, array = []) { array.push(value); return array; } add(5); // [5] add(6); // [6], not [5, 6] add(6, add(5)); // [5, 6] arguments value and length when lacking parameters in invocation
+Punkt 19.9: Zadzwoń i aplikuj
 
-The arguments array object only retains the parameters whose values are not default, ie those that are explicitly provided when the function is invoked:
+Funkcje mają dwie wbudowane metody, które pozwalają programiście dostarczać argumenty, a zmienna ta jest różna: zadzwoń i zastosuj.
 
-Version ≥ 6 function foo(a = 1, b = a + 1) { console.info(arguments.length, arguments); console.log(a,b); }
+Jest to użyteczne, ponieważ funkcje działające na jednym obiekcie (obiekt, którego są własnością) mogą zostać ponownie wykorzystane do działania na innym kompatybilnym obiekcie. Dodatkowo, argumenty można podać w jednym ujęciu jako tablice, podobnie do operatora spreadu (...) w ES6.
 
-foo(); // info: 0 >> [] | log: 1, 2 foo(4); // info: 1 >> [4] | log: 4, 5 foo(5, 6); // info: 2 >> [5, 6] | log: 5, 6 Section 19.9: Call and apply
+niech obj = {a: 1, b: 2, set: function (a, b) {this.a = a; this.b = b; }};
 
-Functions have two built-in methods that allow the programmer to supply arguments and the this variable diﬀerently: call and apply.
+obj.set (3, 7); // normalna składnia obj.set.call (obj, 3, 7); // odpowiednik powyższego obiektu obj.set.apply (obj, [3, 7]); // odpowiednik powyższego; zwróć uwagę, że używana jest tablica
 
-This is useful, because functions that operate on one object (the object that they are a property of) can be repurposed to operate on another, compatible object. Additionally, arguments can be given in one shot as arrays, similar to the spread (...) operator in ES6.
+console.log (obj); // drukuje {a: 3, b: 5}
 
-let obj = { a: 1, b: 2, set: function (a, b) { this.a = a; this.b = b; } };
+let myObj = {}; myObj.set (5, 4); // zawiedzie; myObj nie ma właściwości `set`
 
-obj.set(3, 7); // normal syntax obj.set.call(obj, 3, 7); // equivalent to the above obj.set.apply(obj, [3, 7]); // equivalent to the above; note that an array is used
+- 177
 
-console.log(obj); // prints { a: 3, b: 5 }
+obj.set.call (myObj, 5, 4); // powodzenie; `this` w set () jest przekierowywany do myObj zamiast do obj obj.set.apply (myObj, [5, 4]); // tak samo jak powyżej; zwróć uwagę na tablicę
 
-let myObj = {}; myObj.set(5, 4); // fails; myObj has no `set` property
+console.log (myObj); // drukuje {a: 3, b: 5} Wersja ≥ 5
 
-– 177
+ECMAScript 5 wprowadził inną metodę zwaną bind () oprócz funkcji call () i apply (), aby jawnie ustawić tę wartość funkcji na konkretny obiekt.
 
-obj.set.call(myObj, 5, 4); // success; `this` in set() is re-routed to myObj instead of obj obj.set.apply(myObj, [5, 4]); // same as above; note the array
+Zachowuje się całkiem odmiennie niż pozostałe dwa. Pierwszym argumentem do związania () jest ta wartość dla nowej funkcji. Wszystkie pozostałe argumenty reprezentują nazwane parametry, które powinny zostać na stałe ustawione w nowej funkcji.
 
-console.log(myObj); // prints { a: 3, b: 5 } Version ≥ 5
+function showName (label) {console.log (label + ":" + this.name); } var student1 = {name: "Ravi"}; var student2 = {name: "Vinod"};
 
-ECMAScript 5 introduced another method called bind() in addition to call() and apply() to explicitly set this value of the function to speciﬁc object.
+// tworzymy funkcję tylko dla ucznia1 var showNameStudent1 = showName.bind (student1); showNameStudent1 ("student1"); // wyświetla "student1: Ravi"
 
-It behaves quite diﬀerently than the other two. The ﬁrst argument to bind() is the this value for the new function. All other arguments represent named parameters that should be permanently set in the new function.
+// tworzymy funkcję tylko dla ucznia2 var showNameStudent2 = showName.bind (student2, "student2"); showNameStudent2 (); // wypisuje "student2: Vinod"
 
-function showName(label) { console.log(label + ":" + this.name); } var student1 = { name: "Ravi" }; var student2 = { name: "Vinod" };
+// dołączenie metody do obiektu nie zmienia wartości `this` tej metody. student2.sayName = showNameStudent1; student2.sayName ("student2"); // wyświetla "student2: Ravi" sekcja 19.10: Częściowa aplikacja
 
-// create a function just for student1 var showNameStudent1 = showName.bind(student1); showNameStudent1("student1"); // outputs "student1:Ravi"
+Podobnie jak currying, aplikacja częściowa służy do zmniejszenia liczby argumentów przekazywanych do funkcji. W przeciwieństwie do curry, liczba nie musi spaść o jeden.
 
-// create a function just for student2 var showNameStudent2 = showName.bind(student2, "student2"); showNameStudent2(); // outputs "student2:Vinod"
+Przykład:
 
-// attaching a method to an object doesn't change `this` value of that method. student2.sayName = showNameStudent1; student2.sayName("student2"); // outputs "student2:Ravi" Section 19.10: Partial Application
+Ta funkcja ...
 
-Similar to currying, partial application is used to reduce the number of arguments passed to a function. Unlike currying, the number need not go down by one.
+function multiplyThenAdd (a, b, c) {return a * b + c; }
 
-Example:
+... można użyć do stworzenia innej funkcji, która zawsze będzie mnożyć przez 2, a następnie dodać 10 do przekazanej wartości;
 
-This function ...
+funkcja reverseMultiplyThenAdd (c, b, a) {return a * b + c; }
 
-function multiplyThenAdd(a, b, c) { return a * b + c; }
+fabryka funkcji (b, c) {return reverseMultiplyThenAdd.bind (null, c, b); }
 
-... can be used to create another function that will always multiply by 2 and then add 10 to the passed value;
+var multiplyTwoThenAddTen = factory (2, 10);
 
-function reversedMultiplyThenAdd(c, b, a) { return a * b + c; }
+- 178
 
-function factory(b, c) { return reversedMultiplyThenAdd.bind(null, c, b); }
+multiplyTwoThenAddTen (10); // 30
 
-var multiplyTwoThenAddTen = factory(2, 10);
+Część "aplikacji" częściowego zastosowania oznacza po prostu ustalenie parametrów funkcji.
 
-– 178
-
-multiplyTwoThenAddTen(10); // 30
-
-The "application" part of partial application simply means ﬁxing parameters of a function. Section 19.11: Passing arguments by reference or value
+Section 19.11: Passing arguments by reference or value
 
 In JavaScript all arguments are passed by value. When a function assigns a new value to an argument variable, that change will not be visible to the caller:
 
@@ -3461,7 +3424,9 @@ var a = 2; function myfunc(arg){ arg++; return arg;
 
 – 179
 
-} a = myfunc(a); console.log(obj.a); // 3 Section 19.12: Function Arguments, "arguments" object, rest and spread parameters
+} a = myfunc(a); console.log(obj.a); // 3 
+
+Section 19.12: Function Arguments, "arguments" object, rest and spread parameters
 
 Functions can take inputs in form of variables that can be used and assigned inside their own scope. The following function takes two numeric values and returns their sum:
 
@@ -3483,7 +3448,9 @@ In ES6, the ... syntax when used in the declaration of a function's parameters t
 
 In ES6, the ... syntax can also be used when invoking a function by placing an object/variable to its right. This allows that object's elements to be passed into that function as a single object:
 
-let nums = [2,42,-1]; console.log(...['a','b','c'], Math.max(...nums)); // -> abc 42 Section 19.13: Function Composition
+let nums = [2,42,-1]; console.log(...['a','b','c'], Math.max(...nums)); // -> abc 42
+
+Section 19.13: Function Composition
 
 Composing multiple functions into one is a functional programming common practice;
 
@@ -4769,202 +4736,131 @@ clearTimeout(timeout); // The timeout will no longer be executed
 
 – 222
 
-Chapter 31: Regular expressions
+Rozdział 31: Wyrażenia regularne
 
-Flags Details g global. All matches (don't return on the ﬁrst match). m multi-line. Causes ^ & $ to match the begin/end of each line (not only begin/end of string). i insensitive. Case insensitive match (ignores case of [a-zA-Z]). u unicode : Pattern strings are treated as UTF-16. Also causes escape sequences to match Unicode characters. y sticky: matches only from the index indicated by the lastIndex property of this regular expression in the target string (and does not attempt to match from any later indexes). Section 31.1: Creating a RegExp Object
+Flagi Szczegóły g globalne. Wszystkie mecze (nie powracaj w pierwszym meczu). m wieloliniowy. Powoduje, że ^ i $ dopasowują początek / koniec każdej linii (nie tylko początek / koniec ciągu znaków). jestem niewrażliwy. Rozróżnianie wielkości liter (ignoruje przypadek [a-zA-Z]). u unicode: Ciągi znaków są traktowane jako UTF-16. Powoduje również, że sekwencje specjalne są zgodne ze znakami Unicode. y sticky: dopasowuje tylko z indeksu wskazanego przez właściwość lastIndex tego wyrażenia regularnego w ciągu docelowym (i nie próbuje dopasować z żadnych późniejszych indeksów). Sekcja 31.1: Tworzenie obiektu RegExp
 
-Standard Creation
+Standardowe tworzenie
 
-It is recommended to use this form only when creating regex from dynamic variables.
+Zaleca się używanie tego formularza tylko podczas tworzenia wyrażeń regularnych ze zmiennych dynamicznych.
 
-Use when the expression may change or the expression is user generated.
+Użyj, gdy wyrażenie może się zmienić lub wyrażenie jest generowane przez użytkownika.
 
-var re = new RegExp(".*");
+var re = new RegExp (". *");
 
-With ﬂags:
+Z fl agami:
 
-var re = new RegExp(".*", "gmi");
+var re = new RegExp (". *", "gmi");
 
-With a backslash: (this must be escaped because the regex is speciﬁed with a string)
+Z odwrotnym ukośnikiem: (to musi być zmienione, ponieważ wyrażenie regularne jest wyspecyfikowane za pomocą ciągu znaków)
 
-var re = new RegExp("\\w*");
+var re = new RegExp ("\\ w *");
 
-Static initialization
+Inicjalizacja statyczna
 
-Use when you know the regular expression will not change, and you know what the expression is before runtime.
+Użyj, gdy wiesz, że wyrażenie regularne nie zmieni się i wiesz, co to wyrażenie jest przed uruchomieniem.
 
 var re = /.*/;
 
-With ﬂags:
+Z fl agami:
 
 var re = /.*/gmi;
 
-With a backslash: (this should not be escaped because the regex is speciﬁed in a literal)
+Z odwrotnym ukośnikiem: (nie powinno być to uniknięte, ponieważ wyrażenie regularne jest wyspecyfikowane w dosłownym znaczeniu)
 
-var re = /\w*/; Section 31.2: RegExp Flags
+var re = / \ w * /; Sekcja 31.2: Flagi RegExp
 
-There are several ﬂags you can specify to alter the RegEx behaviour. Flags may be appended to the end of a regex literal, such as specifying gi in /test/gi, or they may be speciﬁed as the second argument to the RegExp constructor, as in new RegExp('test', 'gi').
+Istnieje kilka języków, które możesz określić, aby zmienić zachowanie RegEx. Flagi mogą być dołączane na końcu literału regex, na przykład określając gi in / test / gi, lub mogą być wyspecyfikowane jako drugi argument konstruktora RegExp, tak jak w nowym RegExp ('test', 'gi').
 
-g - Global. Finds all matches instead of stopping after the ﬁrst.
+g - Globalny. Znajduje wszystkie mecze zamiast zatrzymywać się po pierwszej.
 
-i - Ignore case. /[az]/i is equivalent to /[a-zA-Z]/.
+i - Ignoruj ​​sprawę. / [az] / i jest równoważne / [a-zA-Z] /.
 
-– 223
+- 223
 
-m - Multiline. ^ and $ match the beginning and end of each line respectively treating \n and \r as delimiters instead of simply the beginning and end of the entire string.
+m - Multiline. ^ i $ odpowiadają początkowi i końcowi każdego wiersza odpowiednio traktując \ n i \ r jako ograniczniki zamiast po prostu początek i koniec całego łańcucha.
 
-Version ≥ 6
+Wersja ≥ 6
 
-u - Unicode. If this ﬂag is not supported you must match speciﬁc Unicode characters with \uXXXX where XXXX is the character's value in hexadecimal.
+u - Unicode. Jeśli ta fl ag nie jest obsługiwana, musisz dopasować specyficzne znaki Unicode z \ uXXXX gdzie XXXX jest wartością znaku w postaci szesnastkowej.
 
-y - Finds all consecutive/adjacent matches.
+y - Znajduje wszystkie kolejne / sąsiadujące mecze.
 
-Section 31.3: Check if string contains pattern using .test()
+Sekcja 31.3: Sprawdź, czy ciąg zawiera wzór za pomocą .test ()
 
-var re = /[az]+/; if (re.test("foo")) { console.log("Match exists."); }
+var re = / [az] + /; if (re.test ("foo")) {console.log ("Dopasowanie istnieje."); }
 
-The test method performs a search to see if a regular expression matches a string. The regular expression [az]+ will search for one or more lowercase letters. Since the pattern matches the string, “match exists” will be logged to the console. Section 31.4: Matching With .exec()
+Metoda testowa wykonuje wyszukiwanie, aby sprawdzić, czy wyrażenie regularne pasuje do ciągu znaków. Wyrażenie regularne [az] + wyszuka jedną lub więcej małych liter. Ponieważ wzór pasuje do napisu, "mecz istnieje" zostanie zalogowany do konsoli. Sekcja 31.4: Dopasowanie do .exec ()
 
-Match Using .exec()
+Dopasuj za pomocą .exec ()
 
-RegExp.prototype.exec(string) returns an array of captures, or null if there was no match.
+RegExp.prototype.exec (string) zwraca tablicę przechwyceń lub null, jeśli nie było dopasowania.
 
-var re = /([0-9]+)[az]+/; var match = re.exec("foo123bar");
+var re = / ([0-9] +) [az] + /; var match = re.exec ("foo123bar");
 
-match.index is 3, the (zero-based) location of the match.
+match.index to 3, lokalizacja (zera) meczu.
 
-match[0] is the full match string.
+match [0] jest pełnym dopasowaniem.
 
-match[1] is the text corresponding to the ﬁrst captured group. match[n] would be the value of the nth captured group.
+match [1] to tekst odpowiadający pierwszej przechwyconej grupie. dopasowanie [n] byłoby wartością n-tej przechwyconej grupy.
 
-Loop Through Matches Using .exec() var re = /a/g; var result; while ((result = re.exec('barbatbaz')) !== null) { console.log("found '" + result[0] + "', next exec starts at index '" + re.lastIndex + "'"); }
+Pętla w dopasowaniach Korzystanie z .exec () var re = / a / g; wynik var; while ((result = re.exec ('barbatbaz'))! == null) {console.log ("found" "+ result [0] +" ', następny exec zaczyna od indeksu "" + re.lastIndex + " ""); }
 
-Expected output
+Oczekiwany wynik
 
-found 'a', next exec starts at index '2' found 'a', next exec starts at index '5' found 'a', next exec starts at index '8'
+Znalezione "a", następne exec zaczyna się od indeksu "2" znalezionego "a", następne exec zaczyna od indeksu "5" znalezionego "a", następne exec zaczyna od indeksu "8"
 
-Section 31.5: Using RegExp With Strings
+Sekcja 31.5: Używanie RegExp z ciągami
 
-The String object has the following methods that accept regular expressions as arguments.
+Obiekt String ma następujące metody, które akceptują wyrażenia regularne jako argumenty.
 
-– 224
+- 224
 
-"string".match(... "string".replace(... "string".split(... "string".search(...
+"ciąg" .match (... "ciąg" .replace (... "ciąg" .split (... "ciąg" .search (...
 
-Match with RegExp console.log("string".match(/[in]+/)); console.log("string".match(/(r)[in]+/));
+Dopasuj do RegExp console.log ("string" .match (/ [in] + /)); console.log ("string" .match (/ (r) [in] + /));
 
-Expected output
+Oczekiwany wynik
 
 Array ["in"] Array ["rin", "r"]
 
-Replace with RegExp console.log("string".replace(/[in]+/, "foo"));
+Zamień na RegExp console.log ("string" .replace (/ [in] + /, "foo"));
 
-Expected output
+Oczekiwany wynik
 
 strfoog
 
-Split with RegExp console.log("stringstring".split(/[in]+/));
+Podziel z RegExp console.log ("stringstring" .split (/ [in] + /));
 
-Expected output
+Oczekiwany wynik
 
 Array ["str", "gstr", "g"]
 
-Search with RegExp
+Wyszukaj za pomocą RegExp
 
-.search() returns the index at which a match is found or -1.
+Funkcja .search () zwraca indeks, w którym znaleziono dopasowanie lub -1.
 
-console.log("string".search(/[in]+/)); console.log("string".search(/[oq]+/));
+console.log ("string" .search (/ [in] + /)); console.log ("string" .search (/ [oq] + /));
 
-Expected output
+Oczekiwany wynik
 
 3 -1
 
-Section 31.6: RegExp Groups
+Sekcja 31.6: Grupy RegExp
 
-JavaScript supports several types of group in its Regular Expressions, capture groups, non-capture groups and lookaheads. Currently, there is no look-behind support.
+JavaScript obsługuje kilka typów grup w wyrażeniach regularnych, grupach przechwytywania, grupach niezarejestrowanych i stronach wyprzedzających. Obecnie nie ma wsparcia z tyłu.
 
-Capture
+Zdobyć
 
-Sometimes the desired match relies on its context. This means a simple RegExp will over-ﬁnd the piece of the String
+Czasami pożądany mecz zależy od kontekstu. Oznacza to, że prosty RegExp zastąpi kawałek ciągu
 
-– Ja vaScript® Notes for Professionals 225
+- Ja vaScript® Notes for Professionals 225
 
-that is of interest, so the solution is to write a capture group (pattern). The captured data can then be referenced as...
+to jest interesujące, więc rozwiązaniem jest napisanie grupy przechwytującej (wzorca). Przechwycone dane można następnie odwoływać się jako ...
 
-String replacement "$n" where n is the n th capture group (starting from 1) The n th argument in a callback function If the RegExp is not ﬂagged g, the n+1 th item in a returned str.match Array If the RegExp is ﬂagged g, str.match discards captures, use re.exec instead
+Zastępowanie ciągu "$ n" gdzie n jest n-tą grupą przechwytywania (zaczynając od 1) N-ty argument w funkcji wywołania zwrotnego Jeśli RegExp nie jest rozwinięty g, element n + 1 w zwróconej tablicy str.match Jeśli RegExp ma fl g, str.match odrzuca przechwytywania, zamiast tego użyj re.exec
 
-Say there is a String where all + signs need to be replaced with a space, but only if they follow a letter character. This means a simple match would include that letter character and it would also be removed. Capturing it is the solution as it means the matched letter can be preserved.
-
-let str = "aa+b+cc+1+2", re = /([az])\+/g;
-
-// String replacement str.replace(re, '$1 '); // "aa b cc 1+2" // Function replacement str.replace(re, (m, $1) => $1 + ' '); // "aa b cc 1+2"
-
-Non-Capture
-
-Using the form (?:pattern), these work in a similar way to capture groups, except they do not store the contents of the group after the match.
-
-They can be particularly useful if other data is being captured which you don't want to move the indices of, but need to do some advanced pattern matching such as an OR
-
-let str = "aa+b+cc+1+2", re = /(?:\b|c)([az])\+/g;
-
-str.replace(re, '$1 '); // "aa+bc 1+2"
-
-Look-Ahead
-
-If the desired match relies on something which follows it, rather than matching that and capturing it, it is possible to use a look-ahead to test for it but not include it in the match. A positive look-ahead has the form (?=pattern), a negative look-ahead (where the expression match only happens if the look-ahead pattern did not match) has the form (?!pattern)
-
-let str = "aa+b+cc+1+2", re = /\+(?=[az])/g;
-
-str.replace(re, ' '); // "aa b cc+1+2" Section 31.7: Replacing string match with a callback function
-
-String#replace can have a function as its second argument so you can provide a replacement based on some logic.
-
-"Some string Some".replace(/Some/g, (match, startIndex, wholeString) => { if(startIndex == 0){ return 'Start'; } else { return 'End';
-
-– 226
-
-} }); // will return Start string End
-
-One line template library
-
-let data = {name: 'John', surname: 'Doe'} "My name is {surname}, {name} {surname}".replace(/(?:{(.+?)})/g, x => data[x.slice(1,-1)]);
-
-// "My name is Doe, John Doe" Section 31.8: Using Regex.exec() with parentheses regex to extract matches of a string
-
-Sometimes you doesn't want to simply replace or remove the string. Sometimes you want to extract and process matches. Here an example of how you manipulate matches.
-
-What is a match ? When a compatible substring is found for the entire regex in the string, the exec command produce a match. A match is an array compose by ﬁrstly the whole substring that matched and all the parenthesis in the match.
-
-Imagine a html string :
-
-<html> <head></head> <body> <h1>Example</h1> <p>Look at this great link : <a href="http://goalkicker.com">goalkicker</a> http://anotherlinkoutsideatag</p> Copyright <a href="https://stackoverflow.com">Stackoverflow</a> </body>
-
-You want to extract and get all the links inside an a tag. At ﬁrst, here the regex you write :
-
-var re = /<a[^>]*href="https?:\/\/.*"[^>]*>[^<]*<\/a>/g;
-
-But now, imagine you want the href and the anchor of each link. And you want it together. You can simply add a new regex in for each match OR you can use parentheses :
-
-var re = /<a[^>]*href="(https?:\/\/.*)"[^>]*>([^<]*)<\/a>/g; var str = '<html>\n <head></head>\n <body>\n <h1>Example</h1>\n <p>Look at this great link: <a href="http://goalkicker.com">goalkicker</a> http://anotherlinkoutsideatag</p>\n\n Copyright <a href="https://stackoverflow.com">Stackoverflow</a>\n </body>\';\n'; var m; var links = [];
-
-while ((m = re.exec(str)) !== null) { if (m.index === re.lastIndex) { re.lastIndex++; } console.log(m[0]); // The all substring console.log(m[1]); // The href subpart console.log(m[2]); // The anchor subpart
-
-links.push ({dopasowanie: m [0], // cały mecz href: m [1], // pierwszy nawias => (https?: \ / \ /.*)
-
-- 227
-
-anchor: m [2], // drugi => ([^ <] *)}); }
-
-Na końcu pętli masz tablicę linków z anchor i href i możesz jej użyć do napisania przeceny na przykład:
-
-links.forEach (function (link) {console.log ('[% s] (% s)', link.anchor, link.href);});
-
-Iść dalej :
-
-Zagnieżdżony nawias
-
-- 228
-
+Powiedzmy, że istnieje ciąg znaków, w którym wszystkie znaki + muszą zostać zastąpione spacją, ale tylko jeśli podążają za literą. Oznacza to, że proste dopasowanie zawierałoby tę literę, a także zostałoby usunięte. Przechwycenie go jest rozwiązaniem, ponieważ oznacza, że ​​dopasowana litera może zostać zachowana
 Rozdział 32: Pliki cookie Sekcja 32.1: Sprawdź, czy są włączone pliki cookie
 
 Jeśli chcesz się upewnić, że pliki cookie są włączone przed ich użyciem, możesz użyć navigator.cookieEnabled:
