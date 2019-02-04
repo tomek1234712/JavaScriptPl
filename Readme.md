@@ -4288,247 +4288,245 @@ Note that each method in Door.prototype returns this, which refers to the entire
 
 – 213
 
-Chapter 29: Callbacks Section 29.1: Simple Callback Usage Examples
+Rozdział 29: Oddzwanianie Sekcja 29.1: Proste przykłady użycia wywołania zwrotnego
 
-Callbacks oﬀer a way to extend the functionality of a function (or method) without changing its code. This approach is often used in modules (libraries / plugins), the code of which is not supposed to be changed.
+Wywołania zwrotne w celu rozszerzenia funkcjonalności funkcji (lub metody) bez zmiany jej kodu. Takie podejście jest często stosowane w modułach (bibliotekach / wtyczkach), których kod nie powinien być zmieniany.
 
-Suppose we have written the following function, calculating the sum of a given array of values:
+Załóżmy, że napisaliśmy następującą funkcję, obliczającą sumę danej tablicy wartości:
 
-function foo(array) { var sum = 0; for (var i = 0; i < array.length; i++) { sum += array[i]; } return sum; }
+function foo (array) {var sum = 0; dla (var i = 0; i <array.length; i ++) {sum + = array [i]; } Zwróć sumę; }
 
-Now suppose that we want to do something with each value of the array, eg display it using alert(). We could make the appropriate changes in the code of foo, like this:
+Teraz przypuśćmy, że chcemy coś zrobić z każdą wartością tablicy, np. Wyświetlmy ją za pomocą alertu (). Możemy wprowadzić odpowiednie zmiany w kodzie foo, na przykład:
 
-function foo(array) { var sum = 0; for (var i = 0; i < array.length; i++) { alert(array[i]); sum += array[i]; } return sum; }
+function foo (array) {var sum = 0; dla (var i = 0; i <array.length; i ++) {alert (array [i]); sum + = array [i]; } Zwróć sumę; }
 
-But what if we decide to use console.log instead of alert()? Obviously changing the code of foo, whenever we decide to do something else with each value, is not a good idea. It is much better to have the option to change our mind without changing the code of foo. That's exactly the use case for callbacks. We only have to slightly change foo's signature and body:
+Ale co jeśli zdecydujemy się użyć console.log zamiast alert ()? Oczywiście zmiana kodu foo, gdy zdecydujemy się zrobić coś innego z każdą wartością, nie jest dobrym pomysłem. Znacznie lepiej jest mieć możliwość zmiany zdania bez zmiany kodu foo. To jest właśnie przypadek użycia wywołań zwrotnych. Musimy tylko nieznacznie zmienić podpis i ciało foo:
 
-function foo(array, callback) { var sum = 0; for (var i = 0; i < array.length; i++) { callback(array[i]); sum += array[i]; } return sum; }
+funkcja foo (array, callback) {var sum = 0; dla (var i = 0; i <array.length; i ++) {callback (array [i]); sum + = array [i]; } Zwróć sumę; }
 
-And now we are able to change the behaviour of foo just by changing its parameters:
+A teraz jesteśmy w stanie zmienić zachowanie foo tylko poprzez zmianę jego parametrów:
 
-var array = []; foo(array, alert); foo(array, function (x) { console.log(x); });
+var array = []; foo (tablica, alert); foo (tablica, funkcja (x) {console.log (x);});
 
-Examples with Asynchronous Functions
+Przykłady z funkcjami asynchronicznymi
 
-In jQuery, the $.getJSON() method to fetch JSON data is asynchronous. Therefore, passing code in a callback makes sure that the code is called after the JSON is fetched.
+W jQuery metoda $ .getJSON () do pobierania danych JSON jest asynchroniczna. Dlatego przekazywanie kodu w wywołaniu zwrotnym zapewnia, że ​​kod zostanie wywołany po pobraniu JSON.
 
-– 214
+- 214
 
-$.getJSON() syntax:
+Składnia $ .getJSON ():
 
-$.getJSON( url, dataObject, successCallback );
+$ .getJSON (url, dataObject, successCallback);
 
-Example of $.getJSON() code:
+Przykład kodu $ .getJSON ():
 
-$.getJSON("foo.json", {}, function(data) { // data handling code });
+$ .getJSON ("foo.json", {}, funkcja (dane) {// kod obsługi danych});
 
-The following would not work, because the data-handling code would likely be called before the data is actually received, because the $.getJSON function takes an unspeciﬁed length of time and does not hold up the call stack as it waits for the JSON.
+Poniższe czynności nie zadziałałyby, ponieważ kod obsługi danych byłby prawdopodobnie wywoływany przed faktycznym otrzymaniem danych, ponieważ funkcja $ .getJSON przyjmuje nieokreślony czas i nie podtrzymuje stosu wywołań oczekujących na JSON.
 
-$.getJSON("foo.json", {}); // data handling code
+$ .getJSON ("foo.json", {}); // kod obsługi danych
 
-Another example of an asynchronous function is jQuery's animate() function. Because it takes a speciﬁed time to run the animation, sometimes it is desirable to run some code directly following the animation.
+Innym przykładem funkcji asynchronicznej jest funkcja animate () jQuery. Ponieważ uruchomienie animacji zajmuje określony czas, czasami pożądane jest uruchomienie kodu bezpośrednio po animacji.
 
-.animate() syntax:
+Składnia .animate ():
 
-jQueryElement.animate( properties, duration, callback );
+jQueryElement.animate (właściwości, czas trwania, oddzwonienie);
 
-For example, to create a fading-out animation after which the element completely disappears, the following code can be run. Note the use of the callback.
+Na przykład, aby utworzyć zanikającą animację, po której element całkowicie zniknie, można uruchomić następujący kod. Zwróć uwagę na użycie wywołania zwrotnego.
 
-elem.animate( { opacity: 0 }, 5000, function() { elem.hide(); } );
+elem.animate ({krycie: 0}, 5000, function () {elem.hide ();});
 
-This allows the element to be hidden right after the function has ﬁnished execution. This diﬀers from:
+Pozwala to na ukrycie elementu zaraz po zakończeniu wykonywania funkcji. To różni się od:
 
-elem.animate( { opacity: 0 }, 5000 ); elem.hide();
+elem.animate ({krycie: 0}, 5000); elem.hide ();
 
-because the latter does not wait for animate() (an asynchronous function) to complete, and therefore the element is hidden right away, producing an undesirable eﬀect. Section 29.2: Continuation (synchronous and asynchronous)
+ponieważ ten ostatni nie czeka na zakończenie funkcji animate () (funkcja asynchroniczna), a zatem element jest ukryty natychmiast, co powoduje niepożądany efekt. Sekcja 29.2: Kontynuacja (synchroniczna i asynchroniczna)
 
-Callbacks can be used to provide code to be executed after a method has completed:
+Oddzwaniania można użyć do dostarczenia kodu do wykonania po zakończeniu metody:
 
-/** * @arg {Function} then continuation callback */ function doSomething(then) { console.log('Doing something'); then(); }
+/ ** * @arg {funkcja} to połączenie zwrotne * / funkcja doSomething (następnie) {console.log ("Robiąc coś"); następnie(); }
 
-// Do something, then execute callback to log 'done' doSomething(function () { console.log('Done'); });
+// Wykonaj coś, a następnie wykonaj wywołanie zwrotne do dziennika "done" doSomething (function () {console.log ("Gotowe");});
 
-– 215
+- 215
 
-console.log('Doing something else');
+console.log ("Robiąc coś innego");
 
-// Outputs: // "Doing something" // "Done" // "Doing something else"
+// Wyjścia: // "Robiąc coś" // "Gotowe" // "Robić coś innego"
 
-The doSomething() method above executes synchronously with the callback - execution blocks until doSomething() returns, ensuring that the callback is executed before the interpreter moves on.
+Powyższa metoda doSomething () jest wykonywana synchronicznie z blokami wywołania zwrotnego, dopóki nie zostanie zwrócona funkcja doSomething (), zapewniająca wywołanie zwrotne przed przejściem interpretera.
 
-Callbacks can also be used to execute code asynchronously:
+Oddzwaniania można również użyć do wykonania asynchronicznego kodu:
 
-doSomethingAsync(then) { setTimeout(then, 1000); console.log('Doing something asynchronously'); }
+doSomethingAsync (then) {setTimeout (wtedy, 1000); console.log ("Robiąc coś asynchronicznie"); }
 
-doSomethingAsync(function() { console.log('Done'); });
+doSomethingAsync (function () {console.log ("Gotowe");});
 
-console.log('Doing something else');
+console.log ("Robiąc coś innego");
 
-// Outputs: // "Doing something asynchronously" // "Doing something else" // "Done"
+// Wyjścia: // "Robiąc coś asynchronicznie" // "Robiąc coś innego" // "Gotowe"
 
-The then callbacks are considered continuations of the doSomething() methods. Providing a callback as the last instruction in a function is called a tail-call, which is optimized by ES2015 interpreters. Section 29.3: What is a callback?
+Te wywołania zwrotne są traktowane jako kontynuacja metod doSomething (). Dostarczenie wywołania zwrotnego jako ostatniej instrukcji w funkcji nazywa się ogonem, który jest zoptymalizowany przez tłumaczy ES2015.
 
-This is a normal function call:
+Sekcja 29.3: Co to jest oddzwanianie?
 
-console.log("Hello World!");
+Jest to normalne wywołanie funkcji:
 
-When you call a normal function, it does its job and then returns control back to the caller.
+console.log ("Hello World!");
 
-However, sometimes a function needs to return control back to the caller in order to do its job:
+Kiedy wywołujesz normalną funkcję, wykonuje ona swoje zadanie, a następnie zwraca kontrolę z powrotem do osoby dzwoniącej.
 
-[1,2,3].map(function double(x) { return 2 * x; });
+Czasami jednak funkcja musi zwrócić kontrolę z powrotem do rozmówcy, aby wykonać swoje zadanie:
 
-In the above example, the function double is a callback for the function map because:
+[1,2,3] .map (funkcja double (x) {return 2 * x;});
 
-The function double is given to the function map by the caller.1. The function map needs to call the function double zero or more times in order to do its job.2.
+W powyższym przykładzie funkcja double jest wywołaniem dla funkcji map, ponieważ:
 
-Thus, the function map is essentially returning control back to the caller every time it calls the function double. Hence, the name “callback”.
+Funkcja podwójna jest podana do mapy funkcji przez wywołującego.1. Mapa funkcji musi wywołać funkcję podwójnego zera lub więcej razy, aby wykonać swoje zadanie.
 
-Functions may accept more than one callback:
+Tak więc, mapa funkcji zasadniczo przywraca sterowanie do wywołującego za każdym razem, gdy wywołuje funkcję podwójną. Stąd nazwa "oddzwanianie".
 
-promise.then(function onFulfilled(value) { console.log("Fulfilled with value " + value);
+Funkcje mogą akceptować więcej niż jedno wywołanie zwrotne:
 
-– 216
+promise.then (function onFulfilled (value) {console.log ("Spełniony wartością" + wartość);
 
-}, function onRejected(reason) { console.log("Rejected with reason " + reason); });
+- 216
 
-Here then function then accepts two callback functions, onFulfilled and onRejected. Furthermore, only one of these two callback functions is actually called.
+}, funkcja onRejected (reason) {console.log ("Odrzucono z powodu" + powód); });
 
-What's more interesting is that the function then returns before either of the callbacks are called. Hence, a callback function may be called even after the original function has returned. Section 29.4: Callbacks and `this`
+Tutaj funkcja następnie przyjmuje dwie funkcje zwrotne, Realizowane i odłożone. Co więcej, tylko jedna z tych dwóch funkcji zwrotnych jest rzeczywiście wywoływana.
 
-Often when using a callback you want access to a speciﬁc context.
+Co ciekawsze, funkcja zwraca się przed wywołaniem któregokolwiek z wywołań zwrotnych. Dlatego funkcja wywołania zwrotnego może zostać wywołana nawet po zwróceniu pierwotnej funkcji. Sekcja 29.4: Oddzwanianie i `ten`
 
-function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', function() { console.log(this.msg); // <= will fail because "this" is undefined }); }
+Często, gdy używasz wywołania zwrotnego, chcesz uzyskać dostęp do określonego kontekstu.
 
-var s = new SomeClass("hello", someElement); Solutions
+function SomeClass (msg, elem) {this.msg = msg; elem.addEventListener ("kliknięcie", function () {console.log (this.msg); // <= nie powiedzie się, ponieważ "this" jest niezdefiniowane}); }
 
-Use bind
+var s = new SomeClass ("hello", someElement); Rozwiązania
 
-bind eﬀectively generates a new function that sets this to whatever was passed to bind then calls the original function.
+Użyj wiązania
 
-function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', function() { console.log(this.msg); }.bind(this)); // <=- bind the function to `this` }
+bind e ff efektywnie generuje nową funkcję ustawiającą to, co zostało przekazane do wiązania, a następnie wywołuje pierwotną funkcję.
 
-Use arrow functions
+function SomeClass (msg, elem) {this.msg = msg; elem.addEventListener ("kliknij", funkcja () {console.log (this.msg);} .bind (this)); // <= - powiązanie funkcji z `this`}
 
-Arrow functions automatically bind the current this context.
+Użyj funkcji strzałek
 
-function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click',() => { // <=- arrow function binds `this` console.log(this.msg); }); }
+Funkcje strzałki automatycznie wiążą obecny kontekst.
 
-Often you'd like to call a member function, ideally passing any arguments that were passed to the event on to the function.
+function SomeClass (msg, elem) {this.msg = msg; elem.addEventListener ('click', () => {// <= - funkcja strzałki wiąże `this` console.log (this.msg);}); }
 
-Solutions:
+Często chcesz wywołać funkcję członkowską, najlepiej przekazując do funkcji wszystkie argumenty przekazane do zdarzenia.
 
-Use bind
+Rozwiązania:
 
-function SomeClass(msg, elem) {
+Użyj wiązania
 
-– 217
+function SomeClass (msg, elem) {
 
-this.msg = msg; elem.addEventListener('click', this.handleClick.bind(this)); }
+- 217
 
-SomeClass.prototype.handleClick = function(event) { console.log(event.type, this.msg); };
+this.msg = msg; elem.addEventListener ("kliknij", this.handleClick.bind (this)); }
 
-Use arrow functions and the rest operator
+SomeClass.prototype.handleClick = funkcja (zdarzenie) {console.log (event.type, this.msg); };
 
-function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', (...a) => this.handleClick(...a)); }
+Użyj funkcji strzałek i operatora odpoczynku
 
-SomeClass.prototype.handleClick = function(event) { console.log(event.type, this.msg); };
+function SomeClass (msg, elem) {this.msg = msg; elem.addEventListener ("kliknięcie", (... a) => this.handleKliknij (... a)); }
 
-For DOM event listeners in particular you can implement the EventListener interface
+SomeClass.prototype.handleClick = funkcja (zdarzenie) {console.log (event.type, this.msg); };
 
-function SomeClass(msg, elem) { this.msg = msg; elem.addEventListener('click', this); }
+W szczególności dla detektorów zdarzeń DOM można implementować interfejs EventListener
 
-SomeClass.prototype.handleEvent = function(event) { var fn = this[event.type]; if (fn) { fn.apply(this, arguments); } };
+function SomeClass (msg, elem) {this.msg = msg; elem.addEventListener ("kliknij", to); }
 
- 
+SomeClass.prototype.handleEvent = function (event) {var fn = this [event.type]; if (fn) {fn.apply (to, argumenty); }};
 
-SomeClass.prototype.click = function(event) { console.log(this.msg); };
+SomeClass.prototype.click = function (event) {console.log (this.msg); };
+Sekcja 29.5: Oddzwanianie za pomocą funkcji strzałki
 
-Section 29.5: Callback using Arrow function
+Używanie funkcji strzałki jako funkcji zwrotnej może zmniejszyć linie kodu.
 
-Using arrow function as callback function can reduce lines of code.
-
-The default syntax for arrow function is
+Domyślna składnia dla funkcji strzałki to
 
 () => {}
 
-This can be used as callbacks
+Może to być wykorzystane jako wywołania zwrotne
 
-For example if we want to print all elements in an array [1,2,3,4,5]
+Na przykład, jeśli chcemy wydrukować wszystkie elementy w tablicy [1,2,3,4,5]
 
-without arrow function, the code will look like this
+bez funkcji strzałki, kod będzie wyglądać tak
 
-[1,2,3,4,5].forEach(function(x){ console.log(x); }
+[1,2,3,4,5] .forEach (function (x) {console.log (x);}
 
-With arrow function, it can be reduced to
+Dzięki funkcji strzałki można ją zmniejszyć do
 
-– 218
+- 218
 
-[1,2,3,4,5].forEach(x => console.log(x));
+[1,2,3,4,5] .forEach (x => console.log (x));
 
-Here the callback function function(x){console.log(x)} is reduced to x=>console.log(x) Section 29.6: Error handling and control-ﬂow branching
+Tutaj funkcja funkcji zwrotnej (x) {console.log (x)} jest zredukowana do x => console.log (x) Rozdział 29.6: Obsługa błędów i kontrolowanie rozgałęzień przepływu
 
-Callbacks are often used to provide error handling. This is a form of control ﬂow branching, where some instructions are executed only when an error occurs:
+Połączenia zwrotne są często wykorzystywane do obsługi błędów. Jest to forma kontrolnego rozgałęzienia przepływu, w której niektóre instrukcje są wykonywane tylko wtedy, gdy wystąpi błąd:
 
 const expected = true;
 
-function compare(actual, success, failure) { if (actual === expected) { success(); } else { failure(); } }
+porównywanie funkcji (rzeczywisty, sukces, niepowodzenie) {jeśli (rzeczywisty === oczekiwany) {sukces (); } else {failure (); }}
 
-function onSuccess() { console.log('Value was expected'); }
+funkcja onSuccess () {console.log ("oczekiwano wartości"); }
 
-function onFailure() { console.log('Value was unexpected/exceptional'); }
+function onFailure () {console.log ("Wartość była nieoczekiwana / wyjątkowa"); }
 
-compare(true, onSuccess, onFailure); compare(false, onSuccess, onFailure);
+porównaj (true, onSuccess, onFailure); porównaj (false, onSuccess, onFailure);
 
-// Outputs: // "Value was expected" // "Value was unexpected/exceptional"
+// Wyniki: // "oczekiwano wartości" // "Wartość była nieoczekiwana / wyjątkowa"
 
-Code execution in compare() above has two possible branches: success when the expected and actual values are the same, and error when they are diﬀerent. This is especially useful when control ﬂow should branch after some asynchronous instruction:
+Wykonywanie kodu w funkcji compare () powyżej ma dwie możliwe gałęzie: sukces, gdy wartości oczekiwane i rzeczywiste są takie same, oraz błąd, gdy są różne. Jest to szczególnie przydatne, gdy przepływ kontrolny powinien rozgałęziać się po niektórych instrukcjach asynchronicznych:
 
-function compareAsync(actual, success, failure) { setTimeout(function () { compare(actual, success, failure) }, 1000); }
+function compareAsync (rzeczywisty, sukces, niepowodzenie) {setTimeout (function () {compare (rzeczywisty, sukces, niepowodzenie)}, 1000); }
 
-compareAsync(true, onSuccess, onFailure); compareAsync(false, onSuccess, onFailure); console.log('Doing something else');
+compareAsync (true, onSuccess, onFailure); compareAsync (false, onSuccess, onFailure); console.log ("Robiąc coś innego");
 
-// Outputs: // "Doing something else" // "Value was expected" // "Value was unexpected/exceptional"
+// Wyjścia: // "Robiąc coś innego" // "oczekiwano wartości" // "Wartość była nieoczekiwana / wyjątkowa"
 
-It should be noted, multiple callbacks do not have to be mutually exclusive – both methods could be called. Similarly, the compare() could be written with callbacks that are optional (by using a noop as the default value - see Null Object pattern).
+Należy zauważyć, że wielokrotne wywołania zwrotne nie muszą się wzajemnie wykluczać - można było wywołać obie metody. Podobnie, funkcja compare () może być napisana z opcjami zwrotnymi, które są opcjonalne (poprzez użycie wartości noop jako wartości domyślnej - zobacz wzór Null Object).
 
-– 219
+- 219 
+Rozdział 30: Interwały i limity czasu Sekcja 30.1: Rekurencyjne setTimeout
 
-Chapter 30: Intervals and Timeouts Section 30.1: Recursive setTimeout
+Aby powtórzyć funkcję w sposób nieokreślony, setTimeout można nazwać rekursywnie:
 
-To repeat a function indeﬁnitely, setTimeout can be called recursively:
+function repeatingFunc () {console.log ("Minęło 5 sekund, ponownie wykonaj funkcję."); setTimeout (repeatingFunc, 5000); }
 
-function repeatingFunc() { console.log("It's been 5 seconds. Execute the function again."); setTimeout(repeatingFunc, 5000); }
+setTimeout (repeatingFunc, 5000);
 
-setTimeout(repeatingFunc, 5000);
+W przeciwieństwie do setInterval, zapewnia to, że funkcja zostanie wykonana, nawet jeśli czas działania funkcji jest dłuższy niż określone opóźnienie. Nie gwarantuje to jednak regularnego odstępu między wykonywaniem funkcji. To zachowanie jest również różne, ponieważ wyjątek poprzedzający wywołanie rekurencyjne do setTimeout uniemożliwi jego powtórzenie, podczas gdy setInterval będzie powtarzać bez względu na wyjątki. Sekcja 30.2: Przerwy
 
-Unlike setInterval, this ensures that the function will execute even if the function's running time is longer than the speciﬁed delay. However, it does not guarantee a regular interval between function executions. This behaviour also varies because an exception before the recursive call to setTimeout will prevent it from repeating again, while setInterval would repeat indeﬁnitely regardless of exceptions. Section 30.2: Intervals
+function waitFunc () {console.log ("To będzie rejestrowane co 5 sekund"); }
 
-function waitFunc(){ console.log("This will be logged every 5 seconds"); }
-
-window.setInterval(waitFunc,5000); Section 30.3: Intervals
+window.setInterval (waitFunc, 5000); Sekcja 30.3: Przerwy
 
 Standard
 
-You don't need to create the variable, but it's a good practice as you can use that variable with clearInterval to stop the currently running interval.
+Nie musisz tworzyć zmiennej, ale jest to dobra praktyka, ponieważ możesz użyć tej zmiennej za pomocą metody clearInterval, aby zatrzymać bieżący interwał.
 
-var int = setInterval("doSomething()", 5000 ); /* 5 seconds */ var int = setInterval(doSomething, 5000 ); /* same thing, no quotes, no parens */
+var int = setInterval ("doSomething ()", 5000); / * 5 sekund * / var int = setInterval (doSomething, 5000); / * to samo, bez cytatów, bez parens * /
 
-If you need to pass parameters to the doSomething function, you can pass them as additional parameters beyond the ﬁrst two to setInterval.
+Jeśli musisz przekazać parametry do funkcji DoSomething, możesz przekazać je jako dodatkowe parametry poza dwie pierwsze do setInterval.
 
-Without overlapping
+Bez nakładania się
 
-setInterval, as above, will run every 5 seconds (or whatever you set it to) no matter what. Even if the function doSomething takes long than 5 seconds to run. That can create issues. If you just want to make sure there is that pause in between runnings of doSomething, you can do this:
+setInterval, jak wyżej, będzie uruchamiany co 5 sekund (lub jakkolwiek ustawisz to) bez względu na wszystko. Nawet jeśli funkcja doSomething trwa dłużej niż 5 sekund, aby uruchomić. To może powodować problemy. Jeśli chcesz tylko upewnić się, że jest przerwa pomiędzy runami DoSomething, możesz to zrobić:
 
-(function(){
+(funkcjonować(){
 
-doSomething();
+Zrób coś();
 
-setTimeout(arguments.callee, 5000);
+setTimeout (arguments.callee, 5000);
 
-})()
+}) ()
 
-– 220
+- 220
 
 Sekcja 30.4: Usuwanie odstępów
 
