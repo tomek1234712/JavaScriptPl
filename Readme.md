@@ -483,7 +483,7 @@ console.assert('one' === 1);
 Po assertionie można podać wiele argumentów - mogą to być łańcuchy lub inne obiekty - które będą drukowane tylko wtedy, gdy assertion jest fałszywe:
 console.assert nie rzuca AssertionError (z wyjątkiem Node.js), co oznacza, że metoda ta jest niekompatybilna z większością frameworków testowych i że wykonanie kodu nie przerwie się na nieudanym assertion.
 
-Typy danych w JavaScript Sekcja 6.1: Typ danych
+Typy danych w JavaScript 6.1: Typ danych
 typeof jest funkcją 'oﬃcial', której używa się do uzyskania typu w JavaScript, jednak w niektórych przypadkach może to przynieść pewne nieoczekiwane rezultaty...
 
 1. Stringi
@@ -513,7 +513,7 @@ Zwróć uwagę, że wartości prymitywne nie są uważane za instancje żadnej k
 console.log(2 instancja Number) //false console.log('abc' instanceof String) //false console.log(true instance of Boolean) //false console.log(Symbol() instanceof Symbol) //false
 Każda wartość w JavaScript oprócz wartości zerowej i niezdefiniowanej posiada również właściwość konstruktora przechowującą funkcję, która została użyta do jej skonstruowania. Działa to nawet z prymitywami.
 //Whereas instanceof wychwytuje również instancje podklas, // używając obj.constructor nie konsola.log([] instanceof Object, [] instanceof Array) //true true console.log([].constructor === Object, [].constructor === Array) //false true
-funkcja isNumber(wartość) { //null.constructor i undefined.constructor rzucają błąd podczas dostępu, jeśli (wartość === null || value === niezdefiniowana) zwróci fałszywą wartość.constructor === Liczba } console.log(isNumber(isNumber(null), isNumber(undefined)). //false false console.log(isNumber('abc'), isNumber([]), isNumber() => 1)) //false false console.log(isNumber(0), isNumber(Number('10.1')), isNumber(NaN)) //trawdziwa prawda prawda Sekcja 6.3: Uzyskiwanie typu obiektu według nazwy konstruktora
+funkcja isNumber(wartość) { //null.constructor i undefined.constructor rzucają błąd podczas dostępu, jeśli (wartość === null || value === niezdefiniowana) zwróci fałszywą wartość.constructor === Liczba } console.log(isNumber(isNumber(null), isNumber(undefined)). //false false console.log(isNumber('abc'), isNumber([]), isNumber() => 1)) //false false console.log(isNumber(0), isNumber(Number('10.1')), isNumber(NaN)) //trawdziwa prawda prawda 6.3: Uzyskiwanie typu obiektu według nazwy konstruktora
 Kiedy jeden z typem operatora dostaje obiekt typu, należy on do kategorii marnotrawstwo....
 W praktyce możesz potrzebować zawęzić go do jakiego rodzaju "obiektu" jest w rzeczywistości i jednym ze sposobów, aby to zrobić, jest użycie nazwy konstruktora obiektu, aby uzyskać to, czym jest ﬂavour obiektu w rzeczywistości: Object.prototype.toString.call(yourObject)
 
@@ -647,7 +647,7 @@ Aby przyciąć białą przestrzeń od krawędzi sznurka, użyj String.prototype.
 "niektóre białe łańcuchy ".trim(); // "niektóre białe łańcuchy".
 Wiele silników JavaScript, ale nie Internet Explorer, wdrożyło niestandardowe metody trimLeft i trimRight. Obecnie na etapie 1 procesu jest propozycja znormalizowanych metod trimStart i trimEnd, aliasowanych do trimLeft i trimRight dla kompatybilności.
 // Propozycja etapu 1 " to jest ja ".trimStart(); // "to jest ja " " to jest ja ".trimEnd(); // " to jest ja".
-// Metody niestandardowe, ale obecnie wdrażane przez większość silników " to ja ".trimLeft(); // "to ja " " to ja ".trimRight(); // " to ja" Sekcja 7.8: Podział łańcucha na tablicę
+// Metody niestandardowe, ale obecnie wdrażane przez większość silników " to ja ".trimLeft(); // "to ja " " to ja ".trimRight(); // " to ja" 7.8: Podział łańcucha na tablicę
 Użyj .split, aby przejść od łańcuchów do tablicy dzielonych podłoży:
 var s = "jeden, dwa, trzy, cztery, cztery, pięć" s.split(", "); // ["jeden", "dwa", "trzy", "cztery", "pięć"]
 Użyj metody tablicowej .join, aby wrócić do łańcucha:
@@ -735,7 +735,7 @@ aby pokazać datę i godzinę w UTC (Z w sformatowanym ciągu oznacza UTC).
 // Parsuje ciąg znaków w żadnym konkretnym formacie, przez większość czasu. Zauważ, że parsowanie // logika w tych przypadkach jest bardzo zależne od implementacji, a zatem może się zmieniać // w różnych przeglądarkach i wersjach. var anything = new Date('11/12/2012'); anything.toString() === 'Mon 12 Nov 2012 00:00:00:00 GMT-0600 (Central Standard Time)' // true, w Chrome 49 64-bit na Windows 10 w en-US locale. Inne wersje w // innych lokalizacjach mogą uzyskać inny wynik.
 // Rolls values outside a specified range to the next value. var rollover = new Date(2012, 12, 32, 25, 62, 62, 62, 1023); rollover.toString() === 'Sat Feb 02 2013 02:03:03:03 GMT-0600 (Central Standard Time)' // true; zwróć uwagę na to, że miesiąc przewrócił się do lutego; pierwszy miesiąc przewrócił się do // stycznia w oparciu o miesiąc 12 (gdzie 11 to grudzień), a następnie ponownie z powodu dnia 32 // (styczeń ma 31 dni).
 // Specjalne daty dla lat w zakresie 0-99 var special1 = new Date(12, 0); special1.toString() === "Mon Jan 1912 00:00:00:00 GMT-0600 (centralny czas standardowy)`// true // Jeśli faktycznie chcesz ustawić rok na rok 12 CE, musisz użyć metody // setFullYear(): special1.setFullYear(12); special1.toString() === 'Sun Jan 01 12 00:00:00:00 GMT-0600 (Centralny Standard Time)` // true
-Sekcja 8.2: Konwersja do formatu łańcuchowego
+8.2: Konwersja do formatu łańcuchowego
 Convert to String var date1 = new Date(); date1.toString();
 Zwroty: "Piąty kwiecień 15 2016 07:48:48 GMT-0400 (czas wschodniego światła dziennego)
 Convert to Time String var date1 = new Date(); date1.toTimeString();
@@ -1188,7 +1188,7 @@ if (bitfield ) { // jeden lub więcej kluczy jest w dół
 Wejście klawiaturowe jest tylko jednym z przykładów. Bitfile są przydatne, gdy masz różne stany, które muszą być połączone. JavaScript może używać do 32 bitów dla bitu ﬁeld. Użycie ich może oznaczać wzrost wydajności oﬀer Warto się z nimi zapoznać.
 
 Warunki
-Wyrażenia warunkowe, obejmujące słowa kluczowe, takie jak czy i inne, zapewniają programom JavaScript możliwość wykonywania akcji diﬀerent w zależności od warunku logicznego: true lub false. Ta sekcja obejmuje użycie warunków JavaScript, logiki logiki logiki logicznej i stwierdzeń trójdzielnych. 
+Wyrażenia warunkowe, obejmujące słowa kluczowe, takie jak czy i inne, zapewniają programom JavaScript możliwość wykonywania akcji diﬀerent w zależności od warunku logicznego: true lub false. Ta obejmuje użycie warunków JavaScript, logiki logiki logiki logicznej i stwierdzeń trójdzielnych. 
 
 Operatorzy trójczłonowi
 Może być użyty do skrócenia operacji, jeśli/elastycznie. Jest to przydatne przy szybkim zwrocie wartości (np. w celu przypisania jej do innej zmiennej).
@@ -1236,7 +1236,7 @@ function john () {return 'John'; }
 function jacob () {return 'Jacob'; }
 switch (name) {case john (): // Porównaj nazwę z wartością zwracaną przez john () (name == "John") console.log ('Uruchomę, jeśli name === "John"'); złamać; case 'Ja' + 'ne': // Połącz ciągi razem, a następnie porównaj (name == "Jane") console.log ('Uruchomę, jeśli nazwa === "Jane"'); złamać; case john () + '' + jacob () + 'Jingleheimer Schmidt': console.log ("Jego imię jest równe nazwie!"); złamać; } Wielokrotne kryteria dotyczące przypadków
 Ponieważ przypadki "spadają" bez instrukcji "przerwa lub zwrot", możesz użyć tego do utworzenia wielu kryteriów obejmujących:
-var x = "c" switch (x) {case "a": case "b": case "c": console.log ("Wybrano a, b lub c."); złamać; case "d": console.log ("Wybrano tylko d."); złamać; default: console.log ("Nie znaleziono żadnego przypadku."); złamać; // przerwa zapobiegawcza w przypadku zmiany kolejności spraw} Sekcja 11.3: Jeśli / Else If / Else Control
+var x = "c" switch (x) {case "a": case "b": case "c": console.log ("Wybrano a, b lub c."); złamać; case "d": console.log ("Wybrano tylko d."); złamać; default: console.log ("Nie znaleziono żadnego przypadku."); złamać; // przerwa zapobiegawcza w przypadku zmiany kolejności spraw} 11.3: Jeśli / Else If / Else Control
 W najprostszej postaci warunek if może być użyty w następujący sposób:
 var i = 0;
 if (i <1) {console.log ("i jest mniejsze niż 1"); }
@@ -1261,7 +1261,7 @@ Jeśli chcesz wykonać wiele instrukcji wewnątrz bloku if, wówczas nawiasy kla
 jeśli (i <1) console.log ("i jest mniejsze niż 1"); console.log ("spowoduje to NIEZALEŻNIE od warunku"); // Ostrzeżenie, patrz tekst!
 jest równa:
 if (i <1) {console.log ("i jest mniejsze niż 1"); } console.log ("uruchomi to BEZ WZGLĘDU na warunek");
-Sekcja 11.4: Strategia
+11.4: Strategia
 Wzorzec strategii może być w wielu przypadkach użyty w JavaScript w celu zastąpienia instrukcji switch. Jest to szczególnie przydatne, gdy liczba warunków jest dynamiczna lub bardzo duża. Dzięki niemu kod każdego warunku może być niezależny i oddzielnie testowany.
 Obiekt strategii jest prostym obiektem o wielu funkcjach, reprezentującym każdy odrębny warunek. Przykład:
 const AnimalSays = {pies () {return 'woof'; },
@@ -1274,7 +1274,7 @@ function makeAnimalSpeak (animal) {// Dopasuj zwierzę według typu const speak 
 console.log (animal + 'says' + speak ()); }
 Wyniki:
 makeAnimalSpeak ("pies") // => "pies mówi" "makeAnimalSpeak" ("cat") // => "cat mówi" mow "makeAnimalSpeak (" lew ") // => 'lew mówi' ryk 'makeAnimalSpeak (' snake ' ) // => 'snake says moo'
-W ostatnim przypadku nasza domyślna funkcja obsługuje wszystkie brakujące zwierzęta. Rozdział 11.5: Używanie || i && krótkie spięcie
+W ostatnim przypadku nasza domyślna funkcja obsługuje wszystkie brakujące zwierzęta.  11.5: Używanie || i && krótkie spięcie
 Operatory Boolean || and && "zwiąże obwód" i nie oceni drugiego parametru, jeśli pierwsza jest odpowiednio prawdą lub fałszem. Może to być użyte do napisania krótkich warunków, takich jak:
 var x = 10
 x == 10 && alert ("x to 10") x == 10 || alert ("x to nie 10")
@@ -1339,7 +1339,7 @@ var arr = [4, 2, 1, -10, 9]
 arr.reduce (function (a, b) {return a <b? a: b}, Infinity); // → -10 Wersja ≥ 6 Znajdź unikalne wartości
 Oto przykład, który używa funkcji zmniejszenia, aby zwrócić unikalne liczby do tablicy. Pusta tablica jest przekazywana jako drugi argument i jest przywoływana przez prev.
 var arr = [1, 2, 1, 5, 9, 5];
-arr.reduce ((prev, number) => {if (prev.indexOf (number) === -1) {prev.push (number);} return prev;}, []); // → [1, 2, 5, 9] Rozdział 12.3: Odwzorowywanie wartości
+arr.reduce ((prev, number) => {if (prev.indexOf (number) === -1) {prev.push (number);} return prev;}, []); // → [1, 2, 5, 9]  12.3: Odwzorowywanie wartości
 Często konieczne jest wygenerowanie nowej tablicy na podstawie wartości istniejącej macierzy.
 Na przykład, aby wygenerować tablicę długości łańcuchów z tablicy łańcuchów:
 Wersja ≥ 5.1 ["jeden", "dwa", "trzy", "cztery"]. Map (funkcja (value, index, arr) {return value.length;}); // → [3, 3, 5, 4] Wersja ≥ 6 ["jeden", "dwa", "trzy", "cztery"]. Map (value => value.length); // → [3, 3, 5, 4]
@@ -1349,7 +1349,7 @@ Dodatkowo map () zapewnia opcjonalny drugi parametr w celu ustawienia wartości 
 W przeglądarce domyślną wartością tego okna jest zawsze:
 ['jeden', 'dwa']. map (funkcja (wartość, indeks, arr) {console.log (this); // okno (domyślna wartość w przeglądarkach) zwraca value.length;});
 Możesz go zmienić na dowolny niestandardowy obiekt, taki jak ten:
-['jeden', 'dwa']. map (funkcja (value, index, arr) {console.log (this); // Object {documentation: "randomObject"} return value.length;}, {documentation: 'randomObject "}); Rozdział 12.4: Filtrowanie tablic obiektów
+['jeden', 'dwa']. map (funkcja (value, index, arr) {console.log (this); // Object {documentation: "randomObject"} return value.length;}, {documentation: 'randomObject "});  12.4: Filtrowanie tablic obiektów
 Metoda filter () akceptuje funkcję testową i zwraca nową tablicę zawierającą tylko elementy oryginalnej tablicy, które pomyślnie przeszły test.
 // Załóżmy, że chcemy uzyskać liczbę nieparzystą w tablicy: var numbers = [5, 32, 43, 4]; Wersja ≥ 5.1 var odd = numbers.filter (function (n) {return n% 2! == 0;}); Wersja ≥ 6 niech nieparzysta = liczba.filtr (n => n% 2! == 0); // można skrócić do (n => n% 2)
 nieparzysty zawierałby następującą tablicę: [5, 43].
@@ -1404,7 +1404,7 @@ var dates = [nowa data (2007, 11, 10), nowa data (2014, 2, 21),
 date.sort (function (a, b) {if (a> b) return -1; if (a <b) return 1; return 0;});
 // obiekty daty mogą również sortować według różnicy // w ten sam sposób, w jaki tablica liczb sortuje date.sort (function (a, b) {return b-a;});
 Prowadzi do:
-["Wto 23 sierpnia 2016 00:00:00 GMT-0600 (MDT)", "Fri 21 marca 2014 00:00:00 GMT-0600 (MDT)", "Sob 11 lipca 2009 00:00:00 GMT-0600 (MDT) "," poniedziałek 10 2007 00:00:00 GMT-0700 (MST) "] Sekcja 12.6: Iteracja
+["Wto 23 sierpnia 2016 00:00:00 GMT-0600 (MDT)", "Fri 21 marca 2014 00:00:00 GMT-0600 (MDT)", "Sob 11 lipca 2009 00:00:00 GMT-0600 (MDT) "," poniedziałek 10 2007 00:00:00 GMT-0700 (MST) "] 12.6: Iteracja
 Tradycyjna pętla for
 Tradycyjna pętla for ma trzy składniki:
 Inicjalizacja: wykonywana przed uruchomieniem bloku look po raz pierwszy1. Warunek: sprawdza warunek za każdym razem przed wykonaniem bloku pętli i zamyka pętlę, jeśli false2. Uwagi: wykonywane za każdym razem po wykonaniu bloku pętli3.
@@ -1509,7 +1509,7 @@ OSTRZEŻENIE: Używanie powyższej funkcji jest niebezpieczne i powinno być opa
 a = [0]; a [1] = a; b = [0, a]; compareArrays (a, b); // throws RangeError: Przekroczono maksymalny rozmiar stosu wywołań
 Uwaga: Funkcja używa operatora ścisłej równości === do porównywania elementów nieszablonowych {a: 0} === {a: 0} jest fałszywe
 
-Sekcja 12.10: Odwracanie tablic
+12.10: Odwracanie tablic
 .reverse służy do odwrócenia kolejności elementów wewnątrz tablicy.
 Przykład dla .reverse:
 [1, 2, 3, 4] .reverse ();
@@ -1523,13 +1523,13 @@ Przykład deepReverse:
 var arr = [1, 2, 3, [1, 2, 3, ["a", "b", "c"]]];
 deepReverse (arr);
 Prowadzi do:
-arr // -> [[['c', 'b', 'a'], 3, 2, 1], 3, 2, 1] Rozdział 12.11: Płytkie klonowanie tablicy
+arr // -> [[['c', 'b', 'a'], 3, 2, 1], 3, 2, 1]  12.11: Płytkie klonowanie tablicy
 Czasami musisz pracować z tablicą, upewniając się, że nie modyfikujesz oryginału. Zamiast metody klonowania tablice mają metodę wycinania, która umożliwia wykonanie płytkiej kopii dowolnej części tablicy. Pamiętaj, że to tylko klony pierwszego poziomu. Działa to dobrze z typami pierwotnymi, takimi jak liczby i łańcuchy, ale nie obiektami.
 Aby płytko klonować tablicę (tj. Mieć nową instancję tablicy, ale z tymi samymi elementami), można użyć następującej jednolinijki:
 var clone = arrayToClone.slice ();
 Wywołuje to wbudowaną metodę JavaScript Array.prototype.slice. Jeśli przekazujesz argumenty do wycinania, możesz uzyskać bardziej skomplikowane zachowania, które tworzą płytkie klony tylko części tablicy, ale dla naszych celów samo wywołanie slice () stworzy płytką kopię całej tablicy.
 Wszystkie metody używane do konwertowania macierzy jak obiektów do tablicy mają zastosowanie do klonowania tablicy:
-Wersja ≥ 6 arrayToClone = [1, 2, 3, 4, 5]; clone1 = Array.from (arrayToClone); clone2 = Array.of (... arrayToClone); clone3 = [... arrayToClone] // najkrótsza wersja Version ≤ 5.1 arrayToClone = [1, 2, 3, 4, 5]; clone1 = Array.prototype.slice.call (arrayToClone); clone2 = [] .slice.call (arrayToClone); Sekcja 12.12: Łączenie tablic
+Wersja ≥ 6 arrayToClone = [1, 2, 3, 4, 5]; clone1 = Array.from (arrayToClone); clone2 = Array.of (... arrayToClone); clone3 = [... arrayToClone] // najkrótsza wersja Version ≤ 5.1 arrayToClone = [1, 2, 3, 4, 5]; clone1 = Array.prototype.slice.call (arrayToClone); clone2 = [] .slice.call (arrayToClone); 12.12: Łączenie tablic
 Dwie tablice
 var array1 = [1, 2]; var array2 = [3, 4, 5]; Wersja ≥ 3 tablice var3 = tablica1.concat (tablica2); // zwraca nową tablicę Version ≥ 6 var array3 = [... array1, ... array2]
 Wyniki w nowej tablicy:
@@ -1564,7 +1564,7 @@ var arrConc = arr1.concat ("c", "d", arr2);
 Wyniki w nowej tablicy:
 ["a", "b", "c", "d", "e", "f"] 
 
-Sekcja 12.13: Scal dwie tablice jako parę wartości klucza
+12.13: Scal dwie tablice jako parę wartości klucza
 Kiedy mamy dwie osobne tablice i chcemy utworzyć parę wartości klucza z tej dwóch tablic, możemy użyć funkcji zmniejszania tablicy jak poniżej:
 var columns = ["Date", "Number", "Size", "Location", "Age"]; var rows = ["2001", "5", "Big", "Sydney", "25"]; var result = rows.reduce (funkcja (wynik, pole, indeks) {wynik [kolumny [indeks]] = pole, wynik powrotu;}, {})
 console.log (wynik);
@@ -1588,7 +1588,7 @@ Operator odpoczynku robi przeciwieństwo operatora rozprzestrzeniania poprzez ko
 [a, b, ... rest] = [1, 2, 3, 4, 5, 6]; // reszta jest przypisana [3, 4, 5, 6]
 Zbierz argumenty funkcji:
 function myFunction (a, b, ... rest) {console.log (reszta); }
-myFunction (0, 1, 2, 3, 4, 5, 6); // rest to [2, 3, 4, 5, 6] Rozdział 12.15: Filtrowanie wartości
+myFunction (0, 1, 2, 3, 4, 5, 6); // rest to [2, 3, 4, 5, 6]  12.15: Filtrowanie wartości
 Metoda filter () tworzy tablicę wypełnioną wszystkimi elementami tablicy, które przechodzą test dostarczony jako funkcja.
 Wersja ≥ 5.1 [1, 2, 3, 4, 5] .filtr (funkcja (wartość, indeks, arr) {wartość powrotu> 2;}); Wersja ≥ 6 [1, 2, 3, 4, 5] .filtr (wartość => wartość> 2);
 Wyniki w nowej tablicy:
@@ -1600,7 +1600,7 @@ więc ogólny proces zakończy się
 Kolejny prosty przykład
 Ten przykład wykorzystuje tę samą koncepcję przekazywania funkcji, która przyjmuje jeden argument
 Uruchomi się wersja ≥ 5.1WithLetterA (str) {if (str && str [0] .toLowerCase () == 'a') {return true} return false; }
-var str = 'Ponieważ Boolean jest natywną funkcją / konstruktorem javascript, który pobiera [jeden opcjonalny parametr], a metoda filtru przyjmuje również funkcję i przekazuje mu bieżący element tablicy jako parametr, można go odczytać w następujący sposób: "; var strArray = str.split (""); var wordsStartsWithA = strArray.filter (startsWithLetterA); // ["a", "i", "również", "a", "i", "tablica", "jako"] Rozdział 12.16: Wyszukiwanie tablicy
+var str = 'Ponieważ Boolean jest natywną funkcją / konstruktorem javascript, który pobiera [jeden opcjonalny parametr], a metoda filtru przyjmuje również funkcję i przekazuje mu bieżący element tablicy jako parametr, można go odczytać w następujący sposób: "; var strArray = str.split (""); var wordsStartsWithA = strArray.filter (startsWithLetterA); // ["a", "i", "również", "a", "i", "tablica", "jako"]  12.16: Wyszukiwanie tablicy
 Zalecanym sposobem (od wersji ES5) jest użycie Array.prototype.
 let people = [{name: "bob"}, {nazwa: "john"}];
 niech bob = people.find (person => person.name === "bob");
@@ -1613,13 +1613,13 @@ array = [{wartość: 1}, {wartość: 2}, {wartość: 3}, {wartość
 e: 4}, {wartość: 5}
 ]; var index = array.findIndex (item => item.value === 3); // 2 var index = array.findIndex (item => item.value === 12); // -1 
 
-Sekcja 12.17: Konwertuj ciąg na tablicę
+12.17: Konwertuj ciąg na tablicę
 Metoda .split () dzieli ciąg znaków na tablicę podłańcuchów. Domyślnie .split () przerwie łańcuch na podciągi na spacje (""), co jest równoważne wywołaniu .split ("").
 Parametr przekazany do .split () określa znak lub wyrażenie regularne, które ma być użyte do podziału ciągu znaków.
 Aby podzielić ciąg znaków na wywołanie tablicy .split z pustym ciągiem znaków (""). Ważna uwaga: działa to tylko wtedy, gdy wszystkie twoje postacie znajdują się w niższym zakresie znaków Unicode, który obejmuje większość języków angielskich i większości europejskich. W przypadku języków wymagających 3 i 4 bajtowych znaków Unicode, slice ("") rozdzieli je.
 var strArray = "StackOverflow" .split (""); // strArray = ["S", "t", "a", "c", "k", "O", "v", "e", "r", "f", "l", " o "," w "] Wersja ≥ 6
 Za pomocą operatora rozprzestrzeniania (...) konwertować ciąg znaków do tablicy.
-var strArray = [... "niebo jest niebieskie"]; // strArray = ["s", "k", "y", "", "i", "s", "", "b", "l", "u", "e"] Rozdział 12.18: Usuwanie elementów z tablicy
+var strArray = [... "niebo jest niebieskie"]; // strArray = ["s", "k", "y", "", "i", "s", "", "b", "l", "u", "e"]  12.18: Usuwanie elementów z tablicy
 Przesunięcie
 Użyj .shift, aby usunąć pierwszy element tablicy.
 Na przykład:
@@ -1651,7 +1651,7 @@ Array.prototype.length
 Przypisanie wartości do długości tablicy zmienia długość na podaną wartość. Jeśli nowa wartość jest mniejsza niż długość tablicy, elementy zostaną usunięte z końca wartości.
 array = [1, 2, 3, 4, 5]; array.length = 2; console.log (tablica); // [1, 2] 
 
-Sekcja 12.19: Usuwanie wszystkich elementów
+12.19: Usuwanie wszystkich elementów
 var arr = [1, 2, 3, 4]; Metoda 1
 Tworzy nową tablicę i zastępuje istniejące odniesienie do tablicy nową.
 arr = [];
@@ -1689,7 +1689,7 @@ redufunction myMax (array) {return array.reduce (function (maxSoFar, element) {r
 myMax ([3, 5]); // 5 myMax ([]); // -Infinity Math.max.apply (null, []); // -Infinity
 Aby uzyskać szczegółowe informacje na temat prawidłowego używania opcji zmniejszenia, zobacz Pomniejszanie wartości.
 
-Sekcja 12.21: Inicjalizacja standardowych tablic
+12.21: Inicjalizacja standardowych tablic
 Istnieje wiele sposobów tworzenia tablic. Najczęstsze są użycie literałów tablicowych lub konstruktora Array:
 var arr = [1, 2, 3, 4]; var arr2 = new Array (1, 2, 3, 4);
 Jeśli konstruktor Array jest używany bez argumentów, tworzona jest pusta tablica.
@@ -1714,16 +1714,16 @@ var newArray = Array.from ({length: 5}, (_, index) => Math.pow (index, 4));
 będzie wynik:
 [0, 1, 16, 81, 256] 
 
-Sekcja 12.22: Łączenie elementów tablicy w łańcuchu
+12.22: Łączenie elementów tablicy w łańcuchu
 Aby połączyć wszystkie elementy tablicy w łańcuch, możesz użyć metody join:
 console.log (["Hello", "", "świat"]. join ("")); // "Witaj świecie"
 console.log ([1, 800, 555, 1234] .join ("-")); // "1-800-555-1234"
-Jak widać w drugim wierszu, elementy, które nie są ciągami, zostaną najpierw przekonwertowane. Rozdział 12.23: Usuwanie / dodawanie elementów za pomocą splice ()
+Jak widać w drugim wierszu, elementy, które nie są ciągami, zostaną najpierw przekonwertowane.  12.23: Usuwanie / dodawanie elementów za pomocą splice ()
 Metoda splice () może być używana do usuwania elementów z tablicy. W tym przykładzie usuwamy pierwsze 3 z tablicy.
 var values ​​= [1, 2, 3, 4, 5, 3]; var i = values.indexOf (3); if (i> = 0) {values.splice (i, 1); } // [1, 2, 4, 5, 3]
 Metoda splice () może być również używana do dodawania elementów do tablicy. W tym przykładzie wstawimy liczby 6, 7 i 8 na końcu tablicy.
 var values ​​= [1, 2, 4, 5, 3]; var i = values.length + 1; values.splice (i, 0, 6, 7, 8); // [1, 2, 4, 5, 3, 6, 7, 8]
-Pierwszym argumentem metody splice () jest indeks do usuwania / wstawiania elementów. Drugi argument to liczba elementów do usunięcia. Trzeci argument i dalej to wartości wstawiane do tablicy. Sekcja 12.24: Metoda entries () Metoda
+Pierwszym argumentem metody splice () jest indeks do usuwania / wstawiania elementów. Drugi argument to liczba elementów do usunięcia. Trzeci argument i dalej to wartości wstawiane do tablicy. 12.24: Metoda entries () Metoda
 entries () zwraca nowy obiekt Iterator tablicy, który zawiera pary klucz / wartość dla każdego indeksu w tablicy.
 Wersja ≥ 6 liter var = ["a", "b", "c"];
 dla (const [index, element] letters. centries ()) {console.log (index, element); }
@@ -1732,13 +1732,13 @@ result
 Uwaga: Ta metoda nie jest obsługiwana w przeglądarce Internet Explorer.
 Fragmenty tej zawartości z Array.prototype.entries autorstwa Mozilla Contributors objęte licencją CC-by-SA 2.5 
 
-Sekcja 12.25: Usuwanie wartości z tablicy
+12.25: Usuwanie wartości z tablicy
 Gdy potrzebujesz usunąć konkretną wartość z tablicy, możesz użyć poniższej jednolinijki do utworzenia tablica kopiowania bez podanej wartości:
 array.filter (function (val) {return val! == to_remove;});
 Lub jeśli chcesz zmienić samą tablicę bez tworzenia kopii (na przykład, jeśli napiszesz funkcję, która pobiera tablicę jako funkcję i manipulujesz nią), możesz użyć tego fragmentu:
 while ( index = tablica.indexOf (3)! == -1) {tablica.splice (indeks, 1); }
 A jeśli chcesz usunąć tylko pierwszą znalezioną wartość, usuń pętlę while:
-var index = array.indexOf (to_remove); if (index! == -1) {tablica.splice (indeks, 1); } Rozdział 12.26: Spłaszczanie tablicTablice
+var index = array.indexOf (to_remove); if (index! == -1) {tablica.splice (indeks, 1); }  12.26: Spłaszczanie tablicTablice
 2wymiarowe Version ≥ 6
 W ES6 możemy rozwinąć tablicę przez operatora rozprzestrzeniania ...:
 function flattenES6 (arr) {return [] .concat (... arr); }
@@ -1753,7 +1753,7 @@ Można go użyć z tą magiczną konsolą.log
 Lub
 const flatten = deepoldNested. toString (). split (','). map (Number) console.log (flatten); # => [4,5,6,7,8,9]
 Obie powyższe metody działają tylko wtedy, gdy tworzona jest tablica . wyłącznie z liczb a wielowymiarowa tablica obiektów nie można FL attened tą metodą12.27.
-Sekcja  szt Dołącz / prepend do array
+ szt Dołącz / prepend do array
 unshift
 Zastosowanie .unshift aby dodać jeden lub więcej elementów w początek tablicy,
 na przykład:
@@ -1768,13 +1768,13 @@ tablica wyników:
 [1, 2, 3, 4 , 5, 6]
 Obie metody zwracają nową długość tablicy.
 
-Sekcja 12.28: Klucze i wartości obiektów do tablicy
+12.28: Klucze i wartości obiektów do tablicy
 var object = {key1: 10, key2: 3, key3: 40, key4: 20};
 var array = []; dla (var ludzie w obiekcie) {array.push ([ludzie, obiekt [ludzie]]); }
 Teraz tablica to
 [["klucz1", 10], ["klucz2", 3], ["klucz3", 40], ["klucz4", 20]]
 
-Rozdział 12.29: Logiczne połączenie wartości
+ 12.29: Logiczne połączenie wartości
 Wersja ≥ 5.1
 .some i .every pozwala na logiczne powiązanie wartości Array.
 Podczas gdy .some łączy wartości zwracane z OR, .every łączy je z AND.
@@ -1793,7 +1793,7 @@ W większości przypadków można wykonać instanceof aby sprawdzić, czy obiekt
 Array.isArray ma tę przewagę nad wykorzystaniem sprawdzania instancji, że nadal zwróci true, nawet jeśli prototyp tablicy został zmieniony i zwróci wartość false, jeśli prototyp bez tablic został zmieniony na Array
 var arr = []; Object.setPrototypeOf (arr, null); Array.isArray (arr); // true arr instanceof Array; // false 
 
-Sekcja 12.31: Wstawianie elementu do tablicy w określonym indeksie
+12.31: Wstawianie elementu do tablicy w określonym indeksie
 Proste wstawienie elementu można wykonać za pomocą metody:
 Array.prototype.splicearr.splice (indeks, 0, element);
 Bardziej zaawansowany wariant z wieloma argumentami i obsługą łańcucha:
@@ -1803,7 +1803,7 @@ Array.prototype.insert = function (index) {this.splice.apply (this , [index, 0] 
 A także z łączeniem argumentów tablicowych i obsługą łańcuchów:
 / * Składnia: array.insert (index, value1, value2, .. ., valueN) * /
 Array.prototype.insert = function (index) {index = Math.min (index, this.length); arguments.length> 1 && this.splice.apply (this, [index, 0] .concat ([]. pop.call (arguments))) && this.insert.apply (this, arguments); zwróć to; };
-["a", "b", "c", "d"]. insert (2, "V", ["W", "X", "Y"], "Z") .łącz ("-" ); // "abVWXYZcd" Rozdział 12.32: Sortowanie wielowymiarowych tablic
+["a", "b", "c", "d"]. insert (2, "V", ["W", "X", "Y"], "Z") .łącz ("-" ); // "abVWXYZcd"  12.32: Sortowanie wielowymiarowych tablic
 Biorąc pod uwagę tablicę
 var array = [["klucz1", 10], ["klucz2", 3], ["klucz3", 40], ["klucz4", 20] ];
 Możesz sortować sortowanie według numeru (drugi indeks)
@@ -1811,13 +1811,13 @@ array.sort (funkcja (a, b) {return a [1] - b [1];})
 Wersja ≥ 6 tablic .sort ((a, b) => a [1] - b [1]);
 To wyświetli
 [[klucz2 ", 3], [" klucz1 ", 10], [" klucz4 ", 20], [" klucz3 ", 40]]
-Należy pamiętać, że metoda sortowania działa na macierzy w miejscu. Zmienia tablicę. Większość innych metod tablicowych zwraca nową tablicę, pozostawiając pierwotną nienaruszoną. Jest to szczególnie ważne, jeśli korzystasz z funkcjonalnego stylu programowania i oczekujesz, że funkcje nie będą mieć efektów ubocznych. Sekcja 12.33: Testowanie wszystkich elementów tablicy pod kątem równości
+Należy pamiętać, że metoda sortowania działa na macierzy w miejscu. Zmienia tablicę. Większość innych metod tablicowych zwraca nową tablicę, pozostawiając pierwotną nienaruszoną. Jest to szczególnie ważne, jeśli korzystasz z funkcjonalnego stylu programowania i oczekujesz, że funkcje nie będą mieć efektów ubocznych. 12.33: Testowanie wszystkich elementów tablicy pod kątem równości
 Metoda .every sprawdza, czy wszystkie elementy tablicowe przechodzą zapewniony test predykatów.
 Aby przetestować wszystkie obiekty pod kątem równości, można użyć następujących fragmentów kodu.
 [1, 2, 1]. Everyry (funkcja (element, i, list) {return item === list [0];}); // false [1, 1, 1] .every (function (item, i, list) {return item === list [0];}); // true Wersja ≥ 6 [1, 1, 1]. everyry ((pozycja, i, lista) => pozycja === lista [0]); // true
 Poniższe fragmenty kodu testują równość właściwości
 niech dane = [{nazwa: "alicja", id: 111}, {nazwa: "alicja", id: 222}];
-data.every (function (element, i, list) {return item === list [0];}); // false data.every (function (element, i, list) {return item.name === list [0] .name;}); // true Version ≥ 6 data.every ((pozycja, i, lista) => item.name === lista [0] .name); // true Sekcja 12.34: Kopiowanie części tablicy
+data.every (function (element, i, list) {return item === list [0];}); // false data.every (function (element, i, list) {return item.name === list [0] .name;}); // true Version ≥ 6 data.every ((pozycja, i, lista) => item.name === lista [0] .name); // true 12.34: Kopiowanie części tablicy
 Metoda slice () zwraca kopię części tablicy.
 Trwa dwa parametry arr.slice ([rozpocząć [, end]]):
 zaczynają
@@ -1829,8 +1829,8 @@ Przykład 1
 // Załóżmy, że mamy tablicę alfabetów var arr = ["a", "b", "c", "d" ...];
 // Chcę tablicy pierwszych dwóch alfabetów var newArr = arr.slice (0, 2); // newArr === ["a", "b"] Przykład 2 // Powiedzmy, że mamy tę tablicę liczb // i nie wiem, że to koniec var arr = [0, 1, 2, 3, 4 , 5, 6, 7, 8, 9 ...];
 // Chcę wyciąć tę tablicę zaczynając od // liczba 5 na jej koniec var newArr = arr.slice (4); // newArr === [5, 6, 7, 8, 9 ...]
-Rozdział 13: Obiekty
-Właściwość Opis value Wartość do przypisania do właściwości. writable Czy wartość nieruchomości może zostać zmieniona czy nie. enumerable Określa, czy właściwość zostanie wyliczona w for w pętli, czy nie. konfigurowalne Czy możliwe będzie ponowne określenie deskryptora właściwości, czy nie. get Funkcja, która zostanie wywołana, która zwróci wartość właściwości. set Funkcja, która ma zostać wywołana, gdy właściwość ma przypisaną wartość. Sekcja 13.1: Płytkie klonowanie
+ 13: Obiekty
+Właściwość Opis value Wartość do przypisania do właściwości. writable Czy wartość nieruchomości może zostać zmieniona czy nie. enumerable Określa, czy właściwość zostanie wyliczona w for w pętli, czy nie. konfigurowalne Czy możliwe będzie ponowne określenie deskryptora właściwości, czy nie. get Funkcja, która zostanie wywołana, która zwróci wartość właściwości. set Funkcja, która ma zostać wywołana, gdy właściwość ma przypisaną wartość. 13.1: Płytkie klonowanie
 Wersja ≥ 6
 Funkcja Object.assign () ES6 może być używana do kopiowania wszystkich przeliczalnych właściwości z istniejącej instancji obiektu do nowej.
 const existing = {a: 1, b: 2, c: 3};
@@ -1841,7 +1841,7 @@ const existing = {a: 1, b: 2, c: 3};
 const {... clone} = istniejący;
 Jeśli potrzebujesz obsługi starszych wersji JavaScript, najbardziej kompatybilnym sposobem klonowania obiektu jest ręczne iterowanie po jego właściwościach i filtrowanie dziedziczonych obiektów przy użyciu metody .hasOwnProperty ().
 var existing = {a: 1, b: 2, c: 3};
-var clone = {}; dla (var prop w istniejącym) {if (existing.hasOwnProperty (prop)) {clone [prop] = existing [prop]; }} Rozdział 13.2: Object.freeze
+var clone = {}; dla (var prop w istniejącym) {if (existing.hasOwnProperty (prop)) {clone [prop] = existing [prop]; }}  13.2: Object.freeze
 Wersja ≥ 5
 Object.freeze czyni obiekt niezmiennym, zapobiegając dodawaniu nowych właściwości, usuwaniu istniejących właściwości i modyfikacji możliwości przeliczania, kon fi gurowalności i zdolności do zapisywania istniejących właściwości. Zapobiega to również zmianie wartości istniejących właściwości. Jednak nie działa rekursywnie, co oznacza, że ​​obiekty podrzędne nie są automatycznie zamrożone i mogą ulec zmianie.
 Operacje następujące po zamrożeniu nie powiedzie się po cichu, chyba że kod działa w trybie ścisłym. Jeśli kod jest w trybie ścisłym
@@ -1853,7 +1853,7 @@ Object.freeze (obj);
 // Nie można usunąć istniejących właściwości delete obj.foo;
 // Zagnieżdżone obiekty nie są zamrożone obj.bar.push (4); obj.baz.foo = 'new foo'; 
 
-Sekcja 13.3: Klonowanie obiektów
+13.3: Klonowanie obiektów
 Gdy chcesz kompletną kopię obiektu (np. Właściwości obiektu i wartości wewnątrz tych właściwości, itp.), Nazywa się to głębokim klonowaniem.
 Wersja ≥ 5.1
 Jeśli obiekt można serializować do JSON, możesz utworzyć jego głęboki klon za pomocą kombinacji JSON.parse i JSON.stringify:
@@ -1867,7 +1867,7 @@ function deepClone (obj) {function clone (obj, traversedObjects) {var copy; // t
 // datuje if (obj wystąpienie Date) {copy = new Date (); copy.setTime (obj.getTime ()); kopia zwrotna; } // tablice if (obj instanceof Array) {copy = []; dla (var i = 0; i <obj.length; i ++) {copy.push (clone (obj [i], traversedObjects.concat (obj))); } return copy; } // proste obiekty if (obj instanceof Object) {copy = {}; for (klucz var w obj) {if (obj.hasOwnProperty (key)) {copy [key] = clone (obj [key], traversedObjects.concat (obj)); }} return copy; } throw new Error ("Nie jest obiektem klonującym."); }
 return clone (obj, []); } 
 
-Rozdział 13.4: Iteracja właściwości obiektu
+ 13.4: Iteracja właściwości obiektu
 Możesz uzyskać dostęp do każdej właściwości należącej do obiektu z tą pętlą
 dla (właściwość var ​​w obiekcie) {// zawsze sprawdź, czy obiekt ma właściwość if (object.hasOwnProperty (właściwość)) {// rób rzeczy}}
 Powinieneś dołączyć dodatkowe sprawdzenie dla hasOwnProperty, ponieważ obiekt może mieć właściwości odziedziczone z klasy bazowej obiektu. Niewykonanie tej kontroli może spowodować błędy.
@@ -1894,7 +1894,7 @@ Uwaga tylko łańcuch owijki mogą mieć własne właściwości przeliczalnego
 użytkowania jako reduktor: (łączy tablicę z obiektem)
 zwraca users.reduce ((result, user) => Object.assign ({}, {[user.id]: user}) 
 
-Sekcja 13.6: Reszta obiektu / spread (. ..)
+13.6: Reszta obiektu / spread (. ..)
 Wersja> 7
 Rozsiewanie obiektów jest po prostu syntaktycznym cukrem dla Object.assign ({}, obj1, ..., objn);
 Wykonuje się to za pomocą operatora:
@@ -1906,7 +1906,7 @@ pozwoli obj3 = {... obj b: {C:
 console.log (obj3) // {a 1 b: {C: 2};}
 UWAGA: Specyfikacji jest aktualnie etap 3
 
-Sekcja 13.7: Object.de fi neProperty
+13.7: Object.de fi neProperty
 Wersja ≥ 5
 Pozwala nam na zdefiniowanie właściwości w istniejącym obiekcie za pomocą deskryptora właściwości
 var obj = {};
@@ -1918,7 +1918,7 @@ Object.de FineProperty można wywołać za pomocą następujących opcji:
 Object.defineProperty (obj, 'nameOfTheProperty', {value: valueOfTheProperty, writable: true, // jeśli false, właściwość jest konfigurowalna tylko do odczytu: true, // true oznacza, że ​​właściwość może zmień później wyliczalne: true // true oznacza, że ​​właściwość można wyliczyć tak jak w pętli for..in});
 Object.defineProperties pozwala na definiowanie wielu właściwości naraz.
 var obj = {};
-Object.defineProperties (obj, {property1: {wartość: true, zapisywalny: true}, property2: {wartość: "Hello", zapisywalny: false}}); Rozdział 13.8: Właściwości dostępu (get i set)
+Object.defineProperties (obj, {property1: {wartość: true, zapisywalny: true}, property2: {wartość: "Hello", zapisywalny: false}});  13.8: Właściwości dostępu (get i set)
 Wersja ≥ 5
 Traktuj właściwość jako kombinację dwóch funkcji, jedną, aby uzyskać wartość od niej, a drugą, aby ustawić w niej wartość.
 Właściwość get deskryptora właściwości jest funkcją, która zostanie wywołana w celu pobrania wartości z właściwości.
@@ -1929,7 +1929,7 @@ console.log (person.fullName); // -> "John Doe"
 person.surname = "Hill"; console.log (person.fullName); // -> "John Hill"
 person.fullName = "Mary Jones"; console.log (person.name) // -> "Mary"
 
-Rozdział 13.9: Dynamiczne / zmienne nazwy właściwości
+ 13.9: Dynamiczne / zmienne nazwy właściwości
 Czasami nazwa właściwości musi być zapisana w zmiennej. W tym przykładzie pytamy użytkownika, jakie słowo należy wyszukać, a następnie podajemy wynik z obiektu, który nazwałem słownikiem.
 var dictionary = {sałata: "wegetarianin", banan: "owoc", pomidor: "to zależy od kogo pytasz", jabłko: "owoc", jabłko: "Steve Jobs kołysze!" // wielkość liter ma znaczenie)}
 var word = prompt ("Jakie słowo chcesz dzisiaj wyszukać?") var definition = dictionary [word]
@@ -1944,7 +1944,7 @@ console.log (obj.test); // 1
 Robi to samo, co:
 var property = "test"; var obj = {}; obj [właściwość] = 1; 
 
-Rozdział 13.10: Tablice są obiektami
+ 13.10: Tablice są obiektami
 Uwaga: Tworzenie obiektów podobnych do tablic nie jest zalecane. Warto jednak zrozumieć, w jaki sposób działają, szczególnie podczas pracy z DOM. To wyjaśni, dlaczego regularne operacje na tablicach nie działają na obiektach DOM zwróconych z wielu funkcji dokumentu DOM. (querySelectorAll, form.elements)
 Przypuśćmy, że stworzyliśmy następujący obiekt, który ma pewne właściwości, które można zobaczyć w tablicy.
 var anObject = {foo: 'bar', length: 'interesting', '0': "zero!", "1": "jeden!" };
@@ -1961,7 +1961,7 @@ anObject.length = 2;
 Następnie możesz użyć pętli w stylu C do iterowania przez obiekt anObject, tak jakby był to Array. Patrz: Tablica Iteracja
 Zauważ, że anObject jest tylko obiektem tablicowym. (znany również jako lista) Nie jest prawdziwą tablicą. Jest to ważne, ponieważ funkcje takie jak push i forEach (lub dowolna wygodna funkcja znaleziona w Array.prototype) nie będą działać domyślnie na obiektach podobnych do tablic.
 Wiele funkcji dokumentu DOM zwróci listę (np. QuerySelectorAll, form.elements), która jest podobna do anObject, który stworzyliśmy powyżej. Zobacz Konwertowanie obiektów podobnych do tablicowych na tablice
-console.log (typeof anArray == 'object', typeof anObject == 'object'); // output: true true console.log (anArray instanceof Object, anObject instanceof Object); // output: true true console.log (anArray instanceof Array, anObject instanceof Array); // output: true false console.log (Array.isArray (anArray), Array.isArray (anObject)); // wyniki: true false Sekcja 13.11: Object.seal
+console.log (typeof anArray == 'object', typeof anObject == 'object'); // output: true true console.log (anArray instanceof Object, anObject instanceof Object); // output: true true console.log (anArray instanceof Array, anObject instanceof Array); // output: true false console.log (Array.isArray (anArray), Array.isArray (anObject)); // wyniki: true false 13.11: Object.seal
 Wersja ≥ 5
 Object.seal zapobiega dodawaniu lub usuwaniu właściwości z obiektu. Po zapieczętowaniu obiektu jego deskryptory właściwości nie mogą zostać przekonwertowane na inny typ. W przeciwieństwie do Object.freeze pozwala na edycję właściwości.
 Próby wykonania tych operacji na zamkniętym obiekcie nie powiedzie się po cichu
@@ -1977,12 +1977,12 @@ W trybie ścisłym te operacje spowodują TypeError
 (function () {'use strict';
     var obj = {foo: 'foo'};
     Object.seal (obj);
-    obj.newFoo = 'newFoo'; // TypeError} ( )); Rozdział 13.12: Konwertuj wartości obiektu na tablicę
+    obj.newFoo = 'newFoo'; // TypeError} ( ));  13.12: Konwertuj wartości obiektu na tablicę
 Biorąc pod uwagę ten obiekt:
 var obj = {a: "hello", b: "to jest", c: "javascript!",};
 Możesz przekonwertować jego wartości do tablicy, wykonując:
 var tablica = Object.keys (obj) .map (function (key) {return obj [key];});
-console.log (tablica); // ["cześć", "to jest", "javascript!"] Rozdział 13.13: Pobieranie właściwości z obiektu
+console.log (tablica); // ["cześć", "to jest", "javascript!"]  13.13: Pobieranie właściwości z obiektu
 Charakterystyka właściwości:
 Właściwości, które mogą być pobrane z obiektu, mogą mieć następujące cechy:
 Enumerable Non - Enumerable own przy
@@ -2033,7 +2033,7 @@ var x = {a: 10, __proto__: {b: 5, c: 15}};
 // dodanie nieprzewidywalnej właściwości do prototypu pierwszego poziomu Object.defineProperty (x .__ proto__, "d", {wartość: 20, przeliczalne: false});
 console.log (getAllProperties (x)); ["a", "b", "c", "d", "... inne domyślne rekwizyty rdzenia ..."]
 A to będzie obsługiwane przez przeglądarki obsługujące ECMAScript 5.
-Rozdział 13.14: Właściwość Tylko do odczytu
+ 13.14: Właściwość Tylko do odczytu
 Wersja ≥ 5
 Używając deskryptorów właściwości możemy dokonać tylko odczytu właściwości, a każda próba zmiany jej wartości nie powiedzie się po cichu, wartość nie zostanie zmieniona i nie zostanie zgłoszony błąd.
 Zapisywalna właściwość w deskryptorze właściwości wskazuje, czy tę właściwość można zmienić, czy też nie.
@@ -2054,7 +2054,7 @@ Object.defineProperty (obj, "foo", {wartość: "pokaż", wyliczalne: true}); Obj
 dla (var prop w obj) {console.log (obj [prop]); }
 Wyjście konsoli
 Pokaż
-Sekcja 13.16: Opis właściwości blokady
+13.16: Opis właściwości blokady
 Wersja ≥ 5
 Deskryptor właściwości może zostać zablokowany, więc nie można w nim wprowadzać żadnych zmian. W dalszym ciągu możliwe będzie normalne korzystanie z właściwości, przypisywanie i pobieranie wartości z niej, ale każda próba jej ponownego wyrzucenia spowoduje zgłoszenie wyjątku.
 Konfigurowalna właściwość deskryptora właściwości służy do blokowania dalszych zmian deskryptora.
@@ -2071,7 +2071,7 @@ WartośćWartość
 13.17: Object.getOwnPropertyDescriptor
 Pobierz opis określonej właściwości w obiekcie.
 var sampleObject = {hello: 'world'};
-Object.getOwnPropertyDescriptor (sampleObject, 'hello'); // Object {value: "world", writable: true, enumerable: true, configurable: true} Rozdział 13.18: Deskryptory i nazwane właściwości
+Object.getOwnPropertyDescriptor (sampleObject, 'hello'); // Object {value: "world", writable: true, enumerable: true, configurable: true}  13.18: Deskryptory i nazwane właściwości
 Właściwości są członkami obiektu. Każda nazwana właściwość to para (nazwa, deskryptor). Nazwa jest łańcuchem, który umożliwia dostęp (za pomocą notacji obiektu object.propertyName lub obiektu notacji nawiasów kwadratowych ['propertyName']). Deskryptor jest zapisem pól definiujących właściwości obiektu, gdy jest on dostępny (co dzieje się z własnością i jaka jest wartość zwrócona z dostępu do niej). Ogólnie właściwość wiąże nazwę z zachowaniem (możemy myśleć o zachowaniu jako czarnej skrzynki).
 Istnieją dwa typy nazwanych właściwości: właściwość
 data: nazwa właściwości jest powiązana z wartością 1. właściwość accessor: nazwa właściwości jest powiązana z jedną lub dwiema funkcjami akcesora.2.
@@ -2096,24 +2096,24 @@ ten klucz jest domyślnie niezdefiniowany. Wartość powiązana z właściwości
 Przykład:
     var obj = {propertyName1: 1}; // ta para jest faktycznie ('propertyName1', {wartość: 1, // zapisywalny: true, // przeliczalny: true, // konfigurowalny: true}) Object.defineProperty (obj, 'propertyName2', {get: function ( ) {console.log ("to będzie rejestrowane" + "za każdym razem, gdy uzyskuje się dostęp do właściwości nazwa_domeny2, aby uzyskać jej wartość");}, ustaw: function () {console.log ("i będzie rejestrowane" + "za każdym razem, gdy właściwość nazwa2 \ 's wartość jest próbowana być ustawione ") // będzie traktowane tak, jak ma przeliczalne: false, konfigurowalne: false}}); // właściwośćNazwa1 to nazwa właściwości danych obiektu //, ato nazwa właściwości programu korzystającego
 nazwa_właściwości2obj.propertyName1 = 3; console.log (obj.propertyName1); // 3
-obj.propertyName2 = 3; // i to będzie rejestrowane za każdym razem, gdy próbujemy ustawić wartość właściwości propertyName2 na console.log (obj.propertyName2); // to będzie rejestrowane za każdym razem, gdy uzyskuje się dostęp do właściwości NazwaNazwa2, aby uzyskać jej wartość Sekcja 13.19: Object.keys
+obj.propertyName2 = 3; // i to będzie rejestrowane za każdym razem, gdy próbujemy ustawić wartość właściwości propertyName2 na console.log (obj.propertyName2); // to będzie rejestrowane za każdym razem, gdy uzyskuje się dostęp do właściwości NazwaNazwa2, aby uzyskać jej wartość 13.19: Object.keys
 Wersja ≥ 5
 Object.keys (obj) zwraca tablicę kluczy danego obiektu.
 var obj = {a: "cześć", b: "to jest", c: "javascript!" };
 var keys = Object.keys (obj);
-console.log (klucze); // ["a", "b", "c"] Rozdział 13.20: Właściwości ze znakami specjalnymi lub słowami zastrzeżonymi
+console.log (klucze); // ["a", "b", "c"]  13.20: Właściwości ze znakami specjalnymi lub słowami zastrzeżonymi
 Podczas gdy notacja właściwości obiektu jest zwykle zapisywana jako myObject.property, dozwolone będą tylko znaki normalnie występujące w nazwach zmiennych JavaScript , czyli głównie litery, cyfry i podkreślenie (_).
 Jeśli potrzebujesz znaków specjalnych, takich jak spacja, ☺ lub treść dostarczona przez użytkownika, jest to możliwe za pomocą notacji nawiasów [].
 myObject ['special property ☺'] = 'to działa!' console.log (myObject ['specjalna właściwość ☺']) All-digit properties:
 Oprócz znaków specjalnych, nazwy właściwości, które są pełnymi cyframi będą wymagały zapisu nawiasów. Jednak w tym przypadku właściwość nie musi być zapisywana jako ciąg znaków.
 myObject [123] = "cześć!" // liczba 123 jest automatycznie konwertowana na ciąg konsolowy.log (myObject ['123']) // zauważ, jak za pomocą ciągu 123 utworzono ten sam wynik console.log (myObject ['12 '+' 3 ']) // string concatenation console.log (myObject [120 + 3]) // arytmetyczna, nadal daje 123 i produkuje ten sam wynik console.log (myObject [123.0]) // to też działa, ponieważ 123.0 ocenia do 123 console.log (myObject [ '123.0']) // to NIE działa, ponieważ '123'! = '123.0'początkowe
 Jednakzera nie są zalecane, ponieważ są interpretowane jako notacja dziesiętna. (TODO, powinniśmy utworzyć i połączyć się z przykładem opisującym notację ósemkową, szesnastkową i wykładniczą)
-Zobacz także: Przykład [Tablice są obiektami]. Rozdział 13.21: Tworzenie obiektu
+Zobacz także: Przykład [Tablice są obiektami].  13.21: Tworzenie obiektu
 Iterable Wersja ≥ 6 var myIterableObject = {}; // Obiekt Iterable musi definiować metodę znajdującą się przy kluczu Symbol.iterator: myIterableObject [Symbol.iterator] = function () {// Iterator powinien zwracać return obiektu Iterator {// Obiekt Iterator musi implementować metodę, następnie () next: function () {// next musi sam zwrócić obiekt IteratorResult, jeśli (! this.iterated) {this.iterated = true; // Obiekt IteratorResult ma dwie właściwości return {//, czy iteracja jest zakończona, i wykonane: false, // wartość bieżącej wartości iteracji: 'Jeden'}; } return {// Po zakończeniu iteracji wystarczy wykonać właściwość done done: true}; }, iterowane: false}; };
 dla (var c of myIterableObject) {console.log (c); }
 Wyjście konsoli
 Jedna
-sekcja 13.22: Iterowanie po obiektach - Object.entries ()
+13.22: Iterowanie po obiektach - Object.entries ()
 Wersja ≥ 8
 Proponowana metoda Object.entries () zwraca tablicę par klucz / wartość dla danego obiektu. Nie zwraca on iteratora takiego jak Array.prototype.entries (), ale tablica zwrócona przez Object.entries () może być iterowana
 niezależnie.
@@ -2122,14 +2122,14 @@ Object.entries (obj);
 Wyniki w:
 [["jeden", 1], ["dwa", 2], ["trzy", 3]]
 Jest to przydatny sposób na iterację par klucz / wartość obiektu:
-dla (const [key , value] z Object.entries (obj)) {console.log (key); // "jeden", "dwa" i "trzy" console.log (wartość); // 1, 2 i 3} Rozdział 13.23: Object.values ​​()
+dla (const [key , value] z Object.entries (obj)) {console.log (key); // "jeden", "dwa" i "trzy" console.log (wartość); // 1, 2 i 3}  13.23: Object.values ​​()
 Wersja ≥ 8
 Metoda Object.values ​​() zwraca tablicę własnych wyliczalnych wartości właściwości danego obiektu, w tej samej kolejności, w jakiej dostarczono dla obiektu .. .in loop (różnica jest taka, że ​​pętla for-in wylicza również właściwości w łańcuchu prototypów).
 var obj = {0: 'a', 1: 'b', 2: 'c'}; console.log (Object.values ​​(obj)); // ['a', 'b', 'c']
 Uwaga:
 Aby uzyskać wsparcie dla przeglądarki, odsyłamy do tego łącza
 
-Rozdział 14: Arytmetyka (matematyka) Rozdział 14.1: Stałe
+ 14: Arytmetyka (matematyka)  14.1: Stałe
 Stałe Opis Przybliżona Math.E Podstawa logarytmu naturalnego e 2.718 Math.LN10 Logarytm naturalny z 10 2.302 Math.LN2 Logarytm naturalny z 2 0.693 Math.LOG10E Logarytm Base 10 o 0.434 Math.LOG2E Logarytm Base 2 o 1.442 Math.PI Pi: stosunek obwodu koła do średnicy (π) 3.14 Math.SQRT1_2 Pierwiastek kwadratowy z 1/2 0,707 Math.SQRT2 Pierwiastek kwadratowy z 2 1,414
 Liczba.EPSILON Różnica
 między jedną a najmniejszą wartością większą niż jedna reprezentowana jako liczba
@@ -2141,7 +2141,7 @@ Number.MAX_VALUE Największa pozytywna, pełna wartość Number 1.79E + 308
 Number.MIN_SAFE_INTEGER
 Najmniejsza liczba całkowita n taka, że ​​n i n - 1 są dokładnie reprezentowane jako liczba
 - ( 2 ^ 53 - 1)
-Number.MIN_VALUE Najmniejsza wartość dodatnia dla N umber 5E-324 Number.NEGATIVE_INFINITY Wartość ujemnej nieskończoności (-∞) Liczba POSITIVE_INFINITY Wartość dodatniej nieskończoności (∞) Nieskończoność Wartość dodatniej nieistotności (∞) Sekcja 14.2: Reszta / moduł (%)
+Number.MIN_VALUE Najmniejsza wartość dodatnia dla N umber 5E-324 Number.NEGATIVE_INFINITY Wartość ujemnej nieskończoności (-∞) Liczba POSITIVE_INFINITY Wartość dodatniej nieskończoności (∞) Nieskończoność Wartość dodatniej nieistotności (∞) 14.2: Reszta / moduł (%)
 Reszta / operator modulus (%) zwraca resztę po dzieleniu (całkowitym).
 console.log (42% 10); // 2 console.log (42% -10); // 2 console.log (-42% 10); // -2 console.log (-42% -10); // -2 console.log (-40% 10); // -0 console.log (40% 10); // 0
 Ten operator zwraca resztę pozostałą, gdy jeden operand jest podzielony przez drugi operand. Gdy pierwszy operand jest wartością ujemną, wartość zwracana zawsze będzie ujemna i odwrotnie dla wartości dodatnich.
@@ -2158,7 +2158,7 @@ var n = ...; // podane n var i = 0; function inc () {i = (i + 1)% n; } while (tr
 Teraz uogólnij powyższy problem i załóżmy, że musimy zezwolić zarówno na zwiększanie, jak i zmniejszanie tej wartości od 0 do (nie wliczając) n, więc następna wartość po n-1 wynosi 0, a poprzednia wartość przed 0 to n-1.
 var n = ...; // podane n var i = 0; function delta (d) {// d - dowolna liczba całkowita ze znakiem i = (i + d + n)% n; // dodajemy n do (i + d), aby zapewnić, że suma jest dodatnia}
 Teraz możemy wywołać funkcję delta () przekazującą dowolną liczbę całkowitą, zarówno dodatnią, jak i ujemną, jako parametr delta.
-Użycie modułu do uzyskania ułamkowej części liczby var myNum = 10/4; // 2.5 var fraction = myNum% 1; // 0,5 myNum = -20 / 7; // -2.857142857142857 fraction = myNum% 1; // -0.857142857142857 Rozdział 14.3: Zaokrąglanie w
+Użycie modułu do uzyskania ułamkowej części liczby var myNum = 10/4; // 2.5 var fraction = myNum% 1; // 0,5 myNum = -20 / 7; // -2.857142857142857 fraction = myNum% 1; // -0.857142857142857  14.3: Zaokrąglanie w
 zaokrągleniu
 Math.round () będzie zaokrąglało wartość do najbliższej liczby całkowitej za pomocą półokrągła do zerwania więzi.
 var a = Math.round (2.3); // a jest teraz 2 var b = Math.round (2.7); // b jest teraz 3 var c = Math.round (2.5); // c jest teraz 3
@@ -2190,7 +2190,7 @@ Możesz także zaokrąglić do liczby cyfr:
 Jako bardziej użyteczna funkcja:
  // wartość jest wartością zaokrąglenia // miejsca, jeśli dodatnia liczba miejsc po przecinku do zaokrąglonych do // miejsc, jeśli jest ujemna liczba cyfr do zaokrąglenia do funkcji roundTo (wartość, miejsca) { var power = Math.pow (10, miejsca); return Math.round (wartość * moc) / moc; } var myNum = 10000/3; // 3333.3333333333335 roundTo (myNum, 2); // 3333.33 roundTo (myNum, 0); // 3333 roundTo (myNum, -2); // 3300
 A warianty dla sufitu i podłogi:
- funkcja ceilTo (value, places) {var power = Math.pow (10, miejsca); return Math.ceil (wartość * moc) / moc; } function floorTo (value, places) {var power = Math.pow (10, miejsca); return Math.floor (wartość * moc) / moc; } Rozdział 14.4: Trygonometria
+ funkcja ceilTo (value, places) {var power = Math.pow (10, miejsca); return Math.ceil (wartość * moc) / moc; } function floorTo (value, places) {var power = Math.pow (10, miejsca); return Math.floor (wartość * moc) / moc; }  14.4: Trygonometria
 Wszystkie kąty poniżej są w radianach. Kąt w radianach ma miarę 180 * r / Math.PI w stopniach.
 Sine Math.sin (r);
 To zwróci sinus r, wartość między -1 a 1.
@@ -2213,7 +2213,7 @@ Spowoduje to powrót hiperbolicznego arcus tangensa r.
 Math.atan2 (x, y);
 To zwróci wartość kąta od (0, 0) do (x, y) w radianach. Zwróci wartość między -π a π, nie włączając π. 
 
-Sekcja 14.5: Operatory bitowe
+14.5: Operatory bitowe
 Należy pamiętać, że wszystkie operacje bitowe działają na 32-bitowych liczbach całkowitych, przekazując dowolne operandy do wewnętrznej funkcji ToInt32.
 Bitowy lub var a; a = 0b0011 | 0b1010; // a === 0b1011 // tabela prawdy // 1010 | (lub) // 0011 // 1011 (wynik) Bitowy i a = 0b0011 i 010010; // a === 0b0010 // tabela prawdy // 1010 & (i) // 0011 // 0010 (wynik) Bitwise not a = 0b0011; // a === 0b1100 // tabela prawdy // 10 ~ (nie) // 01 (wynik) Bitowe xor (wyłączne lub) a = 0b1010 ^ 0b0011; // a === 0b1001 // tabela prawdy // 1010 ^ (xor) // 0011 // 1001 (wynik) Bitowe przesunięcie lewe a = 0b0001 << 1; // a === 0b0010 a = 0b0001 << 2; // a === 0b0100 a = 0b0001 << 3; // a === 0b1000
 Przesunięcie w lewo jest równoważne liczbie całkowitej mnożonej przez Math.pow (2, n). Podczas wykonywania matematyki całkowitej zmiana może znacznie poprawić szybkość niektórych operacji matematycznych.
@@ -2239,7 +2239,7 @@ W tym przypadku wartość a jest zwiększana po ustawieniu b. Zatem b będzie 5,
 W tym przypadku wartość a jest zwiększana przed ustawieniem b. Zatem b będzie 6, a c będzie 6.
 Operatory inkrementacji i dekrementacji są powszechnie używane w pętlach, na przykład:
 dla (var i = 0; i <42; ++ i) {// zrobić coś niesamowitego! }
-Zwróć uwagę, w jaki sposób używany jest wariant wstępny. Zapewnia to, że zmienna tymczasowa nie jest niepotrzebnie tworzona (aby zwrócić wartość przed operacją). Rozdział 14.7: Potęgowanie (Math.pow () lub **)
+Zwróć uwagę, w jaki sposób używany jest wariant wstępny. Zapewnia to, że zmienna tymczasowa nie jest niepotrzebnie tworzona (aby zwrócić wartość przed operacją).  14.7: Potęgowanie (Math.pow () lub **)
 Potęgowanie powoduje, że drugi operand jest potęgą pierwszego operandu (ab).
 var a = 2, b = 3, c = Math.pow (a, b);
 c będzie teraz8
@@ -2251,7 +2251,7 @@ c będzie teraz 8
 Użyj Math.pow, aby znaleźć n-ty pierwiastek liczby.
 Znalezienie n-tego korzenia jest odwrotnością podniesienia do n-tej siły. Na przykład 2 do potęgi 5 wynosi 32. Piąty korzeń z 32 wynosi 2.
 Math.pow (v, 1 / n); // gdzie v jest dowolną dodatnią liczbą rzeczywistą //, a n jest dowolną dodatnią liczbą całkowitą
-var a = 16; var b = Math.pow (a, 1/2); // zwraca pierwiastek kwadratowy z 16 = 4 var c = Math.pow (a, 1/3); // zwraca podstawową kostkę 16 = 2,5198420997897464 var d = Math.pow (a, 1/4); // zwraca czwarty katalog główny z 16 = 2 Rozdział 14.8: Losowe liczby całkowite i zmienne
+var a = 16; var b = Math.pow (a, 1/2); // zwraca pierwiastek kwadratowy z 16 = 4 var c = Math.pow (a, 1/3); // zwraca podstawową kostkę 16 = 2,5198420997897464 var d = Math.pow (a, 1/4); // zwraca czwarty katalog główny z 16 = 2  14.8: Losowe liczby całkowite i zmienne
 var a = Math.random ();
 Przykładowa wartość: 0.21322848065742162 Math.random
 () zwraca losową liczbę między 0 (włącznie) i 1 (wyłączną)
@@ -2263,7 +2263,7 @@ function getRandomInt (min, max) {return Math.floor (Math.random () * (max - min
 Aby użyć Math.random (), aby uzyskać liczbę całkowitą z dowolnego zakresu (nie [0,1), użyj tej funkcji, aby uzyskać liczbę losową między min (włącznie) a maks. (Włącznie): przedział [min, max]
 funkcja getRandomIntInclusive (min, max) {return Math.floor (Math.random () * (max - min + 1)) + min; }
 Funkcje zaczerpnięte z https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-Rozdział 14.9: Dodawanie (+)
+ 14.9: Dodawanie (+)
 Operator dodawania (+) dodaje liczby.
 var a = 9, b = 3, c = a + b;
 c będzie teraz 12
@@ -2277,7 +2277,7 @@ Jeśli operandy są ciągiem i liczbą, liczba jest konwertowana na ciąg znakó
 Jeśli wartość boolowska jest podana zamiast dowolnej wartości liczbowej, wartość logiczna jest konwertowana na liczbę (0 dla fałszu, 1 dla prawdziwej) przed obliczeniem sumy:
 prawda + 1 ; // 2 false + 5; // 5 null + 1; // 1 undefined + 1; // NaN
 Jeśli wartość boolowska jest podana wraz z wartością ciągu, wartość boolowska jest konwertowana na ciąg znaków:
-true + "1"; // "true1" false + "bar"; // "falsebar" Rozdział 14.10: Little / Big endian dla tablic maszynowych przy użyciu operatorów bitowych
+true + "1"; // "true1" false + "bar"; // "falsebar"  14.10: Little / Big endian dla tablic maszynowych przy użyciu operatorów bitowych
 Aby wykryć endian urządzenia
 var isLittleEndian = true; (() => {var buf = new ArrayBuffer (4); var buf8 = new Uint8ClampedArray (buf);
     var data = new Uint32Array (buf); data [0] = 0x0F000000; if (buf8 [0] == = 0x0f) {isLittleEndian = false;}}) ();  
@@ -2289,7 +2289,7 @@ Jeśli system używa Little-Endian, to wartościamibędą
 Jeśli system używa Big-Endian, wówczas wartościami 8-bajtowymi będą
 console.log (data8 [0] .toString (16)); // 0x11 console.log (data8 [1] .toString (16)); // 0x22 console.log (data8 [2] .toString (16)); // 0x33 console.log (data8 [3] .toString (16)); // 0x44
 Przykład, gdzie typ Endian jest ważny
-var canvas = document.createElement ("canvas"); var ctx = canvas.getContext ("2d"); var imgData = ctx.getImageData (0, 0, canvas.width, canvas.height); // Aby przyspieszyć odczyt i zapis z bufora obrazu, możesz utworzyć widok bufora, który będzie // 32-bitowy, pozwalając na odczyt / zapis piksela w pojedynczej operacji var buf32 = new Uint32Array (imgData.data.buffer); // Maskuj kanały Red i Blue var mask = 0x00FF00FF; // bigEndianskie kanały pikseli Czerwony, zielony, niebieski, alfa, jeśli (isLittleEndian) {maska ​​= 0xFF00FF00; // małe estetyczne kanały pikseli Alpha, Blue, Green, Red} var len = buf32.length; var i = 0; while (i <len) {// Maskuj wszystkie piksele buf32 [i] & = mask; // Maskuj czerwony i niebieski} ctx.putImageData (imgData); Sekcja 14.11: Losuj między dwiema liczbami
+var canvas = document.createElement ("canvas"); var ctx = canvas.getContext ("2d"); var imgData = ctx.getImageData (0, 0, canvas.width, canvas.height); // Aby przyspieszyć odczyt i zapis z bufora obrazu, możesz utworzyć widok bufora, który będzie // 32-bitowy, pozwalając na odczyt / zapis piksela w pojedynczej operacji var buf32 = new Uint32Array (imgData.data.buffer); // Maskuj kanały Red i Blue var mask = 0x00FF00FF; // bigEndianskie kanały pikseli Czerwony, zielony, niebieski, alfa, jeśli (isLittleEndian) {maska ​​= 0xFF00FF00; // małe estetyczne kanały pikseli Alpha, Blue, Green, Red} var len = buf32.length; var i = 0; while (i <len) {// Maskuj wszystkie piksele buf32 [i] & = mask; // Maskuj czerwony i niebieski} ctx.putImageData (imgData); 14.11: Losuj między dwiema liczbami
 Zwraca losową liczbę całkowitą między min i maks:
 funkcja randomBetween (min, max) {return Math.floor (Math.random () * (max - min + 1) + min); }
 Przykłady:
@@ -2298,7 +2298,7 @@ Przykłady:
 // randomBetween (5, 20); Math.floor (Math.random () * 16) + 5;
 // randomBetween (-10, -2); Math.floor (Math.random () * 9) - 10; 
 
-Rozdział 14.12: Symulowanie zdarzeń z różnymi prawdopodobieństwami
+ 14.12: Symulowanie zdarzeń z różnymi prawdopodobieństwami
 Czasami możesz potrzebować tylko symulować zdarzenie z dwoma wynikami, być może z różnymi prawdopodobieństwami, ale możesz znaleźć się w sytuacji, która wymaga wielu możliwych wyników z różnymi prawdopodobieństwami. Wyobraźmy sobie, że chcesz symulować zdarzenie, które ma sześć równie prawdopodobnych wyników. To jest całkiem proste.
 function simulateEvent (numEvents) {var event = Math.floor (numEvents * Math.random ()); wydarzenie powrotne; }
 // symulacja fair konsoli console.log ("Rolled a" + (simulateEvent (6) +1)); // Zwinięte 2
@@ -2308,7 +2308,7 @@ function simulateEvent (szanse) {var sum = 0; chance.forEach (function (chance) 
 // przy użyciu prawdopodobieństwa console.log ("Zwinięte" + (simulateEvent ([1 / 7,1 / 7,1 / 7,1 / 7,1 / 7,2 / 7]) + 1) ); // Zwinięte 6
 Jak zapewne zauważyłeś, funkcje te zwracają indeks, więc możesz mieć bardziej opisowe wyniki przechowywane w tablicy. Oto przykład.
 var rewards = ["złota moneta", "srebrna moneta", "diament", "bożek miecz"]; var likelihoods = [5,9,1,0]; // najmniej prawdopodobne, że zdobędziesz miecza bożego (0/15 = 0%, nigdy), // najprawdopodobniej dostaniesz srebrną monetę (9/15 = 60%, więcej niż połowę czasu)
-// symulacja zdarzenia, nagroda z dziennika console.log ("Otrzymasz" + nagrody [simulateEvent (likelihoods)]); // Otrzymujesz srebrną monetę Sekcja 14.13: Odejmowanie (-)
+// symulacja zdarzenia, nagroda z dziennika console.log ("Otrzymasz" + nagrody [simulateEvent (likelihoods)]); // Otrzymujesz srebrną monetę 14.13: Odejmowanie (-)
 Operator odejmowania (-) odejmuje liczby.
 var a = 9; var b = 3; var c = a - b;
 c będzie teraz 6
@@ -2317,11 +2317,11 @@ Jeśli zamiast wartości liczbowej zostanie podany łańcuch lub wartość logic
 Jeśli nie można przekształcić wartości ciągu w liczbę, wynikiem będzie NaN:
 "foo" - 1; // NaN 100 - "bar"; // NaN
 
-Sekcja 14.14: Mnożenie (*)
+14.14: Mnożenie (*)
 Operator mnożenia (*) wykonuje mnożenie arytmetyczne na liczbach (literałach lub zmiennych).
 console.log (3 * 5); // 15 console.log (-3 * 5); // -15 console.log (3 * -5); // -15 console.log (-3 * -5); // 15 
 
-Sekcja 14.15: Maksymalne i minimalne
+14.15: Maksymalne i minimalne
 Funkcja Math.max () zwraca największą liczbę zero lub więcej.
 Math.max (4, 12); // 12 Math.max (-1, -15); // -1
 Funkcja Math.min () zwraca najmniejszą z zera lub więcej liczb.
@@ -2332,7 +2332,7 @@ operator rozprzestrzeniania ECMAScript 6, uzyskanie maksimum i minimum tablicy:
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9], max = Math.max (.. .arr), min = Math.min (... arr);
 console.log (max); // Logi: 9 console.log (min); // Logi: 1 
 
-Sekcja 14.16: Ograniczanie liczby do zakresu Min / Max
+14.16: Ograniczanie liczby do zakresu Min / Max
 Jeśli potrzebujesz zacisnąć liczbę, aby utrzymać ją w specyficznym ogranicznikuzakresu
 funkcji(min, max, val) {return Math.min (Math.max (min , + val), max); }
 console.log (clamp (-10, 10, "4,30")); // 4.3 console.log (clamp (-10, 10, -8)); // -8 console.log (zacisk (-10, 10, 12)); // 10 console.log (clamp (-10, 10, -15)); // -10
@@ -2348,7 +2348,7 @@ Metoda floor () zaokrągla liczbę w dół do najbliższej liczby całkowitej i 
 Składnia:
 Math.floor (n);
 Przykład:
-console.log (Math.ceil (0.60)); // 0 console.log (Math.ceil (0.40)); // 0 console.log (Math.ceil (5.1)); // 5 console.log (Math.ceil (-5.1)); // -6 console.log (Math.ceil (-5.9)); // -6 Rozdział 14.18: Pobieranie pierwiastka z liczby
+console.log (Math.ceil (0.60)); // 0 console.log (Math.ceil (0.40)); // 0 console.log (Math.ceil (5.1)); // 5 console.log (Math.ceil (-5.1)); // -6 console.log (Math.ceil (-5.9)); // -6  14.18: Pobieranie pierwiastka z liczby
 Pierwiastek kwadratowy
 Użyj Math.sqrt (), aby znaleźć pierwiastek kwadratowy liczby
 Math.sqrt (16) # => 4
@@ -2358,7 +2358,7 @@ Wersja ≥ 6 Math.cbrt (27) # => 3 Znajdowanie n-roots
 Aby znaleźć n-root, użyj funkcji Math.pow () i podaj wykładnik cząstkowy.
 Math.pow (64, 1/6) # => 2 
 
-Sekcja 14.19: Losowo z rozkładem gaussowskim
+14.19: Losowo z rozkładem gaussowskim
 Funkcja Math.random () powinna dawać liczby losowe, które mają odchylenie standardowe zbliżone do 0. Podczas wybierania z talii kart lub symulacji rzut kostką to jest to, czego chcemy.
 Ale w większości sytuacji jest to nierealistyczne. W świecie rzeczywistym przypadkowość ma tendencję do gromadzenia się wokół wspólnej wartości normalnej. Jeśli zostanie narysowany na wykresie, otrzymasz klasyczną krzywą dzwonową lub rozkład gaussowski.
 W tym celu przy pomocy funkcji Math.random () jest względnie prosta.
@@ -2370,7 +2370,7 @@ normalizuje Dodanie więcej niż kilku random jest kłopotliwe, prosta funkcja p
 Obrazek pokazuje rozkład losowych wartości dla różnych wartości v. Górny lewy jest standardowym pojedynczym poleceniem Math.random (), dolny prawy jest Math.random () zsumowany 8 razy. Jest to 5 000 000 próbek za pomocą Chrome.
 Ta metoda jest najbardziej skuteczna przy v <5 
 
-Sekcja 14.20: Math.atan2 w celu znalezienia kierunku
+14.20: Math.atan2 w celu znalezienia kierunku
 Jeśli pracujesz z wektorami lub liniami, na pewnym etapie będziesz chciał uzyskać kierunek wektora lub linii. Lub kierunek od punktu do innego punktu.
 
 Punkt 14.21: Sin i Cos, aby utworzyć wektor o danym kierunku i odległości
@@ -2389,7 +2389,7 @@ var dir = 1.4536; // kierunek w radianach var vec = {}; vec.x = Math.cos (dir); 
 
 Jeśli twój układ współrzędnych ma y jak wyżej, musisz zmienić cos i sin. W tym przypadku dodatni kierunek jest w kierunku przeciwnym do ruchu wskazówek zegara od osi x.
 
-// pobierz wektor kierunkowy, w którym y wskazuje do góry var dir = 1.4536; // kierunek w radianach var vec = {}; vec.x = Math.sin (dir); // pobierz komponent x vec.y = Math.cos (dir); // pobierz komponent y Sekcja 14.22: Math.hypot
+// pobierz wektor kierunkowy, w którym y wskazuje do góry var dir = 1.4536; // kierunek w radianach var vec = {}; vec.x = Math.sin (dir); // pobierz komponent x vec.y = Math.cos (dir); // pobierz komponent y 14.22: Math.hypot
 
 Aby znaleźć odległość między dwoma punktami, używamy pythagoras, aby uzyskać pierwiastek kwadratowy z sumy kwadratu składowej wektora między nimi.
 
@@ -2411,7 +2411,7 @@ Math.hypot może przyjmować dowolną liczbę wymiarów
 
 - 145
 
-Sekcja 14.23: Funkcje okresowe z wykorzystaniem Math.sin
+14.23: Funkcje okresowe z wykorzystaniem Math.sin
 
 Math.sin i Math.cos są cykliczne z okresem 2 * PI radianów (360 stopni) wysyłają falę o amplitudzie 2 w zakresie od -1 do 1.
 
@@ -2441,11 +2441,11 @@ Lub w bardziej zwartej (i nieco szybszej formie):
 
 oscylator funkcji (czas, częstotliwość = 1, amplituda = 1, faza = 0, przesunięcie = 0) {return Math.sin (czas * częstotliwość * Math.PI * 2 + faza * Math.PI * 2) * amplituda + przesunięcie; }
 
-Wszystkie argumenty poza czasem są opcjonalne Rozdział 14.24: Podział (/)
+Wszystkie argumenty poza czasem są opcjonalne  14.24: Podział (/)
 
 Operator dzielenia (/) wykonuje podział arytmetyczny na liczby (literały lub zmienne).
 
-console.log (15/3); // 5 console.log (15/4); // 3.75 Sekcja 14.25: Zmniejszanie (-)
+console.log (15/3); // 5 console.log (15/4); // 3.75 14.25: Zmniejszanie (-)
 
 Operator dekrementacji (-) zmniejsza liczbę o jeden.
 
@@ -2477,7 +2477,7 @@ const x = 1; console.log (x--) // TypeError: Przyporządkowanie do zmiennej sta�
 
 - 148
 
-Rozdział 15: Operatory bitowe Punkt 15.1: Operatory bitowe
+ 15: Operatory bitowe Punkt 15.1: Operatory bitowe
 
 Operatory bitowe wykonują operacje na wartościach bitowych danych. Operatory te konwertują operandy na podpisane 32-bitowe liczby całkowite w uzupełnieniu dwóch.
 
@@ -2571,7 +2571,7 @@ Zero-fi ll przesunięcie w prawo i propagowanie propagacji w prawo dają ten sam
 
 - 151
 
-Rozdział 16: Funkcje konstruktora Rozdział 16.1: Deklarowanie funkcji konstruktora
+ 16: Funkcje konstruktora  16.1: Deklarowanie funkcji konstruktora
 
 Funkcje konstruktora są funkcjami zaprojektowanymi do konstruowania nowego obiektu. W funkcji konstruktora słowo kluczowe odnosi się do nowo utworzonego obiektu, do którego można przypisać wartości. Funkcje konstruktora automatycznie "zwrócą" ten nowy obiekt.
 
@@ -2597,7 +2597,7 @@ cat instanceof Cat // Zwraca "true"
 
 - 152
 
-Rozdział 17: Deklaracje i przypisania Rozdział 17.1: Modyfikowanie stałych
+ 17: Deklaracje i przypisania  17.1: Modyfikowanie stałych
 
 Deklarowanie zmiennej zmiennej tylko zapobiega zastąpieniu jej wartości nową wartością. const nie nakłada żadnych ograniczeń na stan wewnętrzny obiektu. Poniższy przykład pokazuje, że można zmienić wartość właściwości obiektu const, a nawet nowe właściwości można dodać, ponieważ obiekt przypisany do osoby jest modyfikowany, ale nie zastępowany.
 
@@ -2611,13 +2611,13 @@ Wynik:
 
 Imię osoby to John. Nazwisko osoby to Steve. Nazwisko osoby to Steve, a nazwisko to Fox
 
-W tym przykładzie stworzyliśmy obiekt stały o nazwie person i ponownie przypisaliśmy właściwość person.name i utworzyliśmy nową właściwość person.surname. Sekcja 17.2: Deklaracja i inicjalizacja stałych
+W tym przykładzie stworzyliśmy obiekt stały o nazwie person i ponownie przypisaliśmy właściwość person.name i utworzyliśmy nową właściwość person.surname. 17.2: Deklaracja i inicjalizacja stałych
 
 Możesz zainicjować stałą za pomocą słowa kluczowego const.
 
 const foo = 100; const bar = false; const person = {name: "John"}; const fun = function () = {/ * ... * /}; const arrowFun = () => / * ... * /;
 
-Ważne Musisz zadeklarować i zainicjować stałą w tej samej instrukcji. Sekcja 17.3: Deklaracja
+Ważne Musisz zadeklarować i zainicjować stałą w tej samej instrukcji. 17.3: Deklaracja
 
 Istnieją cztery podstawowe sposoby deklarowania zmiennej w JavaScript: używanie zmiennych, let lub const keywords lub bez słowa kluczowego (deklaracja "bare"). Zastosowana metoda określa wynikowy zakres zmiennej lub reaswalalność w przypadku const.
 
@@ -2633,7 +2633,7 @@ Należy pamiętać, że nie można zadeklarować stałych bez inicjowania ich w 
 
 const foo; // "Uncaught SyntaxError: Brak inicjalizatora w deklaracji const"
 
-(Przykład deklaracji zmiennej bez słów kluczowych nie został uwzględniony powyżej z przyczyn technicznych.) Kontynuuj czytanie, aby zobaczyć przykład.) Rozdział 17.4: Nieznane
+(Przykład deklaracji zmiennej bez słów kluczowych nie został uwzględniony powyżej z przyczyn technicznych.) Kontynuuj czytanie, aby zobaczyć przykład.)  17.4: Nieznane
 
 Deklarowana zmienna bez wartości będzie miała niezdefiniowaną wartość
 
@@ -2643,7 +2643,7 @@ console.log (a); // logs: undefined
 
 Próba odzyskania wartości niezadeklarowanych zmiennych powoduje błąd ReferenceError. Jednak oba rodzaje niezadeklarowanych i zindywidualizowanych zmiennych są "niedoszacowane":
 
-var a; console.log (typeof a === "undefined"); // logs: true console.log (typeof variableDoesNotExist === "undefined"); // logs: true Sekcja 17.5: Typy danych
+var a; console.log (typeof a === "undefined"); // logs: true console.log (typeof variableDoesNotExist === "undefined"); // logs: true 17.5: Typy danych
 
 Zmienne JavaScript mogą zawierać wiele typów danych: liczby, łańcuchy, tablice, obiekty i nie tylko:
 
@@ -2705,7 +2705,7 @@ b = b ** a;
 
 - 155
 
-Sekcja 17.7: Cesja
+17.7: Cesja
 
 Aby przypisać wartość do wcześniej zadeklarowanej zmiennej, użyj operatora przypisania, =:
 
@@ -2731,7 +2731,7 @@ Funkcja deklaracji efektywnie tworzy również zmienne.
 
 - 156
 
-Rozdział 18: Pętle Sekcja 18.1: Standardowe pętle "dla"
+ 18: Pętle 18.1: Standardowe pętle "dla"
 
 Standardowe użycie dla (var i = 0; i <100; i ++) {console.log (i); }
 
@@ -2763,7 +2763,7 @@ Oczekiwany wynik:
 
 100 99 98 ... 0
 
-Sekcja 18.2: "dla ... z" pętli
+18.2: "dla ... z" pętli
 
 Wersja ≥ 6 const iterable = [0, 1, 2]; for (let it of iterable) {console.log (i); }
 
@@ -2833,7 +2833,7 @@ Oczekiwany wynik:
 
 imię: Mike
 
-Sekcja 18.3: pętla "dla ... w"
+18.3: pętla "dla ... w"
 
 Ostrzeżenie dla ... w jest przeznaczone do iterowania kluczy obiektów, a nie indeksów tablicowych. Używanie go do przechodzenia przez tablicę jest ogólnie odradzane. Obejmuje również właściwości z prototypu, więc może być konieczne sprawdzenie, czy klucz znajduje się w obiekcie przy użyciu hasOwnProperty. Jeśli jakiekolwiek atrybuty w obiekcie są definiowane przez metodę defineProperty / defineProperties i ustawiają parametry wyliczalne: false, te atrybuty będą niedostępne.
 
@@ -2909,7 +2909,7 @@ Pętla zewnętrzna: dla (var i = 0; i <3; i ++) {innerloop: dla (var j = 0; j <3
 
 Wydajność:
 
-0 0 0 1 Sekcja 18.7: pętla "do ... while"
+0 0 0 1 18.7: pętla "do ... while"
 
 var availableName; zrób {availableName = getRandomName (); } while (isNameUsed (name));
 
@@ -2927,9 +2927,9 @@ i = 0 j = 0 pomija resztę wartości j 1 0 i = 1 j = 1 pomija resztę wartości 
 
 - 163
 
-Rozdział 19: Funkcje
+ 19: Funkcje
 
-Funkcje JavaScriptu zapewniają uporządkowany, wielokrotnego użytku kod do wykonania zestawu działań. Funkcje upraszczają proces kodowania, zapobiegają zbędnej logice i ułatwiają wykonywanie kodu. W tym temacie opisano deklarację i wykorzystanie funkcji, argumentów, parametrów, instrukcji return i zakresu w JavaScript. Sekcja 19.1: Scoping funkcji
+Funkcje JavaScriptu zapewniają uporządkowany, wielokrotnego użytku kod do wykonania zestawu działań. Funkcje upraszczają proces kodowania, zapobiegają zbędnej logice i ułatwiają wykonywanie kodu. W tym temacie opisano deklarację i wykorzystanie funkcji, argumentów, parametrów, instrukcji return i zakresu w JavaScript. 19.1: Scoping funkcji
 
 Po zdefiniowaniu funkcji tworzy zakres.
 
@@ -3033,7 +3033,7 @@ var a = function () {return 42} (); console.log (a) // => 42
 
 Strzałkowa wersja natychmiast przywołanej funkcji:
 
-Wersja ≥ 6 (() => console.log ("Hello!"))) (); // => Hello! Rozdział 19.4: Funkcje nazwane
+Wersja ≥ 6 (() => console.log ("Hello!"))) (); // => Hello!  19.4: Funkcje nazwane
 
 Funkcje mogą być nazwane lub nienazwane (funkcje anonimowe):
 
@@ -3141,7 +3141,7 @@ function foo () {} console.log (foo.name); // wyprowadza "foo"
 
 var foo = pasek funkcji () {} console.log (foo.name); // wyprowadza "pasek" 
 
-sekcja 19.5: Wiązanie "tego" i argumentów
+19.5: Wiązanie "tego" i argumentów
 Wersja ≥ 5.1
 
 Kiedy odwołujesz się do metody (właściwości, która jest funkcją) w JavaScript, zazwyczaj nie pamięta ona obiektu, do którego była pierwotnie dołączona. Jeśli metoda musi odwoływać się do tego obiektu, ponieważ nie będzie to możliwe, a wywołanie go prawdopodobnie spowoduje awarię.
@@ -3206,7 +3206,7 @@ var log = logToServer? logger.log: console.log.bind (console);
 
 - 171
 
-Sekcja 19.6: Funkcje o nieznanej liczbie argumentów (funkcje variadyczne)
+19.6: Funkcje o nieznanej liczbie argumentów (funkcje variadyczne)
 
 Aby utworzyć funkcję akceptującą nieokreśloną liczbę argumentów, istnieją dwie metody w zależności od środowiska.
 
@@ -3242,7 +3242,7 @@ logArguments ('a', ... generateNumbers (), ... 'pqr', 'b') // output: Array ["a"
 
 - 172
 
-Sekcja 19.7: Funkcja anonimowa
+19.7: Funkcja anonimowa
 
 Definiowanie funkcji anonimowej
 
@@ -3378,7 +3378,7 @@ function showName (label) {console.log (label + ":" + this.name); } var student1
 
 // tworzymy funkcję tylko dla ucznia2 var showNameStudent2 = showName.bind (student2, "student2"); showNameStudent2 (); // wypisuje "student2: Vinod"
 
-// dołączenie metody do obiektu nie zmienia wartości `this` tej metody. student2.sayName = showNameStudent1; student2.sayName ("student2"); // wyświetla "student2: Ravi" sekcja 19.10: Częściowa aplikacja
+// dołączenie metody do obiektu nie zmienia wartości `this` tej metody. student2.sayName = showNameStudent1; student2.sayName ("student2"); // wyświetla "student2: Ravi" 19.10: Częściowa aplikacja
 
 Podobnie jak currying, aplikacja częściowa służy do zmniejszenia liczby argumentów przekazywanych do funkcji. W przeciwieństwie do curry, liczba nie musi spaść o jeden.
 
@@ -3506,7 +3506,7 @@ function hoistedFunction () {} functionVariable = function () {};
 
 - 185
 
-Rozdział 20: Funkcjonalna sekcja JavaScript 20.1: Funkcje wyższego rzędu
+ 20: Funkcjonalna JavaScript 20.1: Funkcje wyższego rzędu
 
 Ogólnie rzecz biorąc, funkcje, które działają na innych funkcjach, albo przyjmując je jako argumenty, albo zwracając je (lub oba), nazywane są funkcjami wyższego rzędu.
 
@@ -3526,7 +3526,7 @@ function iAmJustFunction () {// wykonaj pewne czynności ...
 
 // zwraca funkcję. funkcja powrotu iAmReturnedFunction () {console.log ("zwrócona funkcja została wywołana"); }}
 
-// wywołaj funkcję wyższego rzędu i zwróconą funkcję. iAmJustFunction () (); Sekcja 20.2: Monada tożsamości
+// wywołaj funkcję wyższego rzędu i zwróconą funkcję. iAmJustFunction () (); 20.2: Monada tożsamości
 
 Jest to przykład implementacji monada tożsamości w JavaScript i może służyć jako punkt wyjścia do tworzenia innych monad.
 
@@ -3572,7 +3572,7 @@ var add = (x, ... args) => x + args.reduce ((r, n) => r + n, 0), mnożenie = (x,
 
 divideMonad = (x, ... args) => identityMonad (x / multiply (... args)), log = x => console.log (x), substract = (x, ... args) => x - add (... args);
 
-identityMonad (100) .apply (add, 10, 29, 13) .apply (mnożenie, 2) .bind (divideMonad, 2) .apply (odejmowanie, 67, 34) .apply (mnożenie, 1239) .bind (divideMonad, 20, 54, 2) .apply (Math.round) .call (log); // Dzienniki 29 Rozdział 20.3: Czyste funkcje
+identityMonad (100) .apply (add, 10, 29, 13) .apply (mnożenie, 2) .bind (divideMonad, 2) .apply (odejmowanie, 67, 34) .apply (mnożenie, 1239) .bind (divideMonad, 20, 54, 2) .apply (Math.round) .call (log); // Dzienniki 29  20.3: Czyste funkcje
 
 Podstawową zasadą programowania funkcjonalnego jest to, że unika on zmiany stanu aplikacji (bezpaństwowości) i zmiennych poza jej zakresem (niezmienność).
 
@@ -4010,7 +4010,7 @@ JavaScript allows us to deﬁne getters and setters in the object literal syntax
 
 var date = { year: '2017', month: '02', day: '27', get date() { // Get the date in YYYY-MM-DD format return `${this.year}-${this.month}-${this.day}` }, set date(dateString) { // Set the date from a YYYY-MM-DD formatted string var dateRegExp = /(\d{4})-(\d{2})-(\d{2})/; // Check that the string is correctly formatted if (dateRegExp.test(dateString)) { var parsedDate = dateRegExp.exec(dateString); this.year = parsedDate[1]; this.month = parsedDate[2]; this.day = parsedDate[3]; } else { throw new Error('Date string must be in YYYY-MM-DD format'); } } };
 
-Uzyskanie dostępu do właściwości date.date zwróci wartość 2017-02-27. Ustawienie date.date = '2018-01-02 wywołałoby funkcję ustawiającą, która następnie analizowałaby ciąg znaków i ustaw datę date.year =' 2018 ', date.month =' 01 'i date.day =' 02 '. Próba przekazania niepoprawnie sformatowanego ciągu znaków (takiego jak "hello") spowodowałaby błąd. Rozdział 25.3: Definiowanie modułów pobierających i ustawiających w klasie ES6
+Uzyskanie dostępu do właściwości date.date zwróci wartość 2017-02-27. Ustawienie date.date = '2018-01-02 wywołałoby funkcję ustawiającą, która następnie analizowałaby ciąg znaków i ustaw datę date.year =' 2018 ', date.month =' 01 'i date.day =' 02 '. Próba przekazania niepoprawnie sformatowanego ciągu znaków (takiego jak "hello") spowodowałaby błąd.  25.3: Definiowanie modułów pobierających i ustawiających w klasie ES6
 
 class Person {konstruktor (imię, nazwisko) {
 
@@ -4034,7 +4034,7 @@ person.firstname = 'Foo'; person.lastname = 'Bar';
 
 console.log (person.firstname, person.lastname); // Foo Bar
 
-Rozdział 26: Wydarzenia Sekcja 26.1: Ładowanie strony, DOM i przeglądarki
+ 26: Wydarzenia 26.1: Ładowanie strony, DOM i przeglądarki
 
 Jest to przykład wyjaśniający zmiany obciążeń.
 
@@ -4060,7 +4060,7 @@ Tutaj wiadomość jest rejestrowana, gdy tylko przeglądarka interpretuje anonim
 
 - 206
 
-Rozdział 27: Dziedziczenie Rozdział 27.1: Standardowy prototyp funkcji
+ 27: Dziedziczenie  27.1: Standardowy prototyp funkcji
 
 Zacznij od zdefiniowania funkcji Foo, której użyjemy jako konstruktora.
 
@@ -4074,7 +4074,7 @@ Następnie możemy utworzyć instancję za pomocą nowego słowa kluczowego i wy
 
 var foo = new Foo ();
 
-console.log (foo.bar ()); // logs `I am bar` Sekcja 27.2: Różnica między Object.key a Object.prototype.key
+console.log (foo.bar ()); // logs `I am bar` 27.2: Różnica między Object.key a Object.prototype.key
 
 W przeciwieństwie do języków takich jak Python, właściwości statyczne funkcji konstruktora nie są dziedziczone do instancji. Instancje dziedziczą tylko ze swojego prototypu, który dziedziczy po prototypie rodzica. Właściwości statyczne nigdy nie są dziedziczone.
 
@@ -4086,7 +4086,7 @@ console.log (Foo.style); // "pogrubiona" konsola.log (foo.style); // niezdefinio
 
 Foo.prototype.style = 'italic';
 
-console.log (Foo.style); // "pogrubiona" konsola.log (foo.style); // "kursywa" Sekcja 27.3: Dziedziczenie prototypowe
+console.log (Foo.style); // "pogrubiona" konsola.log (foo.style); // "kursywa" 27.3: Dziedziczenie prototypowe
 
 Załóżmy, że mamy prosty obiekt o nazwie prototyp:
 
@@ -4126,7 +4126,7 @@ Wyjście konsoli
 
 Cieszę się, że użyłem konsoli przeglądarki, aby utworzyć te przykłady i zepsuć tę stronę, dodając tę ​​właściwość breakingLibraries.
 
-Sekcja 27.4: Pseudo-klasyczne dziedziczenie
+27.4: Pseudo-klasyczne dziedziczenie
 
 Jest to emulacja klasycznego dziedzictwa z wykorzystaniem prototypowego dziedziczenia, które pokazuje, jak potężne są prototypy. Zostało stworzone, aby uczynić język bardziej atrakcyjnym dla programistów pochodzących z innych języków.
 
@@ -4292,7 +4292,7 @@ Note that each method in Door.prototype returns this, which refers to the entire
 
 – 213
 
-Rozdział 29: Oddzwanianie Sekcja 29.1: Proste przykłady użycia wywołania zwrotnego
+ 29: Oddzwanianie 29.1: Proste przykłady użycia wywołania zwrotnego
 
 Wywołania zwrotne w celu rozszerzenia funkcjonalności funkcji (lub metody) bez zmiany jej kodu. Takie podejście jest często stosowane w modułach (bibliotekach / wtyczkach), których kod nie powinien być zmieniany.
 
@@ -4344,7 +4344,7 @@ Pozwala to na ukrycie elementu zaraz po zakończeniu wykonywania funkcji. To ró
 
 elem.animate ({krycie: 0}, 5000); elem.hide ();
 
-ponieważ ten ostatni nie czeka na zakończenie funkcji animate () (funkcja asynchroniczna), a zatem element jest ukryty natychmiast, co powoduje niepożądany efekt. Sekcja 29.2: Kontynuacja (synchroniczna i asynchroniczna)
+ponieważ ten ostatni nie czeka na zakończenie funkcji animate () (funkcja asynchroniczna), a zatem element jest ukryty natychmiast, co powoduje niepożądany efekt. 29.2: Kontynuacja (synchroniczna i asynchroniczna)
 
 Oddzwaniania można użyć do dostarczenia kodu do wykonania po zakończeniu metody:
 
@@ -4372,7 +4372,7 @@ console.log ("Robiąc coś innego");
 
 Te wywołania zwrotne są traktowane jako kontynuacja metod doSomething (). Dostarczenie wywołania zwrotnego jako ostatniej instrukcji w funkcji nazywa się ogonem, który jest zoptymalizowany przez tłumaczy ES2015.
 
-Sekcja 29.3: Co to jest oddzwanianie?
+29.3: Co to jest oddzwanianie?
 
 Jest to normalne wywołanie funkcji:
 
@@ -4400,7 +4400,7 @@ promise.then (function onFulfilled (value) {console.log ("Spełniony wartością
 
 Tutaj funkcja następnie przyjmuje dwie funkcje zwrotne, Realizowane i odłożone. Co więcej, tylko jedna z tych dwóch funkcji zwrotnych jest rzeczywiście wywoływana.
 
-Co ciekawsze, funkcja zwraca się przed wywołaniem któregokolwiek z wywołań zwrotnych. Dlatego funkcja wywołania zwrotnego może zostać wywołana nawet po zwróceniu pierwotnej funkcji. Sekcja 29.4: Oddzwanianie i `ten`
+Co ciekawsze, funkcja zwraca się przed wywołaniem któregokolwiek z wywołań zwrotnych. Dlatego funkcja wywołania zwrotnego może zostać wywołana nawet po zwróceniu pierwotnej funkcji. 29.4: Oddzwanianie i `ten`
 
 Często, gdy używasz wywołania zwrotnego, chcesz uzyskać dostęp do określonego kontekstu.
 
@@ -4447,7 +4447,7 @@ function SomeClass (msg, elem) {this.msg = msg; elem.addEventListener ("kliknij"
 SomeClass.prototype.handleEvent = function (event) {var fn = this [event.type]; if (fn) {fn.apply (to, argumenty); }};
 
 SomeClass.prototype.click = function (event) {console.log (this.msg); };
-Sekcja 29.5: Oddzwanianie za pomocą funkcji strzałki
+29.5: Oddzwanianie za pomocą funkcji strzałki
 
 Używanie funkcji strzałki jako funkcji zwrotnej może zmniejszyć linie kodu.
 
@@ -4469,7 +4469,7 @@ Dzięki funkcji strzałki można ją zmniejszyć do
 
 [1,2,3,4,5] .forEach (x => console.log (x));
 
-Tutaj funkcja funkcji zwrotnej (x) {console.log (x)} jest zredukowana do x => console.log (x) Rozdział 29.6: Obsługa błędów i kontrolowanie rozgałęzień przepływu
+Tutaj funkcja funkcji zwrotnej (x) {console.log (x)} jest zredukowana do x => console.log (x)  29.6: Obsługa błędów i kontrolowanie rozgałęzień przepływu
 
 Połączenia zwrotne są często wykorzystywane do obsługi błędów. Jest to forma kontrolnego rozgałęzienia przepływu, w której niektóre instrukcje są wykonywane tylko wtedy, gdy wystąpi błąd:
 
@@ -4496,7 +4496,7 @@ compareAsync (true, onSuccess, onFailure); compareAsync (false, onSuccess, onFai
 Należy zauważyć, że wielokrotne wywołania zwrotne nie muszą się wzajemnie wykluczać - można było wywołać obie metody. Podobnie, funkcja compare () może być napisana z opcjami zwrotnymi, które są opcjonalne (poprzez użycie wartości noop jako wartości domyślnej - zobacz wzór Null Object).
 
 - 219 
-Rozdział 30: Interwały i limity czasu Sekcja 30.1: Rekurencyjne setTimeout
+ 30: Interwały i limity czasu 30.1: Rekurencyjne setTimeout
 
 Aby powtórzyć funkcję w sposób nieokreślony, setTimeout można nazwać rekursywnie:
 
@@ -4504,11 +4504,11 @@ function repeatingFunc () {console.log ("Minęło 5 sekund, ponownie wykonaj fun
 
 setTimeout (repeatingFunc, 5000);
 
-W przeciwieństwie do setInterval, zapewnia to, że funkcja zostanie wykonana, nawet jeśli czas działania funkcji jest dłuższy niż określone opóźnienie. Nie gwarantuje to jednak regularnego odstępu między wykonywaniem funkcji. To zachowanie jest również różne, ponieważ wyjątek poprzedzający wywołanie rekurencyjne do setTimeout uniemożliwi jego powtórzenie, podczas gdy setInterval będzie powtarzać bez względu na wyjątki. Sekcja 30.2: Przerwy
+W przeciwieństwie do setInterval, zapewnia to, że funkcja zostanie wykonana, nawet jeśli czas działania funkcji jest dłuższy niż określone opóźnienie. Nie gwarantuje to jednak regularnego odstępu między wykonywaniem funkcji. To zachowanie jest również różne, ponieważ wyjątek poprzedzający wywołanie rekurencyjne do setTimeout uniemożliwi jego powtórzenie, podczas gdy setInterval będzie powtarzać bez względu na wyjątki. 30.2: Przerwy
 
 function waitFunc () {console.log ("To będzie rejestrowane co 5 sekund"); }
 
-window.setInterval (waitFunc, 5000); Sekcja 30.3: Przerwy
+window.setInterval (waitFunc, 5000); 30.3: Przerwy
 
 Standard
 
@@ -4532,7 +4532,7 @@ setTimeout (arguments.callee, 5000);
 
 - 220
 
-Sekcja 30.4: Usuwanie odstępów
+30.4: Usuwanie odstępów
 
 window.setInterval () zwraca wartość IntervalID, której można użyć do zatrzymania tego interwału. Aby to zrobić, przechowuj zwracaną wartość window.setInterval () w zmiennej i wywołaj clearInterval () z tą zmienną jako jedynym argumentem:
 
@@ -4542,7 +4542,7 @@ var interval = window.setInterval (waitFunc, 5000);
 
 window.setTimeout (function () {clearInterval (interval);}, 32000);
 
-Spowoduje to zalogowanie To będzie rejestrowane co 5 sekund co 5 sekund, ale zatrzyma go po 32 sekundach. Więc zapisze wiadomość 6 razy. Sekcja 30.5: Usuwanie limitów czasu
+Spowoduje to zalogowanie To będzie rejestrowane co 5 sekund co 5 sekund, ale zatrzyma go po 32 sekundach. Więc zapisze wiadomość 6 razy. 30.5: Usuwanie limitów czasu
 
 window.setTimout () zwraca identyfikator TimeoutID, który może być użyty do zatrzymania tego limitu czasu. Aby to zrobić, przechowuj zwracaną wartość window.setTimeout () w zmiennej i wywołaj funkcję clearTimeout () z tą zmienną jako jedynym argumentem:
 
@@ -4550,7 +4550,7 @@ function waitFunc () {console.log ("To nie będzie rejestrowane po 5 sekundach")
 
 var timeout = window.setTimeout (waitFunc, 5000); window.setTimeout (stopFunc, 3000);
 
-Nie spowoduje to zarejestrowania komunikatu, ponieważ timer zatrzymuje się po 3 sekundach. Sekcja 30.6: setTimeout, kolejność operacji, clearTimeout
+Nie spowoduje to zarejestrowania komunikatu, ponieważ timer zatrzymuje się po 3 sekundach. 30.6: setTimeout, kolejność operacji, clearTimeout
 
 setTimeout
 
@@ -4606,9 +4606,9 @@ clearTimeout (timeout); // Limit czasu nie będzie już wykonywany
 
 - 222
 
-Rozdział 31: Wyrażenia regularne
+ 31: Wyrażenia regularne
 
-Flagi Szczegóły g globalne. Wszystkie mecze (nie powracaj w pierwszym meczu). m wieloliniowy. Powoduje, że ^ i $ dopasowują początek / koniec każdej linii (nie tylko początek / koniec ciągu znaków). jestem niewrażliwy. Rozróżnianie wielkości liter (ignoruje przypadek [a-zA-Z]). u unicode: Ciągi znaków są traktowane jako UTF-16. Powoduje również, że sekwencje specjalne są zgodne ze znakami Unicode. y sticky: dopasowuje tylko z indeksu wskazanego przez właściwość lastIndex tego wyrażenia regularnego w ciągu docelowym (i nie próbuje dopasować z żadnych późniejszych indeksów). Sekcja 31.1: Tworzenie obiektu RegExp
+Flagi Szczegóły g globalne. Wszystkie mecze (nie powracaj w pierwszym meczu). m wieloliniowy. Powoduje, że ^ i $ dopasowują początek / koniec każdej linii (nie tylko początek / koniec ciągu znaków). jestem niewrażliwy. Rozróżnianie wielkości liter (ignoruje przypadek [a-zA-Z]). u unicode: Ciągi znaków są traktowane jako UTF-16. Powoduje również, że sekwencje specjalne są zgodne ze znakami Unicode. y sticky: dopasowuje tylko z indeksu wskazanego przez właściwość lastIndex tego wyrażenia regularnego w ciągu docelowym (i nie próbuje dopasować z żadnych późniejszych indeksów). 31.1: Tworzenie obiektu RegExp
 
 Standardowe tworzenie
 
@@ -4638,7 +4638,7 @@ var re = /.*/gmi;
 
 Z odwrotnym ukośnikiem: (nie powinno być to uniknięte, ponieważ wyrażenie regularne jest wyspecyfikowane w dosłownym znaczeniu)
 
-var re = / \ w * /; Sekcja 31.2: Flagi RegExp
+var re = / \ w * /; 31.2: Flagi RegExp
 
 Istnieje kilka języków, które możesz określić, aby zmienić zachowanie RegEx. Flagi mogą być dołączane na końcu literału regex, na przykład określając gi in / test / gi, lub mogą być wyspecyfikowane jako drugi argument konstruktora RegExp, tak jak w nowym RegExp ('test', 'gi').
 
@@ -4656,11 +4656,11 @@ u - Unicode. Jeśli ta fl ag nie jest obsługiwana, musisz dopasować specyficzn
 
 y - Znajduje wszystkie kolejne / sąsiadujące mecze.
 
-Sekcja 31.3: Sprawdź, czy ciąg zawiera wzór za pomocą .test ()
+Sprawdź, czy ciąg zawiera wzór za pomocą .test ()
 
 var re = / [az] + /; if (re.test ("foo")) {console.log ("Dopasowanie istnieje."); }
 
-Metoda testowa wykonuje wyszukiwanie, aby sprawdzić, czy wyrażenie regularne pasuje do ciągu znaków. Wyrażenie regularne [az] + wyszuka jedną lub więcej małych liter. Ponieważ wzór pasuje do napisu, "mecz istnieje" zostanie zalogowany do konsoli. Sekcja 31.4: Dopasowanie do .exec ()
+Metoda testowa wykonuje wyszukiwanie, aby sprawdzić, czy wyrażenie regularne pasuje do ciągu znaków. Wyrażenie regularne [az] + wyszuka jedną lub więcej małych liter. Ponieważ wzór pasuje do napisu, "mecz istnieje" zostanie zalogowany do konsoli. 31.4: Dopasowanie do .exec ()
 
 Dopasuj za pomocą .exec ()
 
@@ -4680,7 +4680,7 @@ Oczekiwany wynik
 
 Znalezione "a", następne exec zaczyna się od indeksu "2" znalezionego "a", następne exec zaczyna od indeksu "5" znalezionego "a", następne exec zaczyna od indeksu "8"
 
-Sekcja 31.5: Używanie RegExp z ciągami
+31.5: Używanie RegExp z ciągami
 
 Obiekt String ma następujące metody, które akceptują wyrażenia regularne jako argumenty.
 
@@ -4716,7 +4716,7 @@ Oczekiwany wynik
 
 3 -1
 
-Sekcja 31.6: Grupy RegExp
+Grupy RegExp
 
 JavaScript obsługuje kilka typów grup w wyrażeniach regularnych, grupach przechwytywania, grupach niezarejestrowanych i stronach wyprzedzających. Obecnie nie ma wsparcia z tyłu.
 
@@ -4731,23 +4731,23 @@ to jest interesujące, więc rozwiązaniem jest napisanie grupy przechwytującej
 Zastępowanie ciągu "$ n" gdzie n jest n-tą grupą przechwytywania (zaczynając od 1) N-ty argument w funkcji wywołania zwrotnego Jeśli RegExp nie jest rozwinięty g, element n + 1 w zwróconej tablicy str.match Jeśli RegExp ma fl g, str.match odrzuca przechwytywania, zamiast tego użyj re.exec
 
 Powiedzmy, że istnieje ciąg znaków, w którym wszystkie znaki + muszą zostać zastąpione spacją, ale tylko jeśli podążają za literą. Oznacza to, że proste dopasowanie zawierałoby tę literę, a także zostałoby usunięte. Przechwycenie go jest rozwiązaniem, ponieważ oznacza, że ​​dopasowana litera może zostać zachowana
-Rozdział 32: Pliki cookie Sekcja 32.1: Sprawdź, czy są włączone pliki cookie
+ 32: Pliki cookie 32.1: Sprawdź, czy są włączone pliki cookie
 
 Jeśli chcesz się upewnić, że pliki cookie są włączone przed ich użyciem, możesz użyć navigator.cookieEnabled:
 
 if (navigator.cookieEnabled === false) {alert ("Błąd: ciasteczka nie włączone!"); }
 
-Zwróć uwagę, że w starszych przeglądarkach navigator.cookieEnabled może nie istnieć i być niezarejestrowany. W takich przypadkach nie wykryjesz, że pliki cookie nie są włączone. Sekcja 32.2: Dodawanie i ustawianie plików cookie
+Zwróć uwagę, że w starszych przeglądarkach navigator.cookieEnabled może nie istnieć i być niezarejestrowany. W takich przypadkach nie wykryjesz, że pliki cookie nie są włączone. 32.2: Dodawanie i ustawianie plików cookie
 
 Poniższe zmienne tworzą poniższy przykład:
 
 var COOKIE_NAME = "Przykładowy plik cookie"; / * Nazwa pliku cookie. * / var COOKIE_VALUE = "Witaj, świecie!"; / * Wartość cookie. * / var COOKIE_PATH = "/ foo / bar"; / * Ścieżka pliku cookie. * / var COOKIE_EXPIRES; / * Data ważności pliku cookie (config'd poniżej). * /
 
-/ * Ustaw datę ważności pliku cookie na 1 minutę (60000ms = 1 minuta). * / COOKIE_EXPIRES = (nowa data (Date.now () + 60000)). TOUTCString (); document.cookie + = COOKIE_NAME + "=" + COOKIE_VALUE + "; expires =" + COOKIE_EXPIRES + "; ścieżka =" + COOKIE_PATH; Sekcja 32.3: Czytanie plików cookie
+/ * Ustaw datę ważności pliku cookie na 1 minutę (60000ms = 1 minuta). * / COOKIE_EXPIRES = (nowa data (Date.now () + 60000)). TOUTCString (); document.cookie + = COOKIE_NAME + "=" + COOKIE_VALUE + "; expires =" + COOKIE_EXPIRES + "; ścieżka =" + COOKIE_PATH; 32.3: Czytanie plików cookie
 
 var name = name + "=", cookie_array = document.cookie.split (';'), wartość_pliku; dla (var i = 0; i <cookie_array.length; i ++) {var cookie = cookie_array [i]; while (cookie.charAt (0) == '') cookie = cookie.substring (1, cookie.length); if (cookie.indexOf (name) == 0) cookie_value = cookie.substring (name.length, cookie.length); }
 
-To ustawi wartość cookie_value na wartość pliku cookie, jeśli istnieje. Jeśli plik cookie nie jest ustawiony, ustawi wartość cookie na wartość null Sekcja 32.4: Usuwanie plików cookie
+To ustawi wartość cookie_value na wartość pliku cookie, jeśli istnieje. Jeśli plik cookie nie jest ustawiony, ustawi wartość cookie na wartość null 32.4: Usuwanie plików cookie
 
 var expiry = new Date (); expiry.setTime (expiry.getTime () - 3600); document.cookie = name + "=; expires =" + expiry.toGMTString () + "; ścieżka = /"
 
@@ -4755,7 +4755,7 @@ Spowoduje to usunięcie pliku cookie o podanej nazwie.
 
 - 229
 
-Rozdział 33: Przechowywanie w Internecie
+ Przechowywanie w Internecie
 
 Parametr Opis name Klucz / nazwa wartości pozycji Wartość pozycji Section 33.1: Using localStorage
 
@@ -4777,7 +4777,7 @@ Przeglądarka Google ChromeAndroid BrowserFirefoxiOS Safari Wersja 40 4.3 34 6-8
 
 Przeglądarki stacjonarne:
 
-Przeglądarka Google ChromeOperaFirefoxSafariInternet Explorer Wersja 40 27 34 6-8 9-11 Dostępne miejsce 10MB 10MB 10MB 5MB 10MB Sekcja 33.2: Prostszy sposób obsługi Przechowywanie
+Przeglądarka Google ChromeOperaFirefoxSafariInternet Explorer Wersja 40 27 34 6-8 9-11 Dostępne miejsce 10MB 10MB 10MB 5MB 10MB 33.2: Prostszy sposób obsługi Przechowywanie
 
 localStorage, sessionStorage są obiektami JavaScript i możesz traktować je jako takie. Zamiast używać metod przechowywania takich jak .getItem (), .setItem (), itp., Oto prostsza alternatywa:
 
@@ -4805,7 +4805,7 @@ Przykład:
 
 // Usuń określone dane usuń localStorage.year;
 
-// Wyczyść (usuń) wszystkie przechowywane dane localStorage.clear (); Sekcja 33.3: Zdarzenia magazynowania
+// Wyczyść (usuń) wszystkie przechowywane dane localStorage.clear (); 33.3: Zdarzenia magazynowania
 
 Za każdym razem, gdy wartość jest ustawiona w localStorage, zdarzenie przechowywania zostanie wysłane do wszystkich innych okien z tego samego pochodzenia. Może to służyć do synchronizowania stanu pomiędzy różnymi stronami bez ponownego ładowania lub komunikowania się z serwerem. Na przykład możemy odczytać wartość elementu wejściowego jako tekstu akapitu w innym oknie:
 
@@ -4835,7 +4835,7 @@ input.oninput = funkcja (zdarzenie) {localStorage.setItem ("wartość użytkowni
 
 var output = document.createElement ("p"); document.body.appendChild (wyjście);
 
-// Listener nigdy nie zostanie wywołany w Chrome (53), Edge i Safari (10.0). window.addEventListener ('storage', funkcja (zdarzenie) {if (event.key === 'user-value') {output.textContent = event.newValue;}}); Sekcja 33.4: Sesja sesji
+// Listener nigdy nie zostanie wywołany w Chrome (53), Edge i Safari (10.0). window.addEventListener ('storage', funkcja (zdarzenie) {if (event.key === 'user-value') {output.textContent = event.newValue;}}); 33.4: Sesja sesji
 
 Obiekt sessionStorage implementuje ten sam interfejs Storage, co localStorage. Jednak zamiast udostępniania wszystkim stronom z tego samego źródła, dane sessionStorage są przechowywane osobno dla każdego okna / karty. Zapisane dane występują między stronami w tym oknie / karcie tak długo, jak są otwarte, ale są widoczne nigdzie indziej.
 
@@ -4857,7 +4857,7 @@ sessionStorage.removeItem ("klucz")
 
 - 232
 
-Sekcja 33.5: długość localStorage
+ długość localStorage
 
 Właściwość localStorage.length zwraca liczbę całkowitą wskazującą liczbę elementów w obiekcie localStorage
 
@@ -4869,17 +4869,17 @@ localStorage.setItem ("StackOverflow", "Documentation"); localStorage.setItem ("
 
 Uzyskaj długość
 
-localStorage.length; // 3 Sekcja 33.6: Warunki błędu
+localStorage.length; // 3 33.6: Warunki błędu
 
 Większość przeglądarek, po skonfigurowaniu do blokowania plików cookie, będzie również blokować localStorage. Próby użycia go spowodują wyjątek. Nie zapomnij zarządzać tymi przypadkami.
 
 var video = document.querySelector ('video') wypróbuj {video.volume = localStorage.getItem ('volume')} catch (error) {alert ("Jeśli chcesz, aby twój wolumen został zapisany, włącz pliki cookie")} wideo.play ()
 
-Jeśli błąd nie zostanie rozwiązany, program przestanie działać poprawnie. Sekcja 33.7: Czyszczenie pamięci
+Jeśli błąd nie zostanie rozwiązany, program przestanie działać poprawnie. 33.7: Czyszczenie pamięci
 
 Aby wyczyścić pamięć, po prostu uruchom
 
-localStorage.clear (); Sekcja 33.8: Remove Storage Item
+localStorage.clear (); 33.8: Remove Storage Item
 
 Aby usunąć konkretny element z pamięci przeglądarki (przeciwieństwo setItem) użyj removeItem
 
@@ -4895,7 +4895,8 @@ console.log (localStorage.getItem ("greet")); // zero
 
 - 233
 
-Rozdział 34: Atrybuty danych Sekcja 34.1: Dostęp do atrybutów danych
+Atrybuty danych 
+Dostęp do atrybutów danych
 
 Korzystanie z właściwości zestawu danych
 
@@ -4917,7 +4918,7 @@ function correctDetails (item) {var item = document.getEmementById ("C3"); item.
 
 - 234
 
-Rozdział 35: JSON
+JSON
 
 Szczegóły parametrów JSON.parse Parsować ciąg znaków JSON (ciąg) Łańcuch JSON do przeanalizowania. reviver (function) Przepisuje transformację dla wejściowego łańcucha JSON. JSON.stringify Serialize serializable value (string) Wartość do serializacji zgodnie ze specyfikacją JSON. replaceer (funkcja lub String [] lub Number []) Selektywnie obejmuje pewne właściwości obiektu wartości.
 
@@ -4927,7 +4928,7 @@ Jeśli podana jest liczba, zostanie wstawiona liczba spacji w czytelności. Jeś
 
 JSON (JavaScript Object Notation) to lekki format wymiany danych. Łatwo jest ludziom czytać i pisać oraz łatwo je parsować i generować. Ważne jest, aby zdać sobie sprawę, że w JavaScript JSON jest ciągiem znaków, a nie obiektem.
 
-Podstawowy przegląd można znaleźć na stronie json.org, która zawiera również linki do implementacji standardu w wielu różnych językach programowania. Sekcja 35.1: JSON a literały JavaScript
+Podstawowy przegląd można znaleźć na stronie json.org, która zawiera również linki do implementacji standardu w wielu różnych językach programowania. 35.1: JSON a literały JavaScript
 
 JSON oznacza "JavaScript Object Notation", ale nie jest to JavaScript. Pomyśl o tym, jako o formacie serializacji danych, który może być bezpośrednio użyty jako literał JavaScript. Jednak nie zaleca się bezpośredniego uruchamiania (tj. Poprzez eval ()) JSON, który jest pobierany z zewnętrznego źródła. Funkcjonalnie JSON nie różni się zbytnio od XML lub YAML - można uniknąć zamieszania, jeśli JSON jest po prostu wyobrażany jako jakiś format serializacji, który wygląda bardzo podobnie do JavaScript.
 
@@ -4983,7 +4984,7 @@ fetch (url) .then (function (response) {const value = JSON.parse (response.data)
 
 // W tym momencie skończymy z pojęciem "JSON". // Nie mówisz o JSON po analizie JSON. });
 
-Deweloperzy często rzucają również frazą "obiekt JSON". Prowadzi to również do zamieszania. Ponieważ, jak wspomniano powyżej, ciąg JSON nie musi utrzymywać obiektu jako wartości. "Ciąg JSON" jest lepszym terminem. Podobnie jak "ciąg znaków XML" lub "ciąg znaków YAML". Dostajesz ciąg, parsujesz go, a skończysz z wartością. Sekcja 35.2: Analiza składniowa z funkcją odświeżania
+Deweloperzy często rzucają również frazą "obiekt JSON". Prowadzi to również do zamieszania. Ponieważ, jak wspomniano powyżej, ciąg JSON nie musi utrzymywać obiektu jako wartości. "Ciąg JSON" jest lepszym terminem. Podobnie jak "ciąg znaków XML" lub "ciąg znaków YAML". Dostajesz ciąg, parsujesz go, a skończysz z wartością. 35.2: Analiza składniowa z funkcją odświeżania
 
 Funkcja odświeżania może być używana do filtrowania lub przekształcania analizowanej wartości.
 
@@ -5009,7 +5010,7 @@ var data = JSON.parse (jsonString, function (key, value) {return (key === 'date'
 
 const data = JSON.parse (jsonString, (key, value) => key === 'date'? new Date (value): value);
 
-Ważne jest, aby upewnić się, że funkcja reviver zwraca użyteczną wartość na końcu każdej iteracji. Jeśli funkcja reviver zwraca wartość undefined, żadna wartość lub wykonanie nie zostanie wykonane pod koniec funkcji, własność zostanie usunięta z obiektu. W przeciwnym razie właściwość zostanie zwrócona jako wartość zwracana. Sekcja 35.3: Serializowanie wartości
+Ważne jest, aby upewnić się, że funkcja reviver zwraca użyteczną wartość na końcu każdej iteracji. Jeśli funkcja reviver zwraca wartość undefined, żadna wartość lub wykonanie nie zostanie wykonane pod koniec funkcji, własność zostanie usunięta z obiektu. W przeciwnym razie właściwość zostanie zwrócona jako wartość zwracana. 35.3: Serializowanie wartości
 
 Wartość JavaScript można przekonwertować na ciąg JSON przy użyciu funkcji JSON.stringify.
 
@@ -5033,7 +5034,7 @@ JSON.stringify ({x: 1, y: 1}, null, 2) // 2 spacje będą używane do wcięcia /
 
 Alternatywnie, można wprowadzić wartość ciągu do wcięcia. Na przykład, przekazanie "\ t" spowoduje użycie znaku tabulacji do wcięcia.
 
-JSON.stringify ({x: 1, y: 1}, null, '\ t') / * wynik: {'x': 1, 'y': 1} * / Sekcja 35.4: Serializacja i przywracanie wystąpień klas
+JSON.stringify ({x: 1, y: 1}, null, '\ t') / * wynik: {'x': 1, 'y': 1} * / 35.4: Serializacja i przywracanie wystąpień klas
 
 Możesz użyć niestandardowej metody toJSON i funkcji reviver do przesyłania instancji własnej klasy w JSON. Jeśli obiekt ma metodę toJSON, jego wynik będzie serializowany zamiast samego obiektu.
 
@@ -5057,7 +5058,7 @@ W ten sposób powstaje ciąg o następującej treści:
 
 Tworzy to następujący obiekt:
 
-{imię i nazwisko: "John", samochód: samochód {kolor: "czerwony", prędkość: "szybki", id_: 0.19349242527065402}} Sekcja 35.5: Serializacja z funkcją wymiany
+{imię i nazwisko: "John", samochód: samochód {kolor: "czerwony", prędkość: "szybki", id_: 0.19349242527065402}} 35.5: Serializacja z funkcją wymiany
 
 Funkcja zamiennika może służyć do filtrowania lub przekształcania wartości serializowanych.
 
@@ -5071,11 +5072,11 @@ const userRecords = [{name: "Joe", punkty: 14.9, poziom: 31.5}, {imię i nazwisk
 
 W ten sposób powstaje następujący ciąg:
 
-"[{" points ": 14," level ": 31}, {" points ": 35," level ": 74}, {" points ": 18," level ": 41}, {" points ": 15 , "level": 2 8}] 'Sekcja 35.6: Parsowanie prostego łańcucha JSON
+"[{" points ": 14," level ": 31}, {" points ": 35," level ": 74}, {" points ": 18," level ": 41}, {" points ": 15 , "level": 2 8}] '35.6: Parsowanie prostego łańcucha JSON
 
 Metoda JSON.parse () analizuje ciąg jako JSON i zwraca prymitywizm JavaScript, tablicę lub obiekt:
 
-const array = JSON.parse ('[1, 2, "c", "d", {"e": false}]'); console.log (tablica); // logs: [1, 2, "c", "d", {e: false}] Sekcja 35.7: Cykliczne wartości obiektów
+const array = JSON.parse ('[1, 2, "c", "d", {"e": false}]'); console.log (tablica); // logs: [1, 2, "c", "d", {e: false}] 35.7: Cykliczne wartości obiektów
 
 Nie wszystkie obiekty można przekonwertować na ciąg JSON. Gdy obiekt ma cykliczne odniesienia do siebie, konwersja zakończy się niepowodzeniem.
 
@@ -5093,9 +5094,9 @@ Gdy tylko proces wykryje cykl, zostaje zgłoszony wyjątek. Gdyby nie było wykr
 
 - 240
 
-Rozdział 36: AJAX
+ 36: AJAX
 
-AJAX oznacza "Asynchroniczny JavaScript i XML". Chociaż nazwa zawiera XML, JSON jest częściej używany ze względu na prostsze formatowanie i mniejszą nadmiarowość. AJAX pozwala użytkownikowi komunikować się z zasobami zewnętrznymi bez ponownego ładowania strony. Sekcja 36.1: Wysyłanie i odbieranie danych JSON za pośrednictwem POST
+AJAX oznacza "Asynchroniczny JavaScript i XML". Chociaż nazwa zawiera XML, JSON jest częściej używany ze względu na prostsze formatowanie i mniejszą nadmiarowość. AJAX pozwala użytkownikowi komunikować się z zasobami zewnętrznymi bez ponownego ładowania strony. 36.1: Wysyłanie i odbieranie danych JSON za pośrednictwem POST
 
 Wersja ≥ 6
 
@@ -5105,7 +5106,7 @@ const requestData = {method: 'getUsers'};
 
 const usersPromise = fetch ('/ api', {method: 'POST', body: JSON.stringify (requestData)}). then (response => {if (! response.ok) {throw new Error ("Got non- Odpowiedź 2XX z serwera API. ");} Return response.json ();}). Then (responseData => {return responseData.users;});
 
-usersPromise.then (users => {console.log ("Znani użytkownicy:", użytkownicy);}, error => {console.error ("Nie można pobrać użytkowników z powodu błędu:", error);}); Sekcja 36.2: Dodaj preloader AJAX
+usersPromise.then (users => {console.log ("Znani użytkownicy:", użytkownicy);}, error => {console.error ("Nie można pobrać użytkowników z powodu błędu:", error);}); 36.2: Dodaj preloader AJAX
 
 Oto sposób pokazania preloadera GIF podczas wykonywania połączenia AJAX. Musimy przygotować nasze funkcje dodawania i usuwania preloaderów:
 
@@ -5131,7 +5132,7 @@ if (request.readyState == 4 && request.status == 200) {// żądanie zostało zak
 
 };
 
-xmlhttp.open ('GET', your_file.php, true); xmlhttp.send (); Sekcja 36.3: Wyświetlanie najważniejszych pytań JavaScript w danym miesiącu z interfejsu API Stack Over FLOW
+xmlhttp.open ('GET', your_file.php, true); xmlhttp.send (); 36.3: Wyświetlanie najważniejszych pytań JavaScript w danym miesiącu z interfejsu API Stack Over FLOW
 
 Możemy wysłać żądanie AJAX do interfejsu API Stack Exchange, aby uzyskać listę najważniejszych pytań JavaScript dla miesiąca, a następnie przedstawić je jako listę linków. Jeśli żądanie nie powiedzie się lub zwróci błąd interfejsu API, nasza obsługa błędów przy obietnicy wyświetla błąd.
 
@@ -5149,7 +5150,7 @@ hyperlink.textContent = title; hyperlink.href = link; }}). then (null, error => 
 
 document.body.appendChild (wiadomość); message.style.color = 'red';
 
-message.textContent = String (błąd); }); Sekcja 36.4: Używanie GET z parametrami
+message.textContent = String (błąd); }); 36.4: Używanie GET z parametrami
 
 Ta funkcja uruchamia wywołanie AJAX za pomocą polecenia GET, co pozwala nam przesłać parametry (obiekt) do pliku (ciąg) i uruchomić wywołanie zwrotne (funkcję) po zakończeniu żądania.
 
