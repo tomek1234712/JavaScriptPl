@@ -1,4 +1,4 @@
-Punkt 1.1 Używanie console.log()
+Używanie console.log()
 
 Wstep
 Wszystkie nowoczesne przeglądarki internetowe, Node.js oraz prawie wszystkie inne środowiska JavaScript obsługują zapisywanie wiadomości na konsoli przy użyciu zestawu metod rejestrowania. Najczęstszą z tych metod jest console.log ().
@@ -41,7 +41,7 @@ Masz możliwość logowania dowolnego elementu, który istnieje w DOM. W tym prz
 console.log (document.body);
 Spowoduje to zalogowanie się do konsoli:
 
-Punkt 1.2: Korzystanie z DOM API
+ Korzystanie z DOM API
 DOM oznacza Document Object Model. Jest to obiektowa prezentacja złożonych dokumentów, takich jak XML i HTML.
 Ustawienie właściwości textContent elementu jest jednym ze sposobów wyprowadzania tekstu na stronie internetowej.
 Na przykład rozważ następujący tag HTML:
@@ -60,7 +60,7 @@ To zmieni twój korpus HTML na:
 Zauważ, że aby manipulować elementami w DOM przy użyciu JavaScript, kod JavaScript musi zostać uruchomiony po utworzeniu odpowiedniego elementu w dokumencie. Można to osiągnąć, umieszczając znaczniki JavaScript <script> po wszystkich innych treści <body>. Alternatywnie możesz również użyć detektora zdarzeń do słuchania np. zdarzenie onload okna, dodanie kodu do tego detektora zdarzeń opóźni uruchomienie kodu do momentu załadowania całej zawartości strony.
 Trzecim sposobem upewnienia się, że cały DOM został załadowany, jest objęcie kodu manipulacji DOM funkcją czasu oczekiwania wynoszącą 0 ms. W ten sposób ten kod JavaScript jest ponownie umieszczany w kolejce na końcu kolejki wykonawczej, co daje przeglądarce szansę na zakończenie pewnych czynności niezwiązanych ze skryptem JavaScript, które czekają na zakończenie przed przystąpieniem do tego nowego fragmentu JavaScript.
 
-Punkt 1.3: Korzystanie z window.alert()
+Korzystanie z window.alert()
 W metodzie ostrzegania na ekranie pojawia się wizualne pole alarmowe. Parametr metody ostrzegania jest wyświetlany użytkownikowi w postaci zwykłego tekstu:
 window.alert(message);
 Ponieważ okno jest obiektem globalnym, można wywołać również następujące skróty:
@@ -77,7 +77,7 @@ Więcej informacji na temat korzystania z metody alertów można znaleźć w tem
 Stosowanie alertów jest zazwyczaj zniechęcane na korzyść innych metod, które nie blokują użytkownikom możliwości interakcji ze stroną - w celu stworzenia lepszych wrażeń użytkownika. Niemniej jednak może być przydatna do debugowania.
 Począwszy od Chrome 46.0, window.alert() jest blokowany wewnątrz <iframe>, chyba że jego atrybut piaskownicy ma wartość allow-modal.
 
-Sekcja 1.4: Korzystanie z window.prompt()
+ Korzystanie z window.prompt()
 Łatwym sposobem na uzyskanie danych wejściowych od użytkownika jest użycie metody prompt().
 Podpowiedź składniowa (tekst, [domyślnie]);
 tekst: Tekst wyświetlany w polu zachęty. default: Domyślna wartość dla wejścia ﬁeld (opcjonalnie). 
@@ -88,7 +88,7 @@ Wartością zwracaną zachęty jest zawsze łańcuch, chyba że użytkownik klik
 Uwagi
 Podczas wyświetlania okna dialogowego użytkownik nie ma dostępu do innych części strony, ponieważ okna dialogowe są oknami modalnymi. Począwszy od Chrome 46.0 metoda ta jest blokowana wewnątrz <ramki>, chyba że jej atrybut piaskownicy ma wartość allow-modal.
 
-Punkt 1.5: Korzystanie z window.conﬁrm()
+Korzystanie z window.conﬁrm()
 Metoda window.confirm() wyświetla okno dialogowe modalne z opcjonalnym komunikatem i dwoma przyciskami, OK i Cancel.
 Weźmy teraz następujący przykład:
 result = window.confirm(message);
@@ -103,7 +103,7 @@ var deleteConfirm = window.confirm("Czy na pewno chcesz to usunąć?");
 Uwagi
 Argument ten jest opcjonalny i nie jest wymagany przez specyfikację. Okna dialogowe są oknami modalnymi - uniemożliwiają użytkownikowi dostęp do reszty interfejsu programu do momentu zamknięcia okna dialogowego. Z tego powodu nie należy nadużywać żadnej funkcji, która tworzy okno dialogowe (lub okno modalne). I niezależnie od tego, istnieją bardzo dobre powody, aby unikać używania okien dialogowych do konfirmacji. Począwszy od Chrome 46.0 metoda ta jest blokowana wewnątrz <iframe>, chyba że jej atrybut piaskownicy ma wartość allow-modal. Powszechnie przyjmuje się wywoływanie metody conﬁrm z usuniętą notacją okna, ponieważ obiekt okna jest zawsze ukryty. Zaleca się jednak wyraźne określenie obiektu okna, ponieważ oczekiwane zachowanie może się zmienić z powodu implementacji na niższym poziomie zakresu z podobnie nazwanymi metodami.
 
-Punkt 1.6: Korzystanie z interfejsu API DOM (z tekstem graficznym: płótno, SVG lub plik obrazu)
+ Korzystanie z interfejsu API DOM (z tekstem graficznym: płótno, SVG lub plik obrazu)
 Użycie elementów płóciennych
 HTML dostarcza elementu płótna do budowania obrazów rastrowych.
 Najpierw buduj płótno do przechowywania informacji o pikselach obrazu.
@@ -129,15 +129,15 @@ Profil obrazu
 Jeśli masz już plik obrazu zawierający żądany tekst i umieściłeś go na serwerze, możesz dodać adres URL obrazu, a następnie dodać obraz do dokumentu w następujący sposób:
 var img = new Image(); img.src = 'https://i.ytimg.com/vi/zecueq-mo4M/maxresdefault.jpg'; document.body.appendChild(img);
 
-Rozdział 2: Zmienne JavaScript
+Zmienne JavaScript
 variable_name {Required}. Nazwa zmiennej: używana przy wywołaniu. = [Opcjonalnie] Przypisanie (określenie zmiennej) wartość {wymagane przy użyciu Przypisanie}. Wartość zmiennej [domyślnie: nieokreślona].
 Zmienne są tym, co składa się na większość JavaScript. Te zmienne składają się na rzeczy od liczb do obiektów, które są w całym JavaScript, aby ułatwić sobie życie.
 
-Punkt 2.1: Określanie zmiennej
+ Określanie zmiennej
 var myVariable = "To jest zmienna!
 Jest to przykład określenia zmiennych. Zmienna ta jest nazywana "ciągiem znaków", ponieważ ma znaki ASCII (A-Z, 0-9, !@#\$, itd.)
 
-Punkt 2.2: Użycie zmiennej
+ Użycie zmiennej
 var number1 = 5; number1 = 3;
 Tutaj określiliśmy numer o nazwie "number1", który był równy 5, jednak w drugim wierszu zmieniliśmy wartość na 3.
 Aby pokazać wartość zmiennej, logujemy ją do konsoli lub używamy window.alert():
@@ -147,7 +147,7 @@ number1 = number1 + 5; // 3 + 5 = 8 number1 = number1 - 6; // 8 - 6 = 2 var numb
 Możemy również dodać łańcuchy, które będą je łączyć lub łączyć. Na przykład:
 var myString = "Jestem " + "string!"; // "Jestem ciągiem!
 
-Punkt 2.3: Rodzaje zmiennych
+ Rodzaje zmiennych
 var myInteger = 12; // 32-bitowa liczba (od -2,147,483,648 do 2,147,483,647) var myLong = 9310141419482; // 64-bitowa liczba (od -9,223,372,036,854,775,808 do 9,223,372,036,854,875,807) var myFloat = 5.5; // 32-bitowa liczba zmiennoprzecinkowa (dziesiętna) var myDouble = 9310141419482.22; // 64-bitowa liczba zmiennoprzecinkowa
 var myBoolean = true; // 1-bit true/false (0 lub 1) var myBoolean2 = false;
 var myNotANumber = NaN; var NaN_Example = 0/0; // NaN: Podział przez zero nie jest możliwy
@@ -155,7 +155,7 @@ var notDefined; // niezdefiniowany: nie zdefiniowaliśmy go do niczego jeszcze
 window.alert(aRandomVariable); // niezdefiniowany
 var myNull = null; // zerowy /// itd.
 
-Punkt 2.4: Tablice i obiekty
+ Tablice i obiekty
 var myArray = []; // pusta tablica
 Tablica jest zbiorem zmiennych. Na przykład:
 var favoriteFruits = ["apple", "orange", "strawberry"];
@@ -171,9 +171,9 @@ myObject = {}; john = {imię i nazwisko: "John", ostatnia nazwa: "Doe", pełna n
 window.alert (john.fullname); // John Doe window.alert (billy.firstname); // Billy
 Zamiast tworzyć tablicę ["John Doe", "Billy"] i nazywać myArray[0], możemy po prostu nazwać john.fullname i billy.fullname.
 
-Rozdział 3: Wbudowane stałe
+Wbudowane stałe
 
-Punkt 3.1: zerowe
+zerowe
 null służy do przedstawiania celowego braku wartości obiektu i jest wartością prymitywną. W przeciwieństwie do niezdefiniowanej, nie jest właściwością obiektu globalnego.
 Jest równa niezdefiniowanej, ale nie identycznej z nią.
 null === niezdefiniowany; // true null === niezdefiniowany; // false
@@ -183,7 +183,7 @@ Aby prawidłowo sprawdzić, czy wartość jest pusta, porównać ją z operatore
 var a = null;
 a === null; // true
 
-Punkt 3.2: Testing for NaN using isNaN()
+Testing for NaN using isNaN()
 window.isNaN()
 Funkcja globalna isNaN() może być użyta do sprawdzenia, czy określona wartość lub wyrażenie ocenia jako NaN. Funkcja ta (w skrócie) sprawdza najpierw, czy wartość jest liczbą, czy nie próbuje jej przekonwertować (_), a następnie sprawdza, czy wynikowa wartość jest NaN. Z tego powodu ta metoda testowania może powodować zamieszanie.
 (_) Metoda "konwersji" nie jest tak prosta, zobacz ECMA-262 18.2.3, aby uzyskać szczegółowe wyjaśnienie algorytmu.
@@ -229,7 +229,7 @@ typ NaN; // "liczba
 Nie sprawdzaj NaN używając operatora równości. Zobacz isNaN zamiast tego.
 NaN == NaN // false NaN === NaN // false
 
-Punkt 3.4: undeﬁned and null
+undeﬁned and null
 Na pierwszy rzut oka może się wydawać, że nieważne i niezdefiniowane są w zasadzie takie same, jednak są subtelne, ale ważne diﬀerences
 niezdefiniowana jest brak wartości w kompilatorze, ponieważ tam gdzie powinna ona być wartością, nie została ona wprowadzona, tak jak w przypadku nieprzypisanej zmiennej.
 undefined jest wartością globalną, która reprezentuje brak przypisanej wartości. typeof undefined === 'undefined' null jest obiektem, który wskazuje, że zmiennej została jednoznacznie przypisana "no value". typeof null === 'object'
@@ -240,8 +240,8 @@ niezdefiniowana jest również właściwością globalnego obiektu okna.
 // Tylko w przeglądarkach console.log (window.undefined); // niezdefiniowane window.hasOwnProperty('undefined'); // true Version < 5
 Przed ECMAScript 5 można było zmienić wartość właściwości window.undefined na jakąkolwiek inną wartość potencjalnie łamiącą wszystko.
 
-Punkt 3.5: Nieskonczonosc
-1 / 0; // Infinity // zekaj! co to?
+Nieskonczonosc
+1 / 0; // Infinity // 
 Nieskończoność jest właściwością globalnego obiektu (dlatego jest zmienną globalną), która reprezentuje matematyczne poczucie przynależności. Jest to odniesienie do Number.POSITIVE_INFINITY
 Jest ona większa niż jakakolwiek inna wartość i można ją uzyskać dzieląc przez 0 lub oceniając wyrażenie liczby, która jest tak duża, że overﬂows Oznacza to, że nie ma podziału przez 0 błędów w JavaScript, jest Inﬁnity!
 Istnieje również -Infinity, która jest matematycznie ujemna i jest niższa niż jakakolwiek inna wartość.
@@ -256,7 +256,7 @@ Aby uzyskać -Infinity zaprzecza się nieskończoności, lub uzyskać odniesieni
   a === b; // true 1 / a === 1 / b; // false
   // Wypróbuj swoje własne!
 
-  Punkt 3.6: Stałe liczbowe
+ Stałe liczbowe
   Konstruktor liczb ma wbudowane stałe, które mogą być przydatne
   Numer.MAX_VALUE; // 1.7976931348623157e+308 Numer.MAX_SAFE_INTEGER; // 9007199254740991
   Numer.MIN_VALUE; // 5e-324 Numer.MIN_SAFE_INTEGER; // -9007199254740991
@@ -266,7 +266,7 @@ Aby uzyskać -Infinity zaprzecza się nieskończoności, lub uzyskać odniesieni
   W wielu przypadkach różni operatorzy w JavaScript zerwą z wartościami spoza zakresu (Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
   Należy zauważyć, że Number.EPSILON reprezentuje diﬀerent pomiędzy jedną a najmniejszą liczbą większą niż jedna, a tym samym najmniejszą możliwą liczbą diﬀerence pomiędzy dwiema wartościami liczbowymi diﬀerent Jednym z powodów, dla których należy to wykorzystać, jest charakter tego, w jaki sposób liczby są przechowywane przez JavaScript patrz
 
-Punkt 3.7: Operacje, które zwracają NaN
+Operacje, które zwracają NaN
 Matematyczne operacje na wartościach innych niż liczby zwracają NaN.
 "b" _ 3 "cde" - "e" [1, 2, 3] _ 2
 Wyjątek: Tablice jednoliczbowe.
@@ -277,21 +277,19 @@ Podzielenie zera przez zero zwraca NaN.
 0 / 0 /// NaN
 Uwaga: W matematyce ogólnie (w przeciwieństwie do programowania JavaScript), dzielenie przez zero nie jest możliwe.
 
-Punkt 3.8: Funkcje biblioteki matematycznej, które zwracają NaN
+Funkcje biblioteki matematycznej, które zwracają NaN
 Ogólnie rzecz biorąc, funkcje matematyczne, którym podano argumenty niecyfrowe, zwracają NaN.
 Math.floor ("a")
 Kwadratowy korzeń ujemnej liczby zwraca NaN, ponieważ Math.sqrt nie obsługuje liczb wyimaginowanych lub złożonych.
 Math.sqrt(-1)
 
-Rozdział 4: Uwagi
-
-Sekcja 4.1: Korzystanie z komentarzy
+ Korzystanie z komentarzy
 Aby dodać adnotacje, podpowiedzi lub wykluczyć jakiś kod z wykonywania JavaScript zapewnia dwa sposoby komentowania linii kodu
 Pojedynczy wiersz Komentarz //
 Wszystko po // aż do końca linii jest wyłączone z wykonania.
 element funkcjiAt( event ) { // Ustawia element ze współrzędnych zdarzenia return document.elementFromPoint(event.clientX, event.clientY); } // TODO: napisać więcej fajnych rzeczy! Komentarz wielowierszowy /\*_/
 Wszystko pomiędzy otwarciem /_ a zamknięciem _/ jest wyłączone z wykonania, nawet jeśli otwarcie i zamknięcie znajdują się na liniach diﬀerent
-/_ Ustawia element ze współrzędnych zdarzenia. Użyj jak: var clickedEl = someEl.addEventListener("click", elementAt, false); _/ element funkcjiAt( event ) { return document.elementFromPoint(event.clientX, event.clientY); } /_ TODO: napisz więcej użytecznych komentarzy! \*/ Sekcja 4.2: Używanie komentarzy HTML w JavaScript (Zła praktyka)
+/_ Ustawia element ze współrzędnych zdarzenia. Użyj jak: var clickedEl = someEl.addEventListener("click", elementAt, false); _/ element funkcjiAt( event ) { return document.elementFromPoint(event.clientX, event.clientY); } /_ TODO: napisz więcej użytecznych komentarzy! \*/ : Używanie komentarzy HTML w JavaScript (Zła praktyka)
 Komentarze HTML (opcjonalnie poprzedzone białą przestrzenią) spowodują, że kod (w tej samej linii) będzie również ignorowany przez przeglądarkę, choć jest to uważane za złą praktykę.
 Komentarze jednowierszowe z sekwencją otwierającą komentarz HTML (<!-- --):
 Uwaga: Interpretator JavaScript ignoruje tutaj zamykające znaki komentarzy HTML (-->).
@@ -310,7 +308,7 @@ Fakty te zostały również wykorzystane w celu umożliwienia stronie wywołania
 Podczas uruchamiania HTML, wszystkie wielowierszowe teksty pomiędzy komentarzami <!-- i --> są ignorowane, więc zawarty w nich JavaScript jest ignorowany podczas uruchamiania jako HTML.
 Jednak jako JavaScript, podczas gdy linie rozpoczynające się od <!-- i --> są ignorowane, ich eﬀect nie ma uciec przez wiele linii, więc linie następujące po nich (np. self.postMessage(....) nie będą ignorowane, gdy są uruchamiane jako JavaScript, przynajmniej do momentu, gdy dotrą do komentarza JavaScript, oznaczonego przez /_ i _/. Takie komentarze JavaScript są używane w powyższym przykładzie do ignorowania pozostałego tekstu HTML (aż do -->, który jest również ignorowany jako JavaScript).
 
-Rozdział 5: Konsola
+
 Informacje wyświetlane przez konsolę debugging/web są udostępniane za pomocą wielu metod obiektu konsoli Javascript, z którymi można się zapoznać za pośrednictwem konsoli.dir(konsoli). Oprócz właściwości console.memory, wyświetlane metody są zazwyczaj następujące (pobrane z wyjścia Chromium):
 assert clear count debug dirxml error groupCollapsed groupEnd info log markTimeline proﬁleEnd table timeEnd timeEnd timeStamp timelineEnd trace warn
 Otwieranie konsoli
@@ -344,7 +342,7 @@ Zauważ, że ten drugi przykład zatrzyma wszystkie dzienniki konsoli, nawet je�
 Użycie tego drugiego przykładu uniemożliwi użycie innych funkcji, takich jak console.dir(obj), chyba że jest to wyraźnie dodane.
 Debugowanie konsoli przeglądarki lub konsoli internetowej jest generalnie używane przez programistów do identyfikacji błędów, rozumienia ﬂow wykonania, logowania danych i do wielu innych celów w czasie uruchomienia. Informacje te są dostępne poprzez obiekt konsoli.
 
-Punkt 5.1: Czas pomiaru - konsola czasu()
+Czas pomiaru - konsola czasu()
 console.time() może być użyty do pomiaru czasu trwania zadania w kodzie.
 Wywołanie console.time([label]) uruchamia nowy timer. Kiedy console.timeEnd([label]) jest wywoływany, czas, który upłynął, w milisekundach, od czasu pierwotnego wywołania .time() jest obliczany i rejestrowany. Z powodu tego zachowania, możesz wywołać .timeEnd() wielokrotnie z tą samą etykietą, aby zarejestrować czas, jaki upłynął od momentu wykonania pierwotnego wywołania .time().
 Przykład 1:
@@ -361,7 +359,7 @@ console.timeEnd("Loop time");
 będzie wysyłany na zewnątrz:
 Czas pętli: 40.716ms
 
-Punkt 5.2: Formatowanie wyjścia konsoli
+Formatowanie wyjścia konsoli
 Wiele metod drukowania w konsoli może również obsługiwać formatowanie łańcuchów typu C, używając tokenów %:
 console.log('%s ma %d punktów', 'Sam', 100);
 Wyświetla Sam ma 100 punktów.
@@ -382,7 +380,7 @@ Wgłębienie może być usunięte dla wpisów późniejszych przy użyciu nastę
 console.groupEnd(): opuszcza bieżącą grupę, pozwalając na wydruk nowszych wpisów w grupie nadrzędnej po wywołaniu tej metody.
 Grupy mogą być kaskadowane, aby umożliwić tworzenie wielu wcięć wyjściowych lub składanych warstw wewnątrz siebie:
 
-Punkt 5.3: Drukowanie na konsoli debuggowania przeglądarki
+Drukowanie na konsoli debuggowania przeglądarki
 Konsola debuggowania przeglądarki może być używana do drukowania prostych wiadomości. Debugowanie lub konsolę internetową można otworzyć bezpośrednio w przeglądarce (klawisz F12 w większości przeglądarek - więcej informacji na ten temat znajduje się w uwagach poniżej), a metodę logowania obiektu JavaScript konsoli można wywołać wpisując poniższe słowa:
 console.log('My message');
 Następnie, po naciśnięciu klawisza Enter , wyświetli się komunikat My message w konsoli debuggowania.
@@ -418,7 +416,7 @@ Powyższy obrazek przedstawia wszystkie funkcje, z wyjątkiem znacznika czasu, w
 Metody te zachowują się podobnie jak metoda logowania i w konsolach debugujących diﬀerent debugowanie może być renderowane w kolorach lub formatach diﬀerent
 W niektórych debuggerach informacje o poszczególnych obiektach mogą być dalej rozszerzane przez kliknięcie drukowanego tekstu lub małego trójkąta (►), który odnosi się do odpowiednich właściwości obiektu. Te zawalające się właściwości obiektu mogą być otwierane lub zamykane w logu. Dodatkowe informacje na ten temat można znaleźć w pliku console.dir
 
-Punkt 5.4: Włączenie śledzenia stosu podczas logowania console.trace()
+Włączenie śledzenia stosu podczas logowania console.trace()
 funkcja foo() { console.trace('Moje log statement'); }
 foo();
 Wyświetli to w konsoli:
@@ -426,7 +424,7 @@ Moje log statement VM696:1 foo @ VM696:1 (funkcja anonimowa) @ (program):1
 Uwaga: Tam, gdzie jest to możliwe, warto również wiedzieć, że ten sam ślad stosu jest dostępny jako właściwość obiektu Error. Może to być przydatne do późniejszego przetwarzania i zbierania automatycznych informacji zwrotnych.
 var e = new Error('foo'); console.log(e.stack);
 
-Punkt 5.5: Tabulacja wartości - console.table()
+Tabulacja wartości - console.table()
 W większości środowisk, console.table() może być używany do wyświetlania obiektów i tablic w formacie tabelarycznym.
 Na przykład:
 console.table(['Hello', 'world']);
@@ -436,7 +434,7 @@ wyświetla jak:
 (indeks) wartość "foo" "bar" "bar" "baz" var personArr = [ {"personId": 123, "nazwa": "Jhon", "miasto": "Melbourne", "telefon nr": "1234567890" }, {"personId": 124, "nazwisko": "Amelia", "miasto": "Sydney", "telefon nr": "1234567890" }, {"personId": 125, "nazwisko": "Emily", "miasto": "Perth", "phoneNo": "1234567890" }, {"personId": 126, "nazwisko": "Abraham", "miasto": "Perth", "phoneNo": "1234567890" } ]; console.table(personArr, ["name", "personId"])
 wyświetla jak:
 
-Punkt 5.6: Liczenie - konsola.count()
+Liczenie - konsola.count()
 console.count([obj]) umieszcza licznik na wartości obiektu podanej jako argument. Przy każdym wywołaniu tej metody licznik jest zwiększany (z wyjątkiem pustego łańcucha '''). Etykieta wraz z numerem jest wyświetlana w konsoli debuggowania zgodnie z następującym formatem:
 etykieta]: X
 etykieta przedstawia wartość obiektu przekazanego jako argument, a X reprezentuje wartość licznika.
@@ -462,10 +460,10 @@ obiekt Obiekt]: 2 [obiekt Obiekt]: 3 [obiekt]: 4 [obiekt]: 5 null: 1 Pusty łań
 Jeżeli podczas sekwencyjnego wprowadzania metody zliczania w konsoli debuggowania nie podano argumentu, jako parametr przyjmuje się pusty łańcuch, tzn:
 console.count(); : 1 > console.count('''); : 2 > console.count(""); : 3
 
-Punkt 5.7: Czyszczenie konsoli - konsola.clear()
+Czyszczenie konsoli - konsola.clear()
 Możesz wyczyścić okno konsoli używając metody console.clear(). Usuwa to wszystkie wcześniej wydrukowane komunikaty w konsoli i w niektórych środowiskach może wydrukować komunikat taki jak "Console was cleared".
 
-Punkt 5.8: Wyświetlanie obiektów i XML interaktywnie console.dir(), console.dirxml()
+Wyświetlanie obiektów i XML interaktywnie console.dir(), console.dirxml()
 console.dir(object) wyświetla interaktywną listę właściwości określonego obiektu JavaScript. Wyjście jest prezentowane jako hierarchiczna lista z trójkątami ujawniającymi, które pozwalają zobaczyć zawartość obiektów dziecięcych.
 var myObject = { "foo":{ "bar": "data" } };
 console.dir(myObject);
@@ -479,13 +477,13 @@ Przykład 3:
 var myObject = { "foo":{ "bar": "data" } };
 console.dirxml(myObject);
 
-Punkt 5.9: Debugowanie z zapewnieniami - console.assert()
+Debugowanie z zapewnieniami - console.assert()
 Zapisuje komunikat o błędzie do konsoli, jeśli assertion jest fałszywy. W przeciwnym razie, jeżeli assertion jest prawdziwe, to nic nie robi.
 console.assert('one' === 1);
 Po assertionie można podać wiele argumentów - mogą to być łańcuchy lub inne obiekty - które będą drukowane tylko wtedy, gdy assertion jest fałszywe:
 console.assert nie rzuca AssertionError (z wyjątkiem Node.js), co oznacza, że metoda ta jest niekompatybilna z większością frameworków testowych i że wykonanie kodu nie przerwie się na nieudanym assertion.
 
-Rozdział 6: Typy danych w JavaScript Sekcja 6.1: Typ danych
+Typy danych w JavaScript Sekcja 6.1: Typ danych
 typeof jest funkcją 'oﬃcial', której używa się do uzyskania typu w JavaScript, jednak w niektórych przypadkach może to przynieść pewne nieoczekiwane rezultaty...
 
 1. Stringi
@@ -507,7 +505,7 @@ typeof jest funkcją 'oﬃcial', której używa się do uzyskania typu w JavaScr
    var1; typ var1
    "nieokreślony
 
-Punkt 6.2: Znalezienie klasy obiektu
+Znalezienie klasy obiektu
 Aby określić, czy obiekt został skonstruowany przez określonego konstruktora, czy też odziedziczył po nim, możesz użyć polecenia instanceof:
 /// Chcemy, żeby ta funkcja wzięła sumę liczb do niej przekazanych ///To może być wywołane jako suma (1, 2, 3) lub suma([1, 2, 3]) i powinna dawać 6 funkcji sum(...argumenty) { jeśli (arguments.length === 1) { const [firstArg] = argumenty jeśli (firstArg instanceof Array) { //firstArg jest czymś w rodzaju [1, 2, 3] zwraca sumę(...firstArg) //calls sum(1, 2, 3) } } zwróć argumenty.reduce((a, b) => a + b) }
 console.log (suma (1, 2, 3)) //6 console.log (suma([1, 2, 3])) //6 console.log (suma(4)) //4
@@ -553,8 +551,8 @@ W praktyce możesz potrzebować zawęzić go do jakiego rodzaju "obiektu" jest w
     Object.prototype.toString.call(Error()));
     "Obiekt Błąd]".
 
-Rozdział 7: Stringi
-Sekcja 7.1: Podstawowe informacje i łączenie sznurków
+Stringi
+Podstawowe informacje i łączenie sznurków
 Łańcuchy w JavaScript mogą być zawarte w Pojedynczych cudzysłowach "przywitanie", Podwójne cudzysłowy "Witaj" i (z ES2015, ES6) w Szablonach literalnych (backticks) `zwitek`.
 var hello = "Hello"; var world = 'world'; var helloW = `Hello World`; // ES2015 / ES6
 Łańcuchy mogą być tworzone z innych typów za pomocą funkcji String().
@@ -577,7 +575,7 @@ var greeting = `Hello`;
 Za pomocą dosłowności szablonów można wykonać interpolację łańcuchów używając \${zmienna} wewnątrz dosłownie szablonów:
 var place = `Świat`; var greet = ` Hello ${place}!`` console.log(pozdrawiam); // "Hello World! Możesz użyć String.raw, aby uzyskać backslashes do bycia w łańcuchu bez modyfikacji. `areszciereszcieb`// = aeracjąb String.raw`a Instancjib` // = aeracjąb
 
-Section 7.2: Odwrotny ciąg
+Odwrotny ciąg
 Najbardziej "popularnym" sposobem odwrócenia łańcucha w JavaScript jest następujący fragment kodu, co jest dość powszechne:
 funkcja reverseString(str) { return str.split(''').reverse().join('''); }
 reverseString('string'); // "gnirts
@@ -601,7 +599,7 @@ Niestandardowa funkcja rewersu()
 funkcja reverse(string) { var strRev = ""; dla (var i = string.length - 1; i >= 0; i--) { strRev += string[i]; } return strRev; }
 reverse("zebra"); // "arbez"
 
-Sekcja 7.3: Porównywanie łańcuchów
+Porównywanie łańcuchów
 Aby porównać łańcuchy alfabetycznie, użyj localeCompare(). Zwraca to wartość ujemną, jeśli łańcuch referencyjny jest leksykograficznie (alfabetycznie) przed porównywanym łańcuchem (parametr), wartość dodatnią, jeśli pojawia się później, i wartość 0, jeśli są one równe.
 var a = "hello"; var b = "world";
 console.log (a.localeCompare(b)); /// -1
@@ -615,7 +613,7 @@ Jest to szczególnie przydatne w przypadku korzystania z funkcji sortowania, kt�
 var arr = ["banany", "żurawina", "jabłka"]; arr.sort(funkcja a, b) { zwrócić a.localeCompare(b);
 })); console.log(arr); // ["jabłka", "banany", "żurawiny" ]
 
-Sekcja 7.4: Znak dostępu w indeksie w ciąg
+Znak dostępu w indeksie w ciąg
 Użyj charAt() aby uzyskać znak w określonym indeksie w łańcuchu.
 var string = "Hello, World!"; console.log( string.charAt(4) ); // "o
 Alternatywnie, ponieważ łańcuchy mogą być traktowane jak tablice, użyj indeksu poprzez notację w nawiasie.
@@ -624,7 +622,7 @@ Aby uzyskać kod znaków znaku w określonym indeksie, użyj charCodeAt().
 var string = "Hello, World!"; console.log( string.charCodeAt(4) ); // 111
 Zauważ, że wszystkie te metody są metodami gettera (zwróć wartość). Łańcuchy w JavaScript są niezmienne. Innymi słowy, żadna z nich nie może być użyta do ustawienia znaku na pozycji w łańcuchu.
 
-Punkt 7.5: Cytaty skokowe
+Cytaty skokowe
 Jeśli Twój ciąg jest zamknięty (np.) w pojedynczych cudzysłowach, musisz uciec od wewnętrznego dosłownego cytatu z odwrotnym ukośnikiem Instancji
 var text = "Lycia'albero oznacza drzewo w języku włoskim"; console.log( text ); Instancji "L'albero oznacza drzewo w języku włoskim".
 To samo dotyczy podwójnych kwotowań:
@@ -637,14 +635,14 @@ Uwaga: Użycie &apos; i &quot; nie nadpisze podwójnych cudzysłowów, które pr
 Wersja ≥ 6
 Jeśli łańcuch ma ' i " możesz rozważyć użycie dosłownic szablonowych (znanych również jako łańcuchy szablonów w poprzednich wydaniach ES6), które nie wymagają ucieczki ' i ". Używają one backtykatów (` ) zamiast pojedynczych lub podwójnych cudzysłowów. var x = ``"Ucieczka " i ' może stać się bardzo denerwująca `;
 
-Punkt 7.6: Licznik słów
+Licznik słów
 Powiedzmy, że masz <textarea> i chcesz uzyskać informacje o liczbie:
 Znaki (ogółem) Znaki (bez spacji) Słowa Linie
 funkcja wordCount( val ){ var wom = val.match(/ 2002/1S+/g); return { znakiNoSpaces : val.replace(/ 2002/1s+/g, '').length, znaki : val.length, words : wom ? wom ? wom length : 0, lines : val.split(/ 2002/1r\* Instancjin/).length }; }
 // Użyj jak: wordCount( someMultilineText ).words; // (Liczba słów)
 jsPrzykład skrzydłowy
 
-Sekcja 7.7: Przycinanie białej przestrzeni
+Przycinanie białej przestrzeni
 Aby przyciąć białą przestrzeń od krawędzi sznurka, użyj String.prototype.trim:
 "niektóre białe łańcuchy ".trim(); // "niektóre białe łańcuchy".
 Wiele silników JavaScript, ale nie Internet Explorer, wdrożyło niestandardowe metody trimLeft i trimRight. Obecnie na etapie 1 procesu jest propozycja znormalizowanych metod trimStart i trimEnd, aliasowanych do trimLeft i trimRight dla kompatybilności.
@@ -655,12 +653,12 @@ var s = "jeden, dwa, trzy, cztery, cztery, pięć" s.split(", "); // ["jeden", "
 Użyj metody tablicowej .join, aby wrócić do łańcucha:
 s.split(", ").join("--"); // "one-two--three--four--five
 
-Punkt 7.9: Stringi są unicode
+Stringi są unicode
 Wszystkie łańcuchy JavaScript są unicode!
 var s = "some ∆≈ƒ unicode ¡™Ł¢¢¢¢"; s.charCodeAt(5); // 8710
 W JavaScript nie ma surowych bajtów ani łańcuchów binarnych. Aby eﬀectively obsługiwać dane binarne, użyj Typed Arrays.
 
-Punkt 7.10: Wykrywanie łańcucha
+Wykrywanie łańcucha
 Aby wykryć, czy parametr jest łańcuchem prymitywnym, należy użyć typeof:
 var aString = "mój łańcuch"; var anInt = 5; var anObj = {}; typeof aString === "string"; // true typeof anInt === "string"; // false typeof anObj === "string"; // false
 Jeśli kiedykolwiek masz obiekt String, poprzez nowy String("somestr"), to powyższe nie będzie działać. W tym przypadku możemy użyć instancji:
@@ -677,13 +675,13 @@ var aString = "Primitive String"; // Ogólne sprawdzenie metody łańcucha if(aS
 } // Wyraźne sprawdzenie metody prototypu podłańcucha
 if(aString.substring ===String.prototype.substring) { aString.substring(0, ); }
 
-Sekcja 7.11: Podłoże z plastrami
+Podłoże z plastrami
 Użyj .slice() do wyodrębnienia podłoży podanych w dwóch indeksach:
 var s = "0123456789abcdefg"; s.slice(0, 5); // "01234" s.slice(5, 6); // "5
 Biorąc pod uwagę jeden indeks, zajmie od tego indeksu do końca łańcucha:
 s.slice(10); // "abcdefg"
 
-Sekcja 7.12: Kod znaków
+Kod znaków
 Metoda charCodeAt pobiera kod znaków Unicode pojedynczego znaku:
 var charCode = "µ".charCodeAt(); // Kod znaku litery µ wynosi 181
 Aby otrzymać kod znaku w łańcuchu znaków, jako parametr do charCodeAt jest przekazywane 0-położenie znaku jako parametr:
@@ -691,7 +689,7 @@ var charCode = "ABCDE".charCodeAt(3); // Kod znaku "D" to 68 Wersja ≥ 6
 Niektóre symbole Unicode nie występują w jednym znaku i zamiast tego wymagają dwóch par zastępczych UTF-16 do kodowania. Dotyczy to kodów znaków powyżej 216 - 1 lub 63553. Te rozszerzone kody znaków lub wartości punktów kodowych można pobrać za pomocą codePointAt:
 // Grinning Face Emoji ma kod 128512 lub 0x1F600 var codePoint = "???".codePointAt();
 
-Sekcja 7.13: String Representations of Numbers
+String Representations of Numbers
 JavaScript ma natywną konwersję z liczby na łańcuch dla dowolnej bazy od 2 do 36.
 Najczęstszą reprezentacją po przecinku (podstawa 10) jest szesnastkowa (podstawa 16), ale zawartość tej sekcji działa dla wszystkich podstaw w tym zakresie.
 Aby przekonwertować liczbę z liczby dziesiętnej (podstawa 10) na liczbę szesnastkową (podstawa 16), można użyć metody łańcuchowej toString z radix 16.
@@ -707,7 +705,7 @@ Wersja ≥ 6 niech b16 = "3.243f3e0370cdc"; // Podział na liczbę całkowitą i
 // Złożyć 10 części podstawy razem, aby znaleźć liczbę niech b10 = i10 + f10; // 3.14159
 Uwaga 1: Należy zachować ostrożność, ponieważ w wyniku mogą pojawić się drobne błędy ze względu na diﬀerences w tym, co jest możliwe do przedstawienia w bazie diﬀerent Może być pożądane przeprowadzenie pewnego rodzaju zaokrągleń w późniejszym terminie. Uwaga 2: Bardzo długie odwzorowania liczb mogą również powodować błędy ze względu na dokładność i maksymalne wartości liczb w środowisku, w którym dokonuje się konwersji.
 
-Rozdział 8: Data
+Data
 Parametr Wartość szczegółów Liczba milisekund od 1 stycznia 1970 r. 00:00:00:00.000 UTC (epoka Unix) dateAsString Data sformatowana jako ciąg znaków (więcej informacji w przykładach)
 rok
 Wartość roku z daty. Należy również podać miesiąc, w przeciwnym razie wartość będzie interpretowana jako liczba milisekund. Zwróć również uwagę, że wartości pomiędzy 0 a 99 mają specjalne znaczenie. Zobacz przykłady.
@@ -763,7 +761,7 @@ skutkowałoby to
 "Czwartek, 14 kwietnia 2016 r.
 Więcej informacji na ten temat można znaleźć w MDN. 
 
-Sekcja 8.3: Tworzenie daty z UTC
+Tworzenie daty z UTC
 Domyślnie obiekt Data jest tworzony jako czas lokalny. Nie zawsze jest to pożądane, na przykład podczas komunikacji daty pomiędzy serwerem a klientem, który nie znajduje się w tej samej strefie czasowej. W tym scenariuszu nie chce się w ogóle martwić o strefy czasowe, aż do momentu, gdy data musi być wyświetlana w czasie lokalnym, jeśli jest to nawet wymagane w ogóle.
 Problem
 W tym problemie chcemy przekazać określoną datę (dzień, miesiąc, rok) z kimś w strefie czasowej diﬀerent Pierwsze wdrożenie naiwnie wykorzystuje czas lokalny, co prowadzi do błędnych wyników. Drugie wdrożenie wykorzystuje daty UTC, aby uniknąć stref czasowych, w których nie są one potrzebne.
@@ -816,7 +814,9 @@ Przykładowe wyjście: prawdziwe
 //Represented jako uniwersalna data console.log (otherDate.toUTCString()); //Represented jako lokalna data console.log(otherDate);
 Przykładowe wyjście:
 Mon, 31 stycznia 2000 12:00:00:00 GMT Mon 31 stycznia 2000 13:00:00:00 GMT+0100 (West-Europa (standaardtijd))
-/kod> Sekcja 8.4: Formatowanie daty w języku JavaScript
+/kod> 
+
+Formatowanie daty w języku JavaScript
 Formatowanie daty w języku JavaScript w nowoczesnych przeglądarkach
 W nowoczesnych przeglądarkach (*), Date.prototype.toLocaleDateString() pozwala na określenie formatowania Date w wygodny sposób.
 Wymaga następującego formatu :
@@ -840,7 +840,7 @@ W ten sposób otrzymamy następujące wyjście:
 20-01-2016
 (*) Według MDN "nowoczesne przeglądarki" oznaczają Chrome 24+, Firefox 29+, IE11, Edge12+, Opera 15+ i Safari nightly build
 
- Sekcja 8.5: Uzyskaj liczbę milisekund, które upłynęły od 1 stycznia 1970 r.
+Uzyskaj liczbę milisekund, które upłynęły od 1 stycznia 1970 r.
 Metoda statyczna Date.now zwraca liczbę milisekund, które upłynęły od 1 stycznia 1970 roku 00:00:00:00 UTC. Aby uzyskać liczbę milisekund, które upłynęły od tego czasu przy użyciu instancji obiektu Date, użyj jego metody getTime.
 // uzyskać milisekundy używając statycznej metody teraz z Date console.log (Date.now());
 // uzyskać milisekundy używając metody getTime of Date instance console.log((new Date()).getTime()); Punkt 8.6: Uzyskać aktualny czas i datę
@@ -858,7 +858,7 @@ Metoda statyczna Date.now() zwraca liczbę milisekund, które upłynęły od 1 s
 // uzyskać milisekundy używając statycznej metody teraz z Date console.log (Date.now());
 // uzyskać milisekundy używając metody getTime of Date instance konssole.log((new Date()).getTime()); 
 
-Punkt 8.7: Increment a Date Object
+Increment a Date Object
 Aby zwiększyć liczbę obiektów daty w JavaScript, zazwyczaj możemy to zrobić:
 var checkoutDate = new Date(); // Thu Jul 21 2016 10:05:13 GMT-0400 (EDT)
 checkoutDate.setDate( checkoutDate.getDate() + 1 );
@@ -870,11 +870,12 @@ Dodawanie dni roboczych
 Jeśli chcesz dodać dni robocze (w tym przypadku zakładam, że od poniedziałku do piątku) możesz skorzystać z funkcji setDate, choć potrzebujesz trochę dodatkowej logiki, aby rozliczać weekendy (oczywiście nie będzie to uwzględniać świąt narodowych) 
 funkcja addWorkDays (startDate, dni) { // Pobierz dzień tygodnia jako liczbę (0 = niedziela, 1 = poniedziałek, .... 6 = sobota) var dow = startDate.getDay(); var daysToAdd = dni; // Jeżeli bieżący dzień jest niedzielą, dodaj jeden dzień, jeżeli (dow == 0) daysToAdd++; // Jeżeli data rozpoczęcia plus dodatkowe dni przypada w najbliższą sobotę lub po najbliższej sobocie, oblicz weekendy, jeżeli (dow + daysToAdd >= 6) { //Subtract days in current working weekendu od pozostałych dni roboczych varWorkDays = daysToAdd - (5 - dow);        //Dodaj dni robocze bieżącego tygodnia roboczegoToDodaj += 2; jeśli (pozostałe dni robocze > 5) { //Dodaj dwa dni za każdy tydzień roboczy, obliczając, ile tygodni jest wliczonych do dni roboczychToDodaj += 2 * Math.floor(pozostałeWorkDays / 5); //Exclude final weekend, jeśli pozostałeWorkDays decyduje o dokładnej liczbie tygodni, jeśli (pozostałeWorkDays % % == 0) daysToAdd -= 2; }    } startDate.setDate(startDate.getDate() + daysToAdd); return startDate; } 
 
-Punkt 8.8: Konwersja do JSON
+Konwersja do JSON
 var date1 = new Date(); date1.toJSON();
 Zwroty: "2016-04-14T23:49:08.596Z
 
-Rozdział 9: Porównanie dat Sekcja 9.1: Porównanie wartości dat
+Porównanie dat 
+Porównanie wartości dat
 Aby sprawdzić równość wartości Date:
 var date1 = new Date(); var date2 = new Date(date1.valueOf() + 10); console.log (date1.valueOf() ==== date2.valueOf());
 Przykładowe wyjście: false
@@ -891,15 +892,15 @@ Działa nawet wtedy, gdy operator uwzględnia równość:
 var date1 = new Date(); var date2 = new Date(date1.valueOf()); console.log (date1 <= date2);
 Przykładowe wyjście: prawdziwe
 
-Sekcja 9.2: Obliczanie daty śmierci
+Obliczanie daty śmierci
 Aby porównać diﬀerence z dwóch dat, możemy dokonać porównania w oparciu o timestamp.
 var date1 = new Date(); var date2 = new Date(date1.valueOf() + 5000);
 var dateDiff = date1.valueOf() - date2.valueOf(); var dateDiffInYears = dateDiff/1000/60/60/24/365; //konwersja milisekund na lata
 console.log("Date difference in years : " + dateDiffInYears);
 
-Rozdział 10: Działania porównawcze
+Działania porównawcze
 
- Sekcja 10.1: Abstrakcyjna równość / nierówność i konwersja typów
+Abstrakcyjna równość / nierówność i konwersja typów
 Problem
 Operatorzy abstrakcyjnej równości i nierówności (== i !=) konwertują swoje operandy, jeśli typy operandów nie pasują do siebie. Ten typ przymusu jest powszechnym źródłem nieporozumień co do wyników tych operatorów, w szczególności, operatorzy ci nie zawsze są przejściowi, jak można by oczekiwać.
 "" == 0; // true A 0 == "0"; // true A "" == "0"; // false B false === 0; // true false === "0"; // true
@@ -921,7 +922,7 @@ Dalsze odniesienia do tego tematu można znaleźć tutaj:
 Który operator równy (=== vs ===) powinien być użyty w porównaniach JavaScript?
 Abstrakcyjna równość (==) 
 
-Sekcja 10.2: NaN Własność obiektu globalnego
+NaN Własność obiektu globalnego
 NaN ("Not a Number") to specjalna wartość określana przez IEEE Standard for Floating-Point Arithmetic, która jest używana, gdy podawana jest wartość niecyfrowa, ale spodziewana jest liczba (1 *"dwa"), lub gdy obliczenie nie ma poprawnego wyniku liczbowego (Math.sqrt(-1)).
 Jakakolwiek równość lub porównania relacyjne z NaN zwraca fałszywe wyniki, nawet porównując je z samym sobą. Ponieważ NaN ma oznaczać wynik bezsensownych obliczeń i jako taki nie jest równy wynikowi innych bezsensownych obliczeń.
 (1 * "dwa") ====NaN //false
@@ -950,7 +951,7 @@ if (!Object.is) { Object.is = funkcja (x, y) { // Algorytm SameValue if (x === y
 NaN sam w sobie jest liczbą, co oznacza, że nie jest tożsamy z ciągiem "NaN", a co najważniejsze (choć może nieintuicyjnie):
 typ(NaN) === "liczba"; //true 
 
-Sekcja 10.3: Krótkotrwałe zwarcie u operatorów systemu wspomagania
+Krótkotrwałe zwarcie u operatorów systemu wspomagania
 Operator (&&) i operator (||) stosują zwarcia, aby zapobiec niepotrzebnej pracy, jeśli wynik operacji nie zmienia się wraz z dodatkową pracą.
 W x & y y, y nie będzie oceniane, jeśli x oceni się jako fałszywe, ponieważ całe wyrażenie jest gwarantowane jako fałszywe.
 W x || y, y nie będzie obliczane, jeśli x będzie obliczane jako prawdziwe, ponieważ całe wyrażenie jest gwarantowane jako prawdziwe.
@@ -996,7 +997,7 @@ funkcja myMethod(cb) { // Można to uprościć, jeśli (cb) { cb(); }
  // Do tego cb && cb(); }
 Oczywiście powyższy test nie sprawdza, czy cb jest w rzeczywistości funkcją, a nie tylko obiektem/Array/String/Number. 
 
-Punkt 10.4: Nieokreślony i nieokreślony
+Nieokreślony i nieokreślony
 diﬀerences pomiędzy wartością zerową i nieokreśloną
 null and und und undefined share abstract equality === but not strict equality ===,
 null === niezdefiniowany // prawdziwy null === niezdefiniowany // false
@@ -1010,11 +1011,12 @@ Ani null ani und undefined equal false (zobacz to pytanie).
 false === niezdefiniowany // false false == null // false false ===== niezdefiniowany // false false ===== null // false Using undefined
 Jeśli nie można ufać obecnemu zakresowi, użyj czegoś, co ocenia jako nieokreślone, na przykład void 0;. Jeśli niezdefiniowany jest cieniowany przez inną wartość, jest tak samo zły jak shadowing Array lub Number. Unikaj ustawiania czegoś tak niezdefiniowanego. Jeśli chcesz usunąć pasek właściwości z Object foo, usuń foo.bar; zamiast tego. Identyfikator testu egzystencji foo przeciwko niezdefiniowanemu może rzucić błąd odniesienia, zamiast tego użyj typu foo przeciwko "niezdefiniowanemu". 
 
-Sekcja 10.5: Abstrakcyjna równość (==)
+Abstrakcyjna równość (==)
 Operacje abstrakcyjnego operatora równości są porównywane po konwersji na wspólny typ. Jak to zrobić?
 konwersja odbywa się na podstawie specyfikacji operatora:
 Wyszczególnienie dla operatora ===:
-7.2.13 Abstrakcyjne porównanie równorzędności Porównanie x = y, gdzie x i y są wartościami, daje wynik prawdziwy lub fałszywy. Takie porównanie jest wykonywane w następujący sposób:
+
+Abstrakcyjne porównanie równorzędności Porównanie x = y, gdzie x i y są wartościami, daje wynik prawdziwy lub fałszywy. Takie porównanie jest wykonywane w następujący sposób:
 Jeśli Typ(x) jest taki sam jak Typ(y), to:1.
 a. Zwróć wynik wykonania Strict Equality Comparison x ===== y.
 Jeśli x jest puste, a y jest niezdefiniowane, zwróć true.2. Jeśli x jest niezdefiniowane, a y jest puste, zwróć true.3. Jeśli Typ(x) jest liczbą, a Typ(y) jest łańcuchem, zwróć wynik porównania x == ToNumber(y).4. Jeżeli Typ(x) jest String i Typ(y) jest liczbą, zwróć wynik porównania ToNumber(x) == y.5. Jeżeli Typ(x) jest liczbą logiczną, zwróć wynik porównania ToNumber(x) == y.6. Jeżeli Typ(y) jest liczbą logiczną, zwróć wynik porównania x == ToNumber(y).7. Jeśli Typ(x) jest albo String, albo Liczba, albo Symbol i Typ(y) jest Obiektem, zwróć wynik porównania 8. porównanie x == ToPrimitive(y). Jeśli Typ(x) jest Obiektem a Typ(y) jest albo String, Liczba, albo Symbol, zwróć wynik porównania ToPrimitive(x) == y. Zwróć false.10.
@@ -1048,13 +1050,13 @@ var foo = funkcja(val) { // jeśli val ocenia jako fałszywe, to zamiast tego zo
 console.log( foo('burger') ); // burger console.log( foo(100) ); // 100 console.log( foo([]) ); // [] console.log( foo(0) ); // default console.log( foo(undefined) ); // default
 Pamiętaj tylko, że dla argumentów, 0 i (w mniejszym stopniu) pusty łańcuch są również często poprawnymi wartościami, które powinny być wyraźnie podane i zastąpić domyślne, które przy tym wzorze nie będą (ponieważ są błędne). 
 
-Sekcja 10.9: Pusta tablica
+Pusta tablica
 /* ToNumber(ToPrimitive([])) == ToNumber(false) */ [] == false; // true
 Kiedy [].toString() jest wykonywany, wywołuje [].join(), jeśli istnieje, lub Object.prototype.toString() inaczej. To porównanie zwraca prawdę, ponieważ [].join() zwraca ''', który wymuszony na 0, jest równy false ToNumber.
 Uważaj jednak, wszystkie obiekty są prawdziwe i Array jest instancją Object:
 // Wewnętrznie jest to oceniane jako ToBoolean([]) === true ? truthy" : "fałszywy" [] ? trutia": "fałszywy"; // "truth" 
 
-Sekcja 10.10: Operacje porównywania równości
+Operacje porównywania równości
 JavaScript posiada cztery operacje porównywania równości diﬀerent
 SameValue
 Zwraca prawdę, jeśli oba operandy należą do tego samego typu i mają tę samą wartość.
@@ -1103,7 +1105,7 @@ Symetria: x == y jest prawdziwe jeśli, i tylko jeśli, y == x jest prawdziwe, d
 Ale nie jest to relacja równoważności, ponieważ
 NaN nie jest reﬂexive NaN != NaN Transitivity nie utrzymuje, np. 0 == ''' i 0 == '0', ale '' != '0' 
 
-Sekcja 10.11: Podmioty powiązane (<, <=, >, >=)
+Podmioty powiązane (<, <=, >, >=)
 Gdy oba operandy są numeryczne, są porównywane normalnie:
 1 < 2 // true 2 <= 2 // true 3 >= 5 // false true < false // false (domyślnie przekształcony na liczby, 1 > 0)
 Gdy oba operandy są strunami, są porównywane leksykograficznie (według porządku alfabetycznego):
@@ -1118,7 +1120,8 @@ Należy jednak zachować ostrożność porównując wartość liczbową z warto�
 Kiedy jeden operand jest obiektem, a drugi liczbą, obiekt jest konwertowany na liczbę przed porównaniem.null jest więc szczególnym przypadkiem, ponieważ liczba (null);//0
 nowa data(2015)< 1479480185280 // prawda zerowa > -1 //trawda ({doString:function(){return 123}})) > 122 //t prawda 
 
-Sekcja 10.12: Nierówności
+
+Nierówności
 Operator != jest odwrotnością operatora ==. Zwróci prawdę, jeśli operandy nie są równe. Mechanizm JavaScript spróbuje przekonwertować oba operandy na pasujące typy, jeśli nie są one tego samego typu. Uwaga: jeśli oba operandy mają w pamięci wewnętrzne odnośniki diﬀerent, to zwrócony zostanie fałsz.
 Próbka:
 1 != '1' // false 1 != 2 // true
@@ -1127,7 +1130,8 @@ Operator: !=== jest odwrotnością operatora ===. Zwróci prawdę jeśli operand
 Przykład:
 1 !=== '1' // true 1 !=== 2 // true 1 !== 1 // false
 
-Sekcja 10.13: Wykaz operatorów porównujących
+
+Wykaz operatorów porównujących
 Przykład porównania operatora 
 == Equal i == 0 
 === Equal Value and Type i === "5"
@@ -1138,7 +1142,7 @@ Przykład porównania operatora
 >= Greater than or equal i >= 5
 <= Less than or equal i <= 5
 
-Sekcja 10.14: Grupowanie wielokrotnych oświadczeń logicznych
+Grupowanie wielokrotnych oświadczeń logicznych
 Możesz pogrupować wiele instrukcji logiki wspomagającej w nawiasy w celu stworzenia bardziej złożonej oceny logiki, szczególnie przydatnej w przypadku instrukcji.
 if ((wiek >= 18 lat i wysokość >= 5.11) || (status === 'royalty' && hasInvitation)) { console.log('Możesz wejść do naszego klubu'); }
 Moglibyśmy również przenieść logikę grupową do zmiennych, aby uczynić to stwierdzenie nieco krótszym i opisowym:
@@ -1151,7 +1155,7 @@ var canEnterOurBar = suitable || specialCase;
 if (canEnterOurBar) console.log('Możesz wejść do naszego klubu');
 Zauważ, że w tym konkretnym przykładzie (i wielu innych), grupowanie stwierdzeń nawiasami działa tak samo, jak gdybyśmy je usunęli, po prostu postępuj zgodnie z logiką liniową i uzyskasz ten sam wynik. Wolę używać nawiasów, ponieważ pozwalają mi one lepiej zrozumieć, co zamierzałem i mogą zapobiec błędom logicznym. 
 
-Sekcja 10.15: Bit ma na celu optymalizację porównywania danych wielopaństwowych
+Bit ma na celu optymalizację porównywania danych wielopaństwowych
 Bit Feld jest zmienną, która utrzymuje różne stany boolean jako pojedyncze bity. Trochę dalej reprezentowałoby to prawdę, a oﬀ byłoby fałszywe. W przeszłości rutynowo używano bitów, ponieważ zapisywano w nich pamięć i zmniejszano obciążenie procesora. Chociaż potrzeba stosowania bit ﬁeld nie jest już tak ważna, to jednak nie są one już tak ważne jak oﬀer, to jednak niektóre z nich mogą uprościć wiele zadań obróbczych.
 Na przykład wprowadzanie danych przez użytkownika. Po otrzymaniu danych wejściowych z klawiszy kierunkowych klawiatury w górę, w dół, w lewo, w prawo, można zakodować różne klawisze w jedną zmienną z przypisanymi bitami w każdym kierunku.
 Przykładowy odczyt klawiatury przez bitﬁeld
@@ -1183,10 +1187,10 @@ if (!bitfield ) { // żaden klucz nie jest w dół,
 if (bitfield ) { // jeden lub więcej kluczy jest w dół
 Wejście klawiaturowe jest tylko jednym z przykładów. Bitfile są przydatne, gdy masz różne stany, które muszą być połączone. JavaScript może używać do 32 bitów dla bitu ﬁeld. Użycie ich może oznaczać wzrost wydajności oﬀer Warto się z nimi zapoznać.
 
-Rozdział 11: Warunki
+Warunki
 Wyrażenia warunkowe, obejmujące słowa kluczowe, takie jak czy i inne, zapewniają programom JavaScript możliwość wykonywania akcji diﬀerent w zależności od warunku logicznego: true lub false. Ta sekcja obejmuje użycie warunków JavaScript, logiki logiki logiki logicznej i stwierdzeń trójdzielnych. 
 
-Sekcja 11.1: Operatorzy trójczłonowi
+Operatorzy trójczłonowi
 Może być użyty do skrócenia operacji, jeśli/elastycznie. Jest to przydatne przy szybkim zwrocie wartości (np. w celu przypisania jej do innej zmiennej).
 Na przykład:
 var animal = "kitty"; 
@@ -1218,7 +1222,7 @@ var animal = "kitty"; (zwierzę ==="kitty") ? zwrot "meow": zwrot "woof";
 Aby to zrobić prawidłowo, należy zwrócić trójząb w następujący sposób:
 var animal = "kitty"; powrót (zwierzę ==="kitty") ? Meow": "woof"; 
 
-Sekcja 11.2: Przełącznik
+Przełącznik
 Przełączniki porównują wartość wyrażenia z 1 lub większą ilością wartości i wykonują sekcje kodu diﬀerent w oparciu o to porównanie.
 var value = 1; switch (wartość) { przypadek 1: console.log('I will always run'); break; przypadek 2: console.log('I will never run'); break; }
 
@@ -1275,7 +1279,7 @@ Operatory Boolean || and && "zwiąże obwód" i nie oceni drugiego parametru, je
 var x = 10
 x == 10 && alert ("x to 10") x == 10 || alert ("x to nie 10")
 
-Rozdział 12: Tablice Sekcja 12.1: Przekształcanie obiektów podobnych do macierzy w tablice
+Przekształcanie obiektów podobnych do macierzy w tablice
 Czym są obiekty podobne do tablic?
 JavaScript ma "obiekty podobne do macierzy", które są obiektowymi reprezentacjami tablic o właściwości length. Na przykład:
 var realArray = ["a", "b", "c"]; var tablicaLike = {0: "a", 1: "b", 2: "c", długość: 3};
@@ -1358,7 +1362,7 @@ var young = people.filter ((obj) => {var flag = false; Object.values ​​(obj)
 To zwraca:
 [{id: 1, nazwa: "John", wiek: 28}, {id: 2, imię: "Jane", wiek: 31}] 
 
-Sekcja 12.5: Sortowanie tablic
+Sortowanie tablic
 Metoda .sort () sortuje elementy tablicy. Domyślna metoda posortuje tablicę zgodnie z ciągami znaków kodu Unicode. Aby posortować tablicę numerycznie, metoda .sort () musi mieć przekazany do niej parametr compareFunction.
 Uwaga: Metoda .sort () jest nieczysta. .sort () będzie sortować tablicę w miejscu, tj. zamiast tworzyć posortowaną kopię oryginalnej tablicy, zmieni kolejność oryginalnej tablicy i zwróci ją.
 Sortowanie domyślne
